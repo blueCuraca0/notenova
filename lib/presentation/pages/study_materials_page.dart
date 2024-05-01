@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notenova_app/presentation/pages/subpages/quiz_page.dart';
+import '/presentation/pages/subpages/quiz_page.dart';
 
 import '../../data/datasource/c_colors.dart';
 import 'subpages/card_learning_page.dart';
@@ -17,9 +17,7 @@ class StudyMaterialsPage extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               "Study Materials Page",
-              style: TextStyle(
-                  fontSize: 25
-              ),
+              style: TextStyle(fontSize: 25),
             ),
           ),
           Row(
@@ -28,11 +26,9 @@ class StudyMaterialsPage extends StatelessWidget {
               // C A R D S
               InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context) {
-                      return CardPage();
-                    })
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return CardPage();
+                  }));
                 },
                 child: Container(
                   color: CColors.accent,
@@ -45,11 +41,9 @@ class StudyMaterialsPage extends StatelessWidget {
               //  Q I Z Z E S
               InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) {
-                        return QuizPage();
-                      })
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return QuizPage();
+                  }));
                 },
                 child: Container(
                   color: CColors.accent,

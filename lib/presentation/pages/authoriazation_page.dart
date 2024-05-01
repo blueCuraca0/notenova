@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:notenova_app/data/datasource/c_routes.dart';
+
+import '../../data/datasource/c_routes.dart';
 
 class AuthorizationPage extends StatelessWidget {
   const AuthorizationPage({super.key});
@@ -14,13 +15,12 @@ class AuthorizationPage extends StatelessWidget {
             Navigator.pushNamed(context, CRoutes.routeMainPage);
           },
           child: Container(
-            color: Colors.blueGrey.withOpacity(0.3),
-            padding: const EdgeInsets.all(10),
-            width: 100,
-            height: 50,
-            alignment: Alignment.center,
-            child: Text("Login")
-          ),
+              color: Colors.blueGrey.withOpacity(0.3),
+              padding: const EdgeInsets.all(10),
+              width: 100,
+              height: 50,
+              alignment: Alignment.center,
+              child: Text("Login")),
         ),
       ),
     );

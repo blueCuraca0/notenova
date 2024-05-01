@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:notenova_app/presentation/pages/authoriazation_page.dart';
-import 'package:notenova_app/presentation/pages/main_page.dart';
+import '/presentation/pages/main_page.dart';
+import '/presentation/pages/authoriazation_page.dart';
+import '/data/datasource/c_routes.dart';
 
-import 'presentation/pages/homepage.dart';
-import 'data/datasource/c_routes.dart';
+import 'package:device_preview/device_preview.dart';
+// void main() {
+//   runApp(const MyApp());
+// }
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      enabled: true,
+      builder: (context) => const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

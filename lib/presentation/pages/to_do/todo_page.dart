@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'subpages/card_learning_page.dart';
-
 class ToDoPage extends StatelessWidget {
   const ToDoPage({super.key});
 
@@ -15,9 +13,7 @@ class ToDoPage extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               "To-Do Page",
-              style: TextStyle(
-                  fontSize: 25
-              ),
+              style: TextStyle(fontSize: 25),
             ),
           )
         ],
