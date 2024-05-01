@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '/presentation/pages/main_page.dart';
-import '/presentation/pages/authoriazation_page.dart';
-import '/data/datasource/c_routes.dart';
-
+import 'main_page.dart';
+import 'features/autorization/presentation/pages/authoriazation_page.dart';
+import 'core/utils/c_routes.dart';
 import 'package:device_preview/device_preview.dart';
+
 // void main() {
 //   runApp(const MyApp());
 // }
