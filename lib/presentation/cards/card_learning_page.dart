@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:notenova/presentation/cards/flashcard.dart';
 
 import '../../data/datasource/c_colors.dart';
+import 'flashcard.dart';
 
 class CardLearningPage extends StatefulWidget {
   const CardLearningPage({super.key});
