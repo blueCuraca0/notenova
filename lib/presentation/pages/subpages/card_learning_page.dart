@@ -3,17 +3,17 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/datasource/c_colors.dart';
-import 'flashcard.dart';
+import '../../../data/datasource/c_colors.dart';
+import '../../cards/flashcard.dart';
 
-class CardLearningPage extends StatefulWidget {
-  const CardLearningPage({super.key});
+class CardPage extends StatefulWidget {
+  const CardPage({super.key});
 
   @override
-  State<CardLearningPage> createState() => _CardLearningPageState();
+  State<CardPage> createState() => _CardPageState();
 }
 
-class _CardLearningPageState extends State<CardLearningPage> {
+class _CardPageState extends State<CardPage> {
   List<FlashCard> _flashcardList = [];
   int _currentFlashcard = 0;
 

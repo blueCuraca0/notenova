@@ -6,5 +6,5 @@ class CColors {
   static const Color accent = Color(0xffE1F3E2);
   static const Color primary = Color(0xffC8E1C9);
   static const Color transparentPink = Color(0x30ff69a9);
-  static const Color textDark = Color(0xff334669);
+  static const Color textDark = Color(0xff51657c);
 }

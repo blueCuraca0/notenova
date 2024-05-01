@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:notenova_app/presentation/pages/authoriazation_page.dart';
+import 'package:notenova_app/presentation/pages/main_page.dart';
 
-import 'presentation/homepage.dart';
+import 'presentation/pages/homepage.dart';
+import 'data/datasource/c_routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,12 +15,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: HomePage(),
+      title: 'NoteNova',
+      initialRoute: CRoutes.routeAuthorizationPage,
+      routes: {
+        CRoutes.routeAuthorizationPage: (context) => const AuthorizationPage(),
+        CRoutes.routeMainPage: (context) => MainPage(),
+      },
     );
   }
 }
