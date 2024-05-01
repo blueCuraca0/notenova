@@ -5,7 +5,7 @@ class CustomButton extends StatelessWidget {
   final String text;
   final Function onPressed;
 
-  CustomButton({required this.text, required this.onPressed});
+  const CustomButton({super.key, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +14,12 @@ class CustomButton extends StatelessWidget {
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(CColors.primary),
         padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-            const EdgeInsets.all(15)),
+            const EdgeInsets.all(20)),
       ),
       child: Text(
         text,
-        style: const TextStyle(color: CColors.text),
+        style:
+            const TextStyle(color: CColors.text, fontWeight: FontWeight.w400),
       ),
     );
   }

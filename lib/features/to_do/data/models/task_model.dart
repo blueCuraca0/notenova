@@ -41,4 +41,20 @@ List<Task> tasks = [
     isCompleted: false,
     category: 3,
   ),
+  Task(
+    id: '3',
+    name: 'Підготуватися до зустрічі',
+    description: 'Підготуватися до презентації та зустрічі з клієнтом',
+    finalDate: DateTime(2024, 5, 7, 10, 0),
+    isCompleted: false,
+    category: 3,
+  ),
+  Task(
+    id: '4',
+    name: 'Підготуватися до зустрічі',
+    description: 'Підготуватися до презентації та зустрічі з клієнтом',
+    finalDate: DateTime(2024, 6, 8, 12, 0),
+    isCompleted: false,
+    category: 3,
+  ),
 ];

@@ -13,9 +13,9 @@ class StudyMaterialsPage extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(70),
+            padding: const EdgeInsets.all(70),
             alignment: Alignment.center,
-            child: Text(
+            child: const Text(
               "Study Materials Page",
               style: TextStyle(fontSize: 25),
             ),
@@ -27,14 +27,14 @@ class StudyMaterialsPage extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return CardPage();
+                    return const CardPage();
                   }));
                 },
                 child: Container(
                   color: CColors.accent,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.all(20),
-                  child: Text("Cards"),
+                  child: const Text("Cards"),
                 ),
               ),
 
@@ -42,14 +42,14 @@ class StudyMaterialsPage extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return QuizPage();
+                    return const QuizPage();
                   }));
                 },
                 child: Container(
                   color: CColors.accent,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.all(20),
-                  child: Text("Quizzes"),
+                  child: const Text("Quizzes"),
                 ),
               ),
             ],
