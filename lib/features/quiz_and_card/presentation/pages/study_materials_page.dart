@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../cards/presentation/subpages/quiz_page.dart';
+import 'quiz_page.dart';
 
 import '../../../../core/style/c_colors.dart';
-import '../../../cards/presentation/subpages/card_learning_page.dart';
+import 'card_learning_page.dart';
 
 class StudyMaterialsPage extends StatelessWidget {
   const StudyMaterialsPage({super.key});
