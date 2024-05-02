@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:notenova/data/models/card_model.dart';
 import 'package:notenova/data/models/card_stack_model.dart';
 
 import '../../domain/entities/card.dart';
