@@ -7,7 +7,7 @@ class CustomBottomNavBar extends StatelessWidget {
 
   final GlobalKey<NavigatorState> _navigator;
 
-  CustomBottomNavBar(this._navigator, {super.key});
+  const CustomBottomNavBar(this._navigator, {super.key});
 
   static const double _bottomNavBarHeightPanel = 80;
 

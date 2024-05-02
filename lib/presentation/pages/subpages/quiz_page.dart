@@ -9,9 +9,9 @@ class QuizPage extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(70),
+            padding: const EdgeInsets.all(70),
             alignment: Alignment.center,
-            child: Text(
+            child: const Text(
               "Quiz Page",
               style: TextStyle(
                   fontSize: 25

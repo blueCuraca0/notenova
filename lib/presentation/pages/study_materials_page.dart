@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notenova_app/presentation/pages/subpages/quiz_page.dart';
+import '/presentation/pages/subpages/quiz_page.dart';
 
 import '../../data/datasource/c_colors.dart';
 import 'subpages/card_learning_page.dart';
@@ -13,13 +13,11 @@ class StudyMaterialsPage extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(70),
+            padding: const EdgeInsets.all(70),
             alignment: Alignment.center,
-            child: Text(
+            child: const Text(
               "Study Materials Page",
-              style: TextStyle(
-                  fontSize: 25
-              ),
+              style: TextStyle(fontSize: 25),
             ),
           ),
           Row(
@@ -28,34 +26,30 @@ class StudyMaterialsPage extends StatelessWidget {
               // C A R D S
               InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context) {
-                      return CardPage();
-                    })
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const CardPage();
+                  }));
                 },
                 child: Container(
                   color: CColors.accent,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.all(20),
-                  child: Text("Cards"),
+                  child: const Text("Cards"),
                 ),
               ),
 
               //  Q I Z Z E S
               InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) {
-                        return QuizPage();
-                      })
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const QuizPage();
+                  }));
                 },
                 child: Container(
                   color: CColors.accent,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.all(20),
-                  child: Text("Quizzes"),
+                  child: const Text("Quizzes"),
                 ),
               ),
             ],

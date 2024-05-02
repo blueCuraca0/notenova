@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:notenova_app/presentation/pages/homepage.dart';
-import 'package:notenova_app/presentation/pages/study_materials_page.dart';
-import 'package:notenova_app/presentation/pages/subpages/card_learning_page.dart';
-import 'package:notenova_app/presentation/pages/todo_page.dart';
-import 'package:notenova_app/presentation/pages/user_profile_page.dart';
-import 'package:notenova_app/presentation/widgets/bottom_navigation_bar.dart';
+import '/presentation/pages/homepage.dart';
+import '/presentation/pages/study_materials_page.dart';
+import '/presentation/pages/todo_page.dart';
+import '/presentation/pages/user_profile_page.dart';
+import '/presentation/widgets/bottom_navigation_bar.dart';
 
 import '../../data/datasource/c_routes.dart';
 
@@ -13,18 +12,18 @@ class MainPage extends StatelessWidget {
 
   MainPage({super.key});
 
-  Route _onGenerateRoute (RouteSettings settings) {
+  Route _onGenerateRoute(RouteSettings settings) {
     late Widget page;
 
     switch (settings.name) {
       case CRoutes.routeHomepage:
-        page = HomePage();
+        page = const HomePage();
       case CRoutes.routeStudyMaterials:
-        page = StudyMaterialsPage();
+        page = const StudyMaterialsPage();
       case CRoutes.routeToDo:
-        page = ToDoPage();
+        page = const ToDoPage();
       case CRoutes.routeUserProfile:
-        page = UserProfilePage();
+        page = const UserProfilePage();
       default:
         page = const Placeholder();
     }
@@ -36,7 +35,8 @@ class MainPage extends StatelessWidget {
         const end = Offset.zero;
         const curve = Curves.ease;
 
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
         return SlideTransition(
           position: animation.drive(tween),
@@ -72,4 +72,3 @@ class MainPage extends StatelessWidget {
     );
   }
 }
-

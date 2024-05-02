@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'subpages/card_learning_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,9 +10,9 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(70),
+            padding: const EdgeInsets.all(70),
             alignment: Alignment.center,
-            child: Text(
+            child: const Text(
               "Homepage",
               style: TextStyle(
                 fontSize: 25

@@ -1,5 +1,10 @@
 import '../../domain/entities/card.dart';
 
 class CardModel extends Card {
-  // TODO: implement flash card's model
+  CardModel(super.term, super.definition);
+
+  CardModel getCardModel(Map<String, dynamic> json) {
+    // TODO: implement json parsing logic
+    return CardModel("term?", "def?");
+  }
 }

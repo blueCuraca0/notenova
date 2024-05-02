@@ -1,6 +1,4 @@
-import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/datasource/c_colors.dart';
@@ -132,7 +130,7 @@ class _CardPageState extends State<CardPage> {
                           ],
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         // color: Colors.red.withOpacity(0.2),
                         height: height / 15 * 11,
                         child: GestureDetector(
