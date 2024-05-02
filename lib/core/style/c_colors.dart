@@ -16,11 +16,11 @@ class CColors {
     const Color(0xffCD8A9A),
     const Color(0xffFEAAA0)
   ];
-  static List<Color> greenGradientColor = [
+  static List<Color> blueGradientColor = [
     const Color(0xff8A95CD),
     const Color(0xffB1C5D5)
   ];
-  static List<Color> blueGradientColor = [
+  static List<Color> greenGradientColor = [
     const Color(0xff85B87D),
     const Color(0xffC8E1C9)
   ];
