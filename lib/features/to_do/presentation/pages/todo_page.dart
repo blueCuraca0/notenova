@@ -39,6 +39,8 @@ class ToDoPage extends StatelessWidget {
                         style: const TextStyle(fontSize: 20)),
                     const Spacer(),
                     CustomButton(
+                        buttonPadding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 15.0),
                         onPressed: () {
                           showModalBottomSheet(
                             context: context,
