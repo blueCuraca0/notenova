@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../cards/presentation/subpages/quiz_page.dart';
+import '../../../quizzes/presentation/quiz_page.dart';
 
 import '../../../../core/style/c_colors.dart';
 import '../../../cards/presentation/subpages/card_learning_page.dart';
