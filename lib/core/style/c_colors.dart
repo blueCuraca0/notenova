@@ -24,4 +24,10 @@ class CColors {
     const Color(0xff85B87D),
     const Color(0xffC8E1C9)
   ];
+
+  static const Color darkPrimary = Color(0xff1B2944);
+  static const Color darkPrimarySoft = Color(0xff334669);
+  static const Color veryDark = Color(0xff0D1930);
+  static const Color darkLText = Color(0xffBDD0F5);
+  static const Color darkMText = Colors.white;
 }
