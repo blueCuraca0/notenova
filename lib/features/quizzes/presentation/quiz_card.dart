@@ -30,12 +30,12 @@ class QuizCard extends StatelessWidget {
             child: Container(
               padding: smallPadding,
               decoration: BoxDecoration(
-                color: CColors.white,
-                boxShadow: const [
+                color: Theme.of(context).cardColor,
+                boxShadow: [
                   BoxShadow(
-                    color: CColors.shadow,
+                    color: Theme.of(context).shadowColor,
                     blurRadius: 10,
-                    offset: Offset(0, 5),
+                    offset: const Offset(0, 5),
                   ),
                 ],
                 borderRadius: BorderRadius.circular(20),
@@ -59,11 +59,9 @@ class QuizCard extends StatelessWidget {
                     children: [
                       Text(
                         quiz.title,
-                        style: const TextStyle(
-                          fontSize: mediumTextSize,
-                          color: Color(0xff334669),
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
+                      midSizedBoxHeight,
                       CustomCategory(
                         category: quiz.category,
                       ),

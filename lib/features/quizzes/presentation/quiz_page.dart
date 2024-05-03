@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
 import 'package:notenova/features/quizzes/presentation/quiz_card.dart';
 import 'package:notenova/features/quizzes/presentation/custom_category.dart';
+import 'package:notenova/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 final List<Quiz> _quizList = [
   Quiz(
@@ -53,39 +53,29 @@ class QuizPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CColors.accentSoft,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             expandedHeight: MediaQuery.of(context).size.height * 0.2,
             floating: true,
             pinned: false,
-            backgroundColor: CColors.accent,
+            backgroundColor: Theme.of(context).primaryColor,
             flexibleSpace: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 return FlexibleSpaceBar(
                   titlePadding: EdgeInsets.only(
                       left: 20, top: constraints.maxHeight - 70),
-                  title: const Column(
+                  title: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Quizzes',
-                          style: TextStyle(
-                            color: CColors.text,
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Lato',
-                          )),
-                      Text('Check your knowledge!',
-                          style: TextStyle(
-                            color: CColors.text,
-                            fontSize: 16,
-                            fontFamily: 'Lato',
-                          )),
+                      Text(LocaleKeys.quizzes.tr(),
+                          style: Theme.of(context).textTheme.bodyLarge),
+                      Text(LocaleKeys.check_your_knowledge.tr(),
+                          style: Theme.of(context).textTheme.bodyMedium),
                     ],
                   ),
-                  background: ColoredBox(color: CColors.accent),
+                  background: ColoredBox(color: Theme.of(context).primaryColor),
                 );
               },
             ),
@@ -94,7 +84,7 @@ class QuizPage extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: CColors.accentSoft,
+                color: Theme.of(context).primaryColorLight,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Center(
