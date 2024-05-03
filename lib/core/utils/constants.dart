@@ -8,6 +8,7 @@ const smallTextSize = 12.0;
 const smallSizedBoxWidth = SizedBox(width: 5.0);
 const smallSizedBoxHeight = SizedBox(height: 5.0);
 const midSizedBoxHeight = SizedBox(height: 10.0);
+const midSizedBoxWidth = SizedBox(width: 10.0);
 // padding
 const smallerPadding = EdgeInsets.all(3.0);
 const smallPadding = EdgeInsets.all(8.0);
