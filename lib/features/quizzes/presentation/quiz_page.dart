@@ -3,7 +3,7 @@ import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
 import 'package:notenova/features/quizzes/presentation/quiz_card.dart';
-import 'package:notenova/features/quizzes/presentation/custom_category.dart';
+import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -99,7 +99,13 @@ class QuizPage extends StatelessWidget {
                     midSizedBoxHeight,
                     Row(
                       children: [
-                        CustomCategory(category: 'Category')
+                        CustomButton(
+                          text: 'Category',
+                          onPressed: () {},
+                          gradient: LinearGradient(
+                            colors: CColors.pinkGradientColor,
+                          ),
+                        ),
                       ],
                     ),
                   ],
