@@ -92,6 +92,7 @@ class _FlashcardUIState extends State<FlashcardUI> with SingleTickerProviderStat
                     boxShadow: shadowCard,
                     color: CColors.primary,
                   ),
+
                   child: Transform(
                     transform: Matrix4.identity()..scale(scaleX, 1.0, 1.0),
                     alignment: Alignment.center,
