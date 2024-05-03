@@ -5,6 +5,7 @@ import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
 import 'package:notenova/features/quizzes/presentation/quiz_card.dart';
+import 'package:notenova/features/quizzes/presentation/custom_category.dart';
 
 final List<Quiz> _quizList = [
   Quiz(
@@ -35,6 +36,13 @@ final List<Quiz> _quizList = [
       'Java is a class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.',
       image:
       'https://www.float.com/static/1bfc987d080e931e9a1ceacfe0369c55/94ec29bc-c298-437b-86df-c2a66f005e27_engaging+stakeholders.png'),
+  Quiz(
+      title: 'Java',
+      category: 'Code',
+      description:
+      'Java is a class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.',
+      image:
+      'https://www.float.com/static/1bfc987d080e931e9a1ceacfe0369c55/94ec29bc-c298-437b-86df-c2a66f005e27_engaging+stakeholders.png'),
 ];
 
 class QuizPage extends StatelessWidget {
@@ -45,12 +53,14 @@ class QuizPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CColors.accentSoft,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             expandedHeight: MediaQuery.of(context).size.height * 0.2,
             floating: true,
             pinned: false,
+            backgroundColor: CColors.accent,
             flexibleSpace: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 return FlexibleSpaceBar(
@@ -82,6 +92,7 @@ class QuizPage extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Container(
+              margin: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: CColors.accentSoft,
                 borderRadius: BorderRadius.circular(20),
@@ -98,14 +109,7 @@ class QuizPage extends StatelessWidget {
                     midSizedBoxHeight,
                     Row(
                       children: [
-                        Container(
-                          padding: smallPadding,
-                          decoration: BoxDecoration(
-                            color: CColors.accentSoft,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Text('Category'),
-                        ),
+                        CustomCategory(category: 'Category')
                       ],
                     ),
                   ],
@@ -114,17 +118,15 @@ class QuizPage extends StatelessWidget {
             ),
           ),
           SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return QuizCard(
-                  image: _quizList[index].image,
-                  title: _quizList[index].title,
-                  category: _quizList[index].category,
-                );
-              },
-              childCount: _quizList.length,
-            ),
-          ),
+               delegate: SliverChildBuilderDelegate(
+                     (BuildContext context, int index) {
+                   return QuizCard(
+                     quiz: _quizList[index],
+                   );
+                 },
+                 childCount: 4,
+               ),
+         ),
         ],
       ),
     );

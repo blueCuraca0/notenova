@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
+import 'package:notenova/core/widgets/custom_button.dart';
+import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
+import 'package:notenova/features/quizzes/presentation/take_quiz.dart';
+import 'custom_category.dart';
+
 
 class QuizCard extends StatelessWidget {
-  String image;
-  String title;
-  String category;
+  Quiz quiz;
 
   QuizCard(
       {super.key,
-        required this.image,
-        required this.title,
-        required this.category});
+        required this.quiz});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,11 @@ class QuizCard extends StatelessWidget {
         children: [
           midSizedBoxHeight,
           GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                 return TakeQuizWindow(quiz: quiz);
+              }));
+            },
             child: Container(
               padding: smallPadding,
               decoration: BoxDecoration(
@@ -42,23 +48,24 @@ class QuizCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Image.network(
-                      image,
+                      quiz.image,
                       height: 100,
                       width: 100,
                     ),
                   ),
                   midSizedBoxWidth,
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        title,
+                        quiz.title,
                         style: const TextStyle(
                           fontSize: mediumTextSize,
                           color: Color(0xff334669),
                         ),
                       ),
-                      Text(
-                        category,
+                      CustomCategory(
+                        category: quiz.category,
                       ),
                     ],
                   ),
@@ -71,3 +78,5 @@ class QuizCard extends StatelessWidget {
     );
   }
 }
+
+
