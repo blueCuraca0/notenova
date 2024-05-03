@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/cards/data/models/flashcard_stack_model.dart';
 import 'package:notenova/features/cards/data/models/firebase_service.dart';
 import '../../../../core/style/c_colors.dart';
-import '../../../cards/domain/entities/flashcard.dart';
-import '../../../cards/presentation/cards/flashcard_ui.dart';
+import '../../domain/entities/flashcard.dart';
+import '../cards/flashcard_ui.dart';
 
 class CardPage extends StatefulWidget {
   const CardPage({super.key});
@@ -103,7 +104,18 @@ class _CardPageState extends State<CardPage> {
                                   bottomRight: Radius.circular(20),
                                 ),
                                 child: Container(
-                                  color: CColors.transparentPink,
+                                  decoration: const BoxDecoration(
+                                    color: CColors.transparentPink,
+                                    // boxShadow: shadowCard
+                                    // boxShadow: [
+                                    //   BoxShadow(
+                                    //     color: CColors.text.withOpacity(0.1),
+                                    //     spreadRadius: 5,
+                                    //     blurRadius: 7,
+                                    //     offset: const Offset(0, 3),
+                                    //   ),
+                                    // ]
+                                  ),
                                   width: width / 6,
                                   alignment: Alignment.center,
                                   child: Text("$_needRepeatCards"),

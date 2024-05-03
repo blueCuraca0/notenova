@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/cards/domain/entities/flashcard.dart';
 import '../../../../core/style/c_colors.dart';
 
@@ -85,8 +86,12 @@ class _FlashcardUIState extends State<FlashcardUI> with SingleTickerProviderStat
                 child: Container(
                   height: 200,
                   width: 300,
-                  color: CColors.primary,
+                  // color: CColors.primary,
                   alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    boxShadow: shadowCard,
+                    color: CColors.primary,
+                  ),
                   child: Transform(
                     transform: Matrix4.identity()..scale(scaleX, 1.0, 1.0),
                     alignment: Alignment.center,
