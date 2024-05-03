@@ -20,15 +20,15 @@ class FirebaseService {
     });
   }
 
-// static Stream<QuerySnapshot> getHabitsStream() {
-//   return card_stacks.orderBy('timestamp', descending: false).snapshots();
-// }
-//
-// static Future<void> updateHabit(String docID, CardModel cardModel) {
-//   return card_stacks.doc(docID).update({
-//     'term': cardModel.term,
-//     'definition': cardModel.definition,
-//     // 'timestamp': Timestamp.now()
-//   });
-// }
+  // static Stream<QuerySnapshot> getHabitsStream() {
+  //   return card_stacks.orderBy('timestamp', descending: false).snapshots();
+  // }
+  //
+  // static Future<void> updateHabit(String docID, CardModel cardModel) {
+  //   return card_stacks.doc(docID).update({
+  //     'term': cardModel.term,
+  //     'definition': cardModel.definition,
+  //     // 'timestamp': Timestamp.now()
+  //   });
+  // }
 }
