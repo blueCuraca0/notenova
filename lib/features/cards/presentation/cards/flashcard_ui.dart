@@ -1,20 +1,20 @@
 import 'dart:math';
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
+import 'package:notenova/core/utils/constants.dart';
+import 'package:notenova/features/cards/domain/entities/flashcard.dart';
 import '../../../../core/style/c_colors.dart';
 
-class FlashCard extends StatefulWidget {
-  final String term;
-  final String definition;
+class FlashcardUI extends StatefulWidget {
+  final Flashcard flashcard;
 
-  const FlashCard(this.term, this.definition, {super.key});
+  const FlashcardUI(this.flashcard, {super.key});
 
   @override
-  State<FlashCard> createState() => _FlashCardState();
+  State<FlashcardUI> createState() => _FlashcardUIState();
 }
 
-class _FlashCardState extends State<FlashCard>
-    with SingleTickerProviderStateMixin {
+class _FlashcardUIState extends State<FlashcardUI> with SingleTickerProviderStateMixin {
   bool isTermUp = true;
   double scaleX = 1.0;
 
@@ -28,10 +28,11 @@ class _FlashCardState extends State<FlashCard>
     super.initState();
 
     _controller = AnimationController(
-        duration: const Duration(milliseconds: 500), vsync: this);
+        duration: const Duration(milliseconds: 500),
+        vsync: this
+    );
 
-    _flipCurve =
-        CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic);
+    _flipCurve = CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic);
 
     _flipAnimation = Tween<double>(begin: 0, end: 1).animate(_flipCurve);
 
@@ -85,20 +86,28 @@ class _FlashCardState extends State<FlashCard>
                 child: Container(
                   height: 200,
                   width: 300,
-                  color: CColors.primary,
+                  // color: CColors.primary,
                   alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    boxShadow: shadowCard,
+                    color: CColors.primary,
+                  ),
+
                   child: Transform(
                     transform: Matrix4.identity()..scale(scaleX, 1.0, 1.0),
                     alignment: Alignment.center,
                     child: Text(
-                      isTermUp ? widget.term : widget.definition,
-                      style: const TextStyle(color: CColors.textDark),
+                      isTermUp ? widget.flashcard.term : widget.flashcard.definition,
+                      style: const TextStyle(
+                          color: CColors.textDark
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          )),
+          )
+      ),
     );
   }
 }

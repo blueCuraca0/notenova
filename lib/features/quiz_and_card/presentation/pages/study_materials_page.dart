@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+
+//import 'quiz_page.dart';
+
 import '../../../quizzes/presentation/quiz_page.dart';
 
 import '../../../../core/style/c_colors.dart';
-import '../../../cards/presentation/subpages/card_learning_page.dart';
+import '../../../cards/presentation/pages/card_page.dart';
 
 class StudyMaterialsPage extends StatelessWidget {
   const StudyMaterialsPage({super.key});
@@ -27,7 +30,7 @@ class StudyMaterialsPage extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const CardPage();
+                    return const CardStacksPage();
                   }));
                 },
                 child: Container(

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:notenova/core/utils/constants.dart';
+import 'package:notenova/features/cards/data/models/flashcard_stack_model.dart';
+import 'package:notenova/features/cards/data/models/firebase_service.dart';
 import '../../../../core/style/c_colors.dart';
-import '../cards/flashcard.dart';
+import '../../domain/entities/flashcard.dart';
+import '../cards/flashcard_ui.dart';
 
 class CardPage extends StatefulWidget {
   const CardPage({super.key});
@@ -10,7 +14,7 @@ class CardPage extends StatefulWidget {
 }
 
 class _CardPageState extends State<CardPage> {
-  List<FlashCard> _flashcardList = [];
+  List<Flashcard> _flashcardList = [];
   int _currentFlashcard = 0;
 
   int _wellLearnedCards = 0;
@@ -22,12 +26,12 @@ class _CardPageState extends State<CardPage> {
   void initState() {
     super.initState();
     _flashcardList = [
-      const FlashCard("T E R M    1", "D E F I N I T I O N    1"),
-      const FlashCard("T E R M    2", "D E F I N I T I O N    2"),
-      const FlashCard("T E R M    3", "D E F I N I T I O N    3"),
-      const FlashCard("T E R M    4", "D E F I N I T I O N    4"),
-      const FlashCard("T E R M    5", "D E F I N I T I O N    5"),
-      const FlashCard("T E R M    6", "D E F I N I T I O N    6"),
+      const Flashcard("T E R M    1", "D E F I N I T I O N    1"),
+      const Flashcard("T E R M    2", "D E F I N I T I O N    2"),
+      const Flashcard("T E R M    3", "D E F I N I T I O N    3"),
+      const Flashcard("T E R M    4", "D E F I N I T I O N    4"),
+      const Flashcard("T E R M    5", "D E F I N I T I O N    5"),
+      const Flashcard("T E R M    6", "D E F I N I T I O N    6"),
     ];
   }
 
@@ -54,8 +58,6 @@ class _CardPageState extends State<CardPage> {
               body: Stack(
                 alignment: Alignment.center,
                 children: [
-                  // TODO: bg image
-
                   // card ui
                   SizedBox(
                     height: height,
@@ -102,7 +104,18 @@ class _CardPageState extends State<CardPage> {
                                   bottomRight: Radius.circular(20),
                                 ),
                                 child: Container(
-                                  color: CColors.transparentPink,
+                                  decoration: const BoxDecoration(
+                                    color: CColors.transparentPink,
+                                    // boxShadow: shadowCard
+                                    // boxShadow: [
+                                    //   BoxShadow(
+                                    //     color: CColors.text.withOpacity(0.1),
+                                    //     spreadRadius: 5,
+                                    //     blurRadius: 7,
+                                    //     offset: const Offset(0, 3),
+                                    //   ),
+                                    // ]
+                                  ),
                                   width: width / 6,
                                   alignment: Alignment.center,
                                   child: Text("$_needRepeatCards"),
@@ -125,7 +138,7 @@ class _CardPageState extends State<CardPage> {
                             ],
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           // color: Colors.red.withOpacity(0.2),
                           height: height / 15 * 11,
                           child: GestureDetector(
@@ -151,7 +164,8 @@ class _CardPageState extends State<CardPage> {
                               offset: _offset,
                               child: SizedBox(
                                   height: height / 5 * 4,
-                                  child: _flashcardList[_currentFlashcard]),
+                                  child: FlashcardUI(_flashcardList[_currentFlashcard])
+                              ),
                             ),
                           ),
                         ),

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "626174467526",
+    "project_id": "notenova-f5b65",
+    "storage_bucket": "notenova-f5b65.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626174467526:android:16f4fd6b526c683f32a6c7",
+        "android_client_info": {
+          "package_name": "com.example.notenova"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuJRJkdfqBvnUUNHTT3s1bBzHitA2Ye2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
