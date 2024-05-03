@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';

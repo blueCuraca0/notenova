@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_textfield.dart';
-
 import '../../../../core/widgets/custom_button.dart';
 
 class CreateTaskBottomSheet extends StatefulWidget {
@@ -60,7 +59,7 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           const Text(
-            'Create New Task',
+            'Create task',
             style: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.bold,
