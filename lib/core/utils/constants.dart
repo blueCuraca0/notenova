@@ -24,11 +24,11 @@ const midSizedBoxHeight = SizedBox(height: 10.0);
 const midSizedBoxWidth = SizedBox(width: 10.0);
 const bigSizedBoxWidth = SizedBox(width: 30.0);
 const bigSizedBoxHeight = SizedBox(height: 30.0);
-const midSizedBoxWidth = SizedBox(width: 10.0);
 
 // padding
 const smallerPadding = EdgeInsets.all(3.0);
 const smallPadding = EdgeInsets.all(8.0);
+const mediumPadding = EdgeInsets.all(15.0);
 const lPadding = EdgeInsets.all(20.0);
 const largePadding = EdgeInsets.all(30.0);
 const smallButtonPadding = EdgeInsets.symmetric(horizontal: 30, vertical: 7);

@@ -13,16 +13,16 @@ ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: CColors.accentSoft,
 
   textTheme: TextTheme(
-    bodyLarge: GoogleFonts.lato(
+    bodyLarge: GoogleFonts.ubuntu(
       fontSize: largeTextSize,
       color: CColors.text,
       fontWeight: FontWeight.bold,
     ),
-    bodyMedium: GoogleFonts.lato(
+    bodyMedium: GoogleFonts.ubuntu(
       fontSize: mediumTextSize,
       color: CColors.textDark,
     ),
-    bodySmall: GoogleFonts.lato(
+    bodySmall: GoogleFonts.ubuntu(
       fontSize: smallTextSize,
       color: CColors.textDark,
     ),
@@ -38,16 +38,16 @@ ThemeData darkTheme = ThemeData(
   cardColor: CColors.darkPrimary,
 
   textTheme: TextTheme(
-    bodyLarge: GoogleFonts.lato(
+    bodyLarge: GoogleFonts.ubuntu(
       fontSize: largeTextSize,
       color: CColors.darkLText,
       fontWeight: FontWeight.bold,
     ),
-    bodyMedium: GoogleFonts.lato(
+    bodyMedium: GoogleFonts.ubuntu(
       fontSize: mediumTextSize,
       color: CColors.darkMText,
     ),
-    bodySmall: GoogleFonts.lato(
+    bodySmall: GoogleFonts.ubuntu(
       fontSize: smallTextSize,
       color: CColors.darkMText,
     ),

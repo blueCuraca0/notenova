@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
+import 'package:notenova/core/utils/themes.dart';
 import 'package:notenova/core/widgets/custom_search_bar.dart';
 import 'package:notenova/core/widgets/custom_textfield.dart';
+import 'package:notenova/core/widgets/custom_textfield2.dart';
 
 import '../../../../core/style/c_colors.dart';
 
@@ -57,8 +59,6 @@ class CardStacksPage extends StatelessWidget {
                     padding: largePadding,
                     child: Column(
                       children: [
-
-                        // search bar
                         CustomSearchBar(width - largePadding.left - largePadding.right),
                         // CustomTextField(hintText: "some text"),
 
