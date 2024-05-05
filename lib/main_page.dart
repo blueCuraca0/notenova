@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notenova/features/cards/presentation/pages/card_stacks_page.dart';
 
 import 'core/utils/c_routes.dart';
 import 'core/widgets/bottom_nav_bar.dart';
@@ -54,11 +55,13 @@ class MainPage extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           // page itself
-          Navigator(
-            key: _navigatorKey,
-            initialRoute: CRoutes.routeHomepage,
-            onGenerateRoute: _onGenerateRoute,
-          ),
+          // Navigator(
+          //   key: _navigatorKey,
+          //   initialRoute: CRoutes.routeHomepage,
+          //   onGenerateRoute: _onGenerateRoute,
+          // ),
+
+          const CardStacksPage(),
 
           // template with a custom bottom navigation bar
           Column(
