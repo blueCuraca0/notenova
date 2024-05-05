@@ -3,7 +3,8 @@ import 'package:notenova/core/style/c_colors.dart';
 
 // text size
 const mediumTextSize = 18.0;
-const smallTextSize = 12.0;
+const smallTextSize = 14.0;
+const largeTextSize = 24.0;
 
 // text style
 TextStyle titleTextStyle = const TextStyle(
@@ -23,6 +24,7 @@ const midSizedBoxHeight = SizedBox(height: 10.0);
 const midSizedBoxWidth = SizedBox(width: 10.0);
 const bigSizedBoxWidth = SizedBox(width: 30.0);
 const bigSizedBoxHeight = SizedBox(height: 30.0);
+const midSizedBoxWidth = SizedBox(width: 10.0);
 
 // padding
 const smallerPadding = EdgeInsets.all(3.0);
