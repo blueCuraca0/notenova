@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../domain/entities/flashcard.dart';
-import 'flashcard_stack_model.dart';
+import '../domain/entities/flashcard.dart';
+import 'models/flashcard_stack_model.dart';
 
 class FirebaseService {
   static final CollectionReference card_stacks =
@@ -20,10 +20,11 @@ class FirebaseService {
     });
   }
 
-  // static Stream<QuerySnapshot> getHabitsStream() {
-  //   return card_stacks.orderBy('timestamp', descending: false).snapshots();
-  // }
-  //
+  static Stream<QuerySnapshot> getCardStackStream() {
+    // return card_stacks.orderBy('timestamp', descending: false).snapshots();
+    return card_stacks.snapshots();
+  }
+
   // static Future<void> updateHabit(String docID, CardModel cardModel) {
   //   return card_stacks.doc(docID).update({
   //     'term': cardModel.term,
