@@ -9,6 +9,7 @@ class CustomButton extends StatelessWidget {
   final EdgeInsetsGeometry buttonPadding;
   final double? height;
   final double? width;
+  final Color? color;
 
   const CustomButton({
     super.key,
@@ -17,6 +18,7 @@ class CustomButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.gradient,
+    this.color,
     this.buttonPadding = const EdgeInsets.all(15),
   });
 
@@ -29,7 +31,7 @@ class CustomButton extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
           boxShadow: shadowCard,
-          color: CColors.primary,
+          color: color ?? Theme.of(context).primaryColorDark,
           gradient: gradient,
           borderRadius: BorderRadius.circular(20.0),
         ),
