@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
-import 'package:notenova/features/to_do/data/models/task_model.dart';
+import 'package:notenova/features/to_do/domain/entities/task_model.dart';
 
 class CalendarCard extends StatelessWidget {
   final Task task;

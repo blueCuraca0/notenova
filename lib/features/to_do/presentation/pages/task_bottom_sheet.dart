@@ -1,8 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
+import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/core/widgets/custom_textfield.dart';
+import 'package:notenova/core/widgets/custom_textfield2.dart';
 import '../../../../core/widgets/custom_button.dart';
 
 class CreateTaskBottomSheet extends StatefulWidget {
@@ -47,7 +50,7 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
       height: 500,
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
-        color: CColors.accentSoft,
+        color: Theme.of(context).primaryColor,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(40.0),
           topRight: Radius.circular(40.0),
@@ -58,32 +61,27 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          const Text(
-            'Create task',
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-            ),
+          Text(
+            LocaleKeys.create_task.tr(),
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
           midSizedBoxHeight,
-          TextField(
-            decoration: InputDecoration(
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-              isDense: true,
-              filled: true,
-              fillColor: Colors.white,
-              labelText: 'Title',
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-            ),
+          MyCustomTextField(
+            gradientColor: const Color(0xffCCD9E4),
+            width: 400,
+            height: 50,
+            maxLines: 2,
+            title: LocaleKeys.title.tr(),
+            baseColor: Theme.of(context).cardColor,
           ),
           smallSizedBoxHeight,
-          const CustomTextField(
-            maxLine: 2,
-            hintText: 'Description',
+          MyCustomTextField(
+            gradientColor: const Color(0xffCCD9E4),
+            width: 400,
+            height: 50,
+            maxLines: 2,
+            title: LocaleKeys.title.tr(),
+            baseColor: Theme.of(context).cardColor,
           ),
           midSizedBoxHeight,
           Row(
