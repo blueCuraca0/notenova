@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:notenova/features/cards/data/firebase_service.dart';
 import 'package:notenova/features/cards/presentation/widgets/card_stack_tile.dart';
 
-import '../../data/models/flashcard_stack_model.dart';
-
 class CardStackList extends StatelessWidget {
   const CardStackList({super.key});
 
@@ -34,8 +32,8 @@ class CardStackList extends StatelessWidget {
           },
           blendMode: BlendMode.dstOut,
           child: ListView.builder(
+            padding: const EdgeInsets.only(top: 30),
             itemCount: cardStackList.length,
-            clipBehavior: Clip.hardEdge,
             itemBuilder: (context, index) {
               DocumentSnapshot document = cardStackList[index];
               // getting a single card stack

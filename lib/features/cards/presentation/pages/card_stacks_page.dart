@@ -88,7 +88,7 @@ class CardStacksPage extends StatelessWidget {
                                   onPressed: () {
                                     Navigator.of(context).push(
                                         _createRoute(const CreateCardStackPage()
-                                        ));
+                                    ));
                                   }
                               ),
                             ],
