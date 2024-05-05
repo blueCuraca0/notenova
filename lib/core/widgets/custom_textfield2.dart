@@ -26,9 +26,7 @@ class MyCustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: title!= null ? Column(
+    return title!= null ? Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -58,9 +56,7 @@ class MyCustomTextField extends StatelessWidget {
           onChanged: onChanged,
           onSubmitted: onSubmitted,
           gradientColor: gradientColor,
-        ),
-      ),
-    );
+        );
   }
 }
 
@@ -132,10 +128,12 @@ class BoxItself extends StatelessWidget {
           bottom: 15,
           child: TextField(
             onChanged: (value) {
-              onChanged!(value);
+              if (onChanged != null){
+              onChanged!(value);}
             },
             onSubmitted: (value) {
-              onSubmitted!(value);
+              if (onSubmitted != null){
+              onSubmitted!(value);}
             },
             cursorColor: gradientColor,
             maxLines: maxLines,
