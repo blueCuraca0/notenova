@@ -55,11 +55,11 @@ class CardStacksPage extends StatelessWidget {
                     color: CColors.accentSoft,
                     height: height / 5 * 4,
                     padding: largePadding,
-                    child: const Column(
+                    child: Column(
                       children: [
 
                         // search bar
-                        CustomSearchBar(),
+                        CustomSearchBar(width - largePadding.left - largePadding.right),
                         // CustomTextField(hintText: "some text"),
 
                         // create card stack button
