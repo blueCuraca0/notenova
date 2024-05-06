@@ -11,6 +11,7 @@ class CColors {
   static const Color textDark = Color(0xff51657c);
   static const Color text = Color(0xff2E476E);
   static const Color shadow = Color(0xffE6EEF8);
+  static const Color darkGreen = Color(0xff7EA980);
 
   static List<Color> pinkGradientColor = [
     const Color(0xffCD8A9A),

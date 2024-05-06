@@ -16,7 +16,7 @@ class MyCustomTextField extends StatelessWidget {
   const MyCustomTextField({super.key,
     required this.baseColor,
     this.width,
-    this.height,
+    this.height = 55,
     this.maxLines,
     this.onChanged,
     this.onSubmitted,
@@ -26,9 +26,7 @@ class MyCustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: title!= null ? Column(
+    return title!= null ? Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -58,9 +56,7 @@ class MyCustomTextField extends StatelessWidget {
           onChanged: onChanged,
           onSubmitted: onSubmitted,
           gradientColor: gradientColor,
-        ),
-      ),
-    );
+        );
   }
 }
 
@@ -83,7 +79,7 @@ class BoxItself extends StatelessWidget {
     this.onChanged,
     this.onSubmitted,
     this.title,
-    this.gradientColor = const Color(0xffCCD9E4),
+    this.gradientColor = const Color(0xffA5C0D7),
   });
 
   @override
@@ -101,14 +97,18 @@ class BoxItself extends StatelessWidget {
               end: Alignment.centerRight,
             ),
             color: gradientColor,
-            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: gradientColor,
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(30),
           ),
         ),
         Positioned(
-          left:20,
-          top: 20,
-          right: 10,
-          bottom: 15,
+          left:15,
+          top: 10,
+          right: 5,
+          bottom: 7.5,
           child: Container(
             width: width,
             height: height,
@@ -126,20 +126,22 @@ class BoxItself extends StatelessWidget {
           ),
         ),
         Positioned(
-          left:20,
-          top: 20,
-          right: 10,
-          bottom: 15,
+          left:15,
+          top:1,
+          right: 5,
+          bottom: 7.5,
           child: TextField(
             onChanged: (value) {
-              onChanged!(value);
+              if (onChanged != null){
+              onChanged!(value);}
             },
             onSubmitted: (value) {
-              onSubmitted!(value);
+              if (onSubmitted != null){
+              onSubmitted!(value);}
             },
             cursorColor: gradientColor,
             maxLines: maxLines,
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: Theme.of(context).textTheme.bodySmall,
             decoration: const InputDecoration(
               border: InputBorder.none,
             ),
