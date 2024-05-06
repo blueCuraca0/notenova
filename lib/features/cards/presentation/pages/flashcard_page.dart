@@ -4,16 +4,18 @@ import 'package:notenova/features/cards/data/models/flashcard_stack_model.dart';
 import 'package:notenova/features/cards/data/firebase_service.dart';
 import '../../../../core/style/c_colors.dart';
 import '../../domain/entities/flashcard.dart';
-import '../cards/flashcard_ui.dart';
+import '../cards/flashcard_tile.dart';
 
-class CardPage extends StatefulWidget {
-  const CardPage({super.key});
+class FlashcardPage extends StatefulWidget {
+  final CardStack _cardStack;
+
+  const FlashcardPage(this._cardStack, {super.key});
 
   @override
-  State<CardPage> createState() => _CardPageState();
+  State<FlashcardPage> createState() => _FlashcardPageState();
 }
 
-class _CardPageState extends State<CardPage> {
+class _FlashcardPageState extends State<FlashcardPage> {
   List<Flashcard> _flashcardList = [];
   int _currentFlashcard = 0;
 
@@ -25,14 +27,7 @@ class _CardPageState extends State<CardPage> {
   @override
   void initState() {
     super.initState();
-    _flashcardList = [
-      const Flashcard("T E R M    1", "D E F I N I T I O N    1"),
-      const Flashcard("T E R M    2", "D E F I N I T I O N    2"),
-      const Flashcard("T E R M    3", "D E F I N I T I O N    3"),
-      const Flashcard("T E R M    4", "D E F I N I T I O N    4"),
-      const Flashcard("T E R M    5", "D E F I N I T I O N    5"),
-      const Flashcard("T E R M    6", "D E F I N I T I O N    6"),
-    ];
+    _flashcardList = widget._cardStack.cardsList;
   }
 
   void nextFlashCard() {
@@ -54,7 +49,7 @@ class _CardPageState extends State<CardPage> {
         builder: (context, snapshot) {
           return Material(
             child: Scaffold(
-              backgroundColor: CColors.accentSoft,
+              backgroundColor: CColors.accent,
               body: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -68,12 +63,9 @@ class _CardPageState extends State<CardPage> {
                           // color: Colors.purple.withOpacity(0.1),
                           height: height / 15 * 2,
                           alignment: Alignment.bottomCenter,
-                          child: const Text(
-                            "Card Stack's name",
-                            style: TextStyle(
-                                fontSize: 25,
-                                color: CColors.textDark,
-                                fontWeight: FontWeight.w500),
+                          child: Text(
+                            widget._cardStack.name,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ),
                         Container(
@@ -82,11 +74,7 @@ class _CardPageState extends State<CardPage> {
                           alignment: Alignment.center,
                           child: Text(
                             "${_wellLearnedCards + _needRepeatCards}/${_flashcardList.length}",
-                            style: const TextStyle(
-                              // fontSize: 25,
-                              color: CColors.textDark,
-                              // fontWeight: FontWeight.w500
-                            ),
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ),
                         Container(
@@ -96,44 +84,35 @@ class _CardPageState extends State<CardPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(0),
-                                  bottomLeft: Radius.circular(0),
-                                  topRight: Radius.circular(20),
-                                  bottomRight: Radius.circular(20),
-                                ),
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                    color: CColors.transparentPink,
-                                    // boxShadow: shadowCard
-                                    // boxShadow: [
-                                    //   BoxShadow(
-                                    //     color: CColors.text.withOpacity(0.1),
-                                    //     spreadRadius: 5,
-                                    //     blurRadius: 7,
-                                    //     offset: const Offset(0, 3),
-                                    //   ),
-                                    // ]
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: CColors.transparentPink,
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(0),
+                                    bottomLeft: Radius.circular(0),
+                                    topRight: Radius.circular(20),
+                                    bottomRight: Radius.circular(20),
                                   ),
-                                  width: width / 6,
-                                  alignment: Alignment.center,
-                                  child: Text("$_needRepeatCards"),
+                                  boxShadow: neumorphismShadowSmallCard
                                 ),
+                                width: width / 6,
+                                alignment: Alignment.center,
+                                child: Text("$_needRepeatCards"),
                               ),
-                              ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  bottomLeft: Radius.circular(20),
-                                  topRight: Radius.circular(0),
-                                  bottomRight: Radius.circular(0),
-                                ),
-                                child: Container(
+                              Container(
+                                decoration: BoxDecoration(
                                   color: CColors.primary,
-                                  width: width / 6,
-                                  alignment: Alignment.center,
-                                  child: Text("$_wellLearnedCards"),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    bottomLeft: Radius.circular(20),
+                                    topRight: Radius.circular(0),
+                                    bottomRight: Radius.circular(0),
+                                  ),
+                                  boxShadow: neumorphismShadowSmallCard
                                 ),
+                                width: width / 6,
+                                alignment: Alignment.center,
+                                child: Text("$_wellLearnedCards"),
                               )
                             ],
                           ),
@@ -164,7 +143,7 @@ class _CardPageState extends State<CardPage> {
                               offset: _offset,
                               child: SizedBox(
                                   height: height / 5 * 4,
-                                  child: FlashcardUI(_flashcardList[_currentFlashcard])
+                                  child: FlashcardTile(_flashcardList[_currentFlashcard])
                               ),
                             ),
                           ),

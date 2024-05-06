@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
-import 'package:notenova/features/cards/presentation/pages/card_page.dart';
+import 'package:notenova/features/cards/presentation/pages/flashcard_page.dart';
 import 'package:notenova/features/cards/presentation/widgets/learning_mode_dialod.dart';
 
 import '../../../../core/style/c_colors.dart';
 import '../../../../core/utils/constants.dart';
+import '../../data/models/flashcard_stack_model.dart';
 
 class CardStackTile extends StatelessWidget {
-  final String cardStackName;
-  final int numCards;
+  final CardStack _cardStack;
 
-  const CardStackTile(this.cardStackName, this.numCards, {super.key});
+  const CardStackTile(this._cardStack, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class CardStackTile extends StatelessWidget {
         onTap: () {
           showDialog(
             context: context,
-            builder: (_) => const LearningModeDialog(),
+            builder: (_) => LearningModeDialog(_cardStack),
             barrierDismissible: true
           );
         },
@@ -43,11 +43,13 @@ class CardStackTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    cardStackName,
+                    _cardStack.name,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   Text(
-                    numCards == 1 ? "1 card" : "$numCards cards",
+                    _cardStack.cardsList.length == 1
+                        ? "1 card"
+                        : "${_cardStack.cardsList.length} cards",
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ],
