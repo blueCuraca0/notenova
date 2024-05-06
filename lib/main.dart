@@ -1,17 +1,22 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/themes.dart';
+import 'package:notenova/features/to_do/data/services/notify_service.dart';
 import 'core/utils/languages/generated/codegen_loader.g.dart';
 import 'firebase_options.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'main_page.dart';
 import 'features/autorization/presentation/pages/authoriazation_page.dart';
 import 'core/utils/c_routes.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  NotificationService().initNotification();
+  tz.initializeTimeZones();
+
   runApp(EasyLocalization(
       supportedLocales: const [
         Locale('en'),

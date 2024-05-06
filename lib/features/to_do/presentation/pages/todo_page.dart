@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
-import 'package:notenova/features/to_do/presentation/widgets/lists/task_and_calendar_list.dart';
+import 'package:notenova/features/to_do/presentation/widgets/lists/task_calendar_list.dart';
 import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 import '../../../../core/widgets/custom_button.dart';
 import 'task_bottom_sheet.dart';

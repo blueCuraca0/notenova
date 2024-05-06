@@ -1,11 +1,33 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../../core/style/c_colors.dart';
 import '../../../../../core/utils/constants.dart';
 import '../../../domain/entities/task_model.dart';
 
-class TaskCard extends StatelessWidget {
+class TaskCard extends StatefulWidget {
   final Task task;
+
   const TaskCard({super.key, required this.task});
+
+  @override
+  State<TaskCard> createState() => _TaskCardState();
+}
+
+class _TaskCardState extends State<TaskCard> {
+  bool? isSelected = false;
+
+  List<Color> getGradientColors(String category) {
+    switch (category) {
+      case 'Study':
+        return CColors.pinkGradientColor;
+      case 'Productive':
+        return CColors.blueGradientColor;
+      case 'Life':
+        return CColors.greenGradientColor;
+      default:
+        return [Colors.grey, Colors.grey];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +55,7 @@ class TaskCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30.0),
                     gradient: LinearGradient(
-                      colors: CColors.pinkGradientColor,
+                      colors: getGradientColors(widget.task.category),
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
@@ -46,32 +68,43 @@ class TaskCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        task.name,
-                        style: const TextStyle(fontSize: 17),
+                        widget.task.name,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       smallSizedBoxWidth,
                       Text(
-                        task.description,
+                        widget.task.description,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
-                        style: const TextStyle(fontSize: 14),
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                       const Spacer(),
-                      const Row(
+                      Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.date_range_outlined,
+                            color: CColors.text,
                           ),
                           smallSizedBoxWidth,
-                          Text('12:00'),
+                          Text(
+                              DateFormat('dd-MMMM, HH:mm')
+                                  .format(widget.task.finalDate),
+                              style: Theme.of(context).textTheme.bodyMedium),
                         ],
                       )
                     ],
                   ),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.check_circle, color: CColors.textDark),
-                  onPressed: () {},
+                Checkbox(
+                  visualDensity: VisualDensity.compact,
+                  activeColor: Theme.of(context).primaryColorDark,
+                  value: widget.task.isCompleted,
+                  onChanged: (value) {
+                    setState(() {
+                      widget.task.isCompleted = value!;
+                    });
+                  },
+                  shape: const CircleBorder(),
                 ),
               ],
             ),
