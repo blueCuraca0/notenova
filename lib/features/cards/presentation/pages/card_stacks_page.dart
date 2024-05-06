@@ -81,15 +81,15 @@ class CardStacksPage extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 30, left: 30, right: 30),
                           child: Column(
                             children: [
-                              CustomSearchBar(width - largePadding.left - largePadding.right),
+                              CustomSearchBar(baseColor: Theme.of(context).cardColor),
                               bigSizedBoxHeight,
                               CustomButton(
-                                  text: "Create card stack",
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                        _createRoute(const CreateCardStackPage()
-                                    ));
-                                  }
+                                text: "Create card stack",
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                      _createRoute(const CreateCardStackPage()
+                                  ));
+                                }
                               ),
                             ],
                           ),

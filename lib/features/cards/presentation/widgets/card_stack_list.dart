@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:notenova/features/cards/data/firebase_service.dart';
 import 'package:notenova/features/cards/presentation/widgets/card_stack_tile.dart';
 
+import '../../data/models/flashcard_stack_model.dart';
+
 class CardStackList extends StatelessWidget {
   const CardStackList({super.key});
 
@@ -16,10 +18,6 @@ class CardStackList extends StatelessWidget {
         if (!snapshot.hasData) {
           return const SizedBox();
         }
-
-        // TODO: remove this!!!
-        cardStackList = [...cardStackList, ...cardStackList, ...cardStackList];
-
 
         return ShaderMask(
           shaderCallback: (Rect rect) {
@@ -38,15 +36,16 @@ class CardStackList extends StatelessWidget {
               DocumentSnapshot document = cardStackList[index];
               // getting a single card stack
               Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+              CardStack cardStack = CardStack.cardStackFromJson(data);
 
               // outputs card stack's info (for testing)
-              List<dynamic> cards = data['cards'] as List<dynamic>;
+              // List<dynamic> cards = data['cards'] as List<dynamic>;
               // print(data['name']);
               // for(var card in cards) {
               //   print("$card");
               // }
 
-              return CardStackTile(data['name'], cards.length);
+              return CardStackTile(cardStack);
             },
           ),
         );

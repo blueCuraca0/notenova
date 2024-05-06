@@ -5,18 +5,19 @@ import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/cards/domain/entities/flashcard.dart';
 import '../../../../core/style/c_colors.dart';
 
-class FlashcardUI extends StatefulWidget {
+class FlashcardTile extends StatefulWidget {
   final Flashcard flashcard;
 
-  const FlashcardUI(this.flashcard, {super.key});
+  const FlashcardTile(this.flashcard, {super.key});
 
   @override
-  State<FlashcardUI> createState() => _FlashcardUIState();
+  State<FlashcardTile> createState() => _FlashcardTileState();
 }
 
-class _FlashcardUIState extends State<FlashcardUI> with SingleTickerProviderStateMixin {
+class _FlashcardTileState extends State<FlashcardTile> with SingleTickerProviderStateMixin {
   bool isTermUp = true;
   double scaleX = 1.0;
+  List<BoxShadow> currentShadow = neumorphismShadowLargeCardLeftLight;
 
   late AnimationController _controller;
   late Animation<double> _flipCurve;
@@ -59,11 +60,20 @@ class _FlashcardUIState extends State<FlashcardUI> with SingleTickerProviderStat
     }
   }
 
+  void flipShadow() {
+    if (currentShadow == neumorphismShadowLargeCardLeftLight) {
+      currentShadow = neumorphismShadowLargeCardRightLight;
+    } else {
+      currentShadow = neumorphismShadowLargeCardLeftLight;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(30),
       child: InkWell(
+        splashColor: Colors.transparent,
           onTap: () {
             if (_status == AnimationStatus.dismissed) {
               _controller.forward();
@@ -73,6 +83,7 @@ class _FlashcardUIState extends State<FlashcardUI> with SingleTickerProviderStat
             Future.delayed(const Duration(milliseconds: 250)).then((value) {
               flipFlashCard();
               flipText();
+              flipShadow();
             });
           },
           child: Transform(
@@ -81,27 +92,23 @@ class _FlashcardUIState extends State<FlashcardUI> with SingleTickerProviderStat
               ..rotateY(pi * _flipAnimation.value),
             alignment: Alignment.center,
             child: Align(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(25),
-                child: Container(
-                  height: 200,
-                  width: 300,
-                  // color: CColors.primary,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    boxShadow: shadowCard,
-                    color: CColors.primary,
-                  ),
+              child: Container(
+                height: 350,
+                width: 300,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  boxShadow:  currentShadow,
+                  borderRadius: BorderRadius.circular(25),
+                  color: Theme.of(context).cardColor,
+                  // color: CColors.darkGreen,
+                ),
 
-                  child: Transform(
-                    transform: Matrix4.identity()..scale(scaleX, 1.0, 1.0),
-                    alignment: Alignment.center,
-                    child: Text(
-                      isTermUp ? widget.flashcard.term : widget.flashcard.definition,
-                      style: const TextStyle(
-                          color: CColors.textDark
-                      ),
-                    ),
+                child: Transform(
+                  transform: Matrix4.identity()..scale(scaleX, 1.0, 1.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    isTermUp ? widget.flashcard.term : widget.flashcard.definition,
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
               ),
