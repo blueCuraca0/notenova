@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/cards/data/models/flashcard_stack_model.dart';
-import 'package:notenova/features/cards/data/models/firebase_service.dart';
+import 'package:notenova/features/cards/data/firebase_service.dart';
 import '../../../../core/style/c_colors.dart';
 import '../../domain/entities/flashcard.dart';
 import '../cards/flashcard_ui.dart';
