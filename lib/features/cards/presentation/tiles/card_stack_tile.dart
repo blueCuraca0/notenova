@@ -32,28 +32,26 @@ class CardStackTile extends StatelessWidget {
 
           // TODO: Row with a card stack's cover (an image?)
 
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(25),
-            child: Container(
-              decoration: BoxDecoration(
-                boxShadow: shadowCard,
-                color: CColors.white,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    _cardStack.name,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  Text(
-                    _cardStack.cardsList.length == 1
-                        ? "1 card"
-                        : "${_cardStack.cardsList.length} cards",
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ],
-              ),
+          child: Container(
+            decoration: BoxDecoration(
+              boxShadow: shadowCard,
+              borderRadius: BorderRadius.circular(25),
+              color: CColors.white,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  _cardStack.name,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                Text(
+                  _cardStack.cardsList.length == 1
+                      ? "1 card"
+                      : "${_cardStack.cardsList.length} cards",
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ],
             ),
           ),
         ),

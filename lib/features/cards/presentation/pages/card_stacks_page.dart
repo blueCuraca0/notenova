@@ -103,8 +103,6 @@ class CardStacksPage extends StatelessWidget {
                 )
               ],
             )
-
-            // TODO: appbar, navbar etc.
           ],
         ),
       ),

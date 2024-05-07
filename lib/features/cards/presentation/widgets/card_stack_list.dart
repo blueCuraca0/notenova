@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/features/cards/data/firebase_service.dart';
-import 'package:notenova/features/cards/presentation/widgets/card_stack_tile.dart';
+import 'package:notenova/features/cards/presentation/tiles/card_stack_tile.dart';
 
 import '../../data/models/flashcard_stack_model.dart';
 

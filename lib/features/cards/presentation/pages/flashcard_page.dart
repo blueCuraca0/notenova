@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/cards/data/models/flashcard_stack_model.dart';
-import 'package:notenova/features/cards/data/firebase_service.dart';
 import '../../../../core/style/c_colors.dart';
+import '../../../../core/widgets/congratulations_dialog.dart';
 import '../../domain/entities/flashcard.dart';
-import '../cards/flashcard_tile.dart';
+import '../tiles/flashcard_tile.dart';
 
 class FlashcardPage extends StatefulWidget {
   final CardStack _cardStack;
@@ -35,7 +35,16 @@ class _FlashcardPageState extends State<FlashcardPage> {
       _currentFlashcard++;
     } else {
       _currentFlashcard = 0;
-      // TODO: show that user had finished this stack
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => CongratulationsDialog(
+          title: 'Congratulations 🎉',
+          content: 'This stack is finished! \nYour results are '
+              '$_wellLearnedCards/${_flashcardList.length}',
+          actionText: 'Back to card stacks'
+        )
+      );
     }
   }
 
