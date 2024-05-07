@@ -11,6 +11,8 @@ class MyCustomTextField extends StatelessWidget {
   final Function? onChanged;
   final Function? onSubmitted;
   final String? title;
+  final TextEditingController? controller;
+  final String? hintText;
 
 
   const MyCustomTextField({super.key,
@@ -21,6 +23,8 @@ class MyCustomTextField extends StatelessWidget {
     this.onChanged,
     this.onSubmitted,
     this.title,
+    this.controller,
+    this.hintText,
     this.gradientColor = const Color(0xffCCD9E4),
   });
 
@@ -45,6 +49,8 @@ class MyCustomTextField extends StatelessWidget {
               onChanged: onChanged,
               onSubmitted: onSubmitted,
               gradientColor: gradientColor,
+              controller: controller,
+              hintText: hintText,
             ),
           ],
         ):
@@ -56,6 +62,8 @@ class MyCustomTextField extends StatelessWidget {
           onChanged: onChanged,
           onSubmitted: onSubmitted,
           gradientColor: gradientColor,
+          controller: controller,
+          hintText: hintText,
         );
   }
 }
@@ -69,6 +77,8 @@ class BoxItself extends StatelessWidget {
   final Function? onChanged;
   final Function? onSubmitted;
   final String? title;
+  final TextEditingController? controller;
+  final String? hintText;
 
 
   const BoxItself({super.key,
@@ -79,6 +89,8 @@ class BoxItself extends StatelessWidget {
     this.onChanged,
     this.onSubmitted,
     this.title,
+    this.hintText,
+    this.controller,
     this.gradientColor = const Color(0xffA5C0D7),
   });
 
@@ -131,6 +143,7 @@ class BoxItself extends StatelessWidget {
           right: 5,
           bottom: 7.5,
           child: TextField(
+            controller: controller,
             onChanged: (value) {
               if (onChanged != null){
               onChanged!(value);}
@@ -139,11 +152,13 @@ class BoxItself extends StatelessWidget {
               if (onSubmitted != null){
               onSubmitted!(value);}
             },
+
             cursorColor: gradientColor,
             maxLines: maxLines,
             style: Theme.of(context).textTheme.bodySmall,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               border: InputBorder.none,
+              hintText: hintText,
             ),
           ),
         ),

@@ -54,14 +54,14 @@ class MainPage extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          // page itself
-          // Navigator(
-          //   key: _navigatorKey,
-          //   initialRoute: CRoutes.routeHomepage,
-          //   onGenerateRoute: _onGenerateRoute,
-          // ),
+           //page itself
+          Navigator(
+             key: _navigatorKey,
+            initialRoute: CRoutes.routeHomepage,
+            onGenerateRoute: _onGenerateRoute,
+           ),
 
-          const CardStacksPage(),
+          //const CardStacksPage(),
 
           // template with a custom bottom navigation bar
           Column(
