@@ -3,14 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
-import 'package:notenova/features/quizzes/presentation/quiz_card.dart';
+import 'package:notenova/features/quizzes/presentation/main_page/quiz_card.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
-import 'package:notenova/features/quizzes/presentation/state%20management/quiz_cubit.dart';
+import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
 import 'package:notenova/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:notenova/features/quizzes/presentation/create_quiz_layout.dart';
+import 'package:notenova/features/quizzes/presentation/creating_quizzes/create_quiz_layout.dart';
+import 'package:notenova/features/quizzes/presentation/state_management/quiz_states.dart';
+import 'package:notenova/core/widgets/custom_search_bar.dart';
 
-final List<Quiz> _quizList = [
+/*final List<Quiz> _quizList = [
   Quiz(
       title: 'Pomodoro technique',
       category: 'Productivity',
@@ -46,15 +48,21 @@ final List<Quiz> _quizList = [
       'Java is a class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.',
       image:
       'https://www.float.com/static/1bfc987d080e931e9a1ceacfe0369c55/94ec29bc-c298-437b-86df-c2a66f005e27_engaging+stakeholders.png'),
-];
+];*/
 
 class QuizPage extends StatelessWidget {
   final expandedHeight = 200.0;
+  int length =0;
 
-  const QuizPage({super.key});
+  QuizPage({super.key});
+
+  void createNewQuiz(BuildContext context) {
+    context.read<QuizCubit>().createQuiz();
+  }
 
   @override
   Widget build(BuildContext context) {
+    length = context.read<QuizCubit>().quizzes.length;
     return Scaffold(
         body: Stack(
           children:[
@@ -95,12 +103,7 @@ class QuizPage extends StatelessWidget {
                     child: Center(
                       child: Column(
                         children: [
-                          const TextField(
-                            decoration: InputDecoration(
-                              hintText: 'Search',
-                              prefixIcon: const Icon(Icons.search),
-                            ),
-                          ),
+                          CustomSearchBar(MediaQuery.of(context).size.width - 40),
                           midSizedBoxHeight,
                           Row(
                             children: [
@@ -121,11 +124,15 @@ class QuizPage extends StatelessWidget {
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
-                      return QuizCard(
-                        quiz: _quizList[index],
+                      return BlocBuilder<QuizCubit, QuizState>(
+                        builder: (context, state) {
+                          return QuizCard(
+                            quiz: state.quizzes[index],
+                          );
+                        },
                       );
                     },
-                    childCount: 4,
+                    childCount: length,
                   ),
                 ),
               ],
@@ -139,12 +146,14 @@ class QuizPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width- largePadding.left - largePadding.right,
                 text: LocaleKeys.create_new_quiz.tr(),
                 onPressed: () {
+                  createNewQuiz(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const QuizLayout(),
                     ),
                   );
+                  length = context.read<QuizCubit>().quizzes.length;
                 },
               ),
             ),
