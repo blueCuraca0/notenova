@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/style/c_colors.dart';
@@ -29,23 +30,23 @@ final List<Quiz> _quizList = [
       title: 'Java',
       category: 'Code',
       description:
-      'Java is a class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.',
+          'Java is a class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.',
       image:
-      'https://www.float.com/static/1bfc987d080e931e9a1ceacfe0369c55/94ec29bc-c298-437b-86df-c2a66f005e27_engaging+stakeholders.png'),
+          'https://www.float.com/static/1bfc987d080e931e9a1ceacfe0369c55/94ec29bc-c298-437b-86df-c2a66f005e27_engaging+stakeholders.png'),
   Quiz(
       title: 'Java',
       category: 'Code',
       description:
-      'Java is a class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.',
+          'Java is a class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.',
       image:
-      'https://www.float.com/static/1bfc987d080e931e9a1ceacfe0369c55/94ec29bc-c298-437b-86df-c2a66f005e27_engaging+stakeholders.png'),
+          'https://www.float.com/static/1bfc987d080e931e9a1ceacfe0369c55/94ec29bc-c298-437b-86df-c2a66f005e27_engaging+stakeholders.png'),
   Quiz(
       title: 'Java',
       category: 'Code',
       description:
-      'Java is a class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.',
+          'Java is a class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.',
       image:
-      'https://www.float.com/static/1bfc987d080e931e9a1ceacfe0369c55/94ec29bc-c298-437b-86df-c2a66f005e27_engaging+stakeholders.png'),
+          'https://www.float.com/static/1bfc987d080e931e9a1ceacfe0369c55/94ec29bc-c298-437b-86df-c2a66f005e27_engaging+stakeholders.png'),
 ];
 
 class QuizPage extends StatelessWidget {
@@ -148,9 +149,21 @@ class QuizPage extends StatelessWidget {
                 },
               ),
             ),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return QuizCard(
+                  quiz: _quizList[index],
+                );
+              },
+              childCount: 4,
+            ),
+          ),
+        ],
+      ),
           ],
         ),
     );
   }
 }
-
