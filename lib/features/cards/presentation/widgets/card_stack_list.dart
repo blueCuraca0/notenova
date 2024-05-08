@@ -14,10 +14,11 @@ class CardStackList extends StatelessWidget {
       stream: FirebaseService.getCardStackStream(),
       builder: (context, snapshot) {
 
-        List cardStackList = snapshot.data?.docs ?? [];
-        if (!snapshot.hasData) {
+        if (!snapshot.hasData || snapshot.data == null ) {
           return const SizedBox();
         }
+
+        List cardStackList = snapshot.data?.docs ?? [];
 
         return ShaderMask(
           shaderCallback: (Rect rect) {
@@ -30,7 +31,7 @@ class CardStackList extends StatelessWidget {
           },
           blendMode: BlendMode.dstOut,
           child: ListView.builder(
-            padding: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.only(top: 30, left: 30, right: 30, bottom: 100),
             itemCount: cardStackList.length,
             itemBuilder: (context, index) {
               DocumentSnapshot document = cardStackList[index];

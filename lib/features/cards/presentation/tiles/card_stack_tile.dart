@@ -16,7 +16,7 @@ class CardStackTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 30, left: 30, right: 30),
+      padding: const EdgeInsets.only(bottom: 30),
       child: InkWell(
         onTap: () {
           showDialog(
@@ -27,32 +27,25 @@ class CardStackTile extends StatelessWidget {
         },
         child: Container(
           height: 100,
-          width: double.infinity,
-          decoration: BoxDecoration(boxShadow: shadowCard,),
-
-          // TODO: Row with a card stack's cover (an image?)
-
-          child: Container(
-            decoration: BoxDecoration(
-              boxShadow: shadowCard,
-              borderRadius: BorderRadius.circular(25),
-              color: CColors.white,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  _cardStack.name,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                Text(
-                  _cardStack.cardsList.length == 1
-                      ? "1 card"
-                      : "${_cardStack.cardsList.length} cards",
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ],
-            ),
+          decoration: BoxDecoration(
+            boxShadow: shadowCard,
+            borderRadius: BorderRadius.circular(25),
+            color: CColors.white,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                _cardStack.name,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              Text(
+                _cardStack.cardsList.length == 1
+                    ? "1 card"
+                    : "${_cardStack.cardsList.length} cards",
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
           ),
         ),
       ),
