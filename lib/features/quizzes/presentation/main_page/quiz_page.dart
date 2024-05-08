@@ -104,23 +104,44 @@ class QuizPage extends StatelessWidget {
                       child: Column(
                         children: [
                           CustomSearchBar(baseColor: Theme.of(context).cardColor,),
-                          midSizedBoxHeight,
+                          bigSizedBoxHeight,//TODO: Hardcoded string
                           Row(
-                            children: [
-                              CustomButton(
-                                text: 'Category',
-                                onPressed: () {},
-                                gradient: LinearGradient(
-                                  colors: CColors.pinkGradientColor,
+                                  children: [
+                                    CustomButton(text: 'All', onPressed: (){}, gradient: LinearGradient(colors: CColors.greenGradientColor,)),
+                                    midSizedBoxWidth,
+                                    BlocBuilder<QuizCubit, QuizState>(
+                                          builder: (context, state) {
+                                            return SizedBox(
+                                              height: 60,
+                                              width: MediaQuery.of(context).size.width*0.7,
+                                              child: ListView.builder(itemBuilder:
+                                                  (BuildContext context, int index) {
+                                                return Row(
+                                                  children: [
+                                                    CustomButton(
+                                                      text: state.categories[index].name,
+                                                      onPressed: () {},
+                                                      gradient: LinearGradient(
+                                                        colors: state.categories[index].gradient,
+                                                      ),
+                                                    ),
+                                                    midSizedBoxWidth,
+                                                  ],
+                                                );
+                                                },
+                                                itemCount: state.categories.length,
+                                                scrollDirection: Axis.horizontal,
+                                              ),
+                                            );
+                                          }
+                                        ),
+                                  ],
                                 ),
-                              ),
                             ],
                           ),
-                        ],
                       ),
                     ),
                   ),
-                ),
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
