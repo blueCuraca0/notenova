@@ -51,7 +51,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
+      canPop: true,
       child: Stack(
         fit: StackFit.expand,
         children: [
