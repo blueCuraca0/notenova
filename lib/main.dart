@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/utils/themes.dart';
 import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
+import 'package:notenova/features/to_do/data/services/firebase_service.dart';
 import 'package:notenova/features/to_do/data/services/notify_service.dart';
+import 'package:notenova/features/to_do/presentation/cubits/task_cubit/task_cubit.dart';
 import 'core/utils/languages/generated/codegen_loader.g.dart';
 import 'firebase_options.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -52,8 +54,15 @@ class MyApp extends StatelessWidget {
       initialRoute: CRoutes.routeAuthorizationPage,
       routes: {
         CRoutes.routeAuthorizationPage: (context) => const AuthorizationPage(),
-        CRoutes.routeMainPage: (context) => BlocProvider<QuizCubit>(
-              create: (context) => QuizCubit(),
+        CRoutes.routeMainPage: (context) => MultiBlocProvider(
+              providers: [
+                BlocProvider<QuizCubit>(
+                  create: (context) => QuizCubit(),
+                ),
+                BlocProvider<TaskCubit>(
+                  create: (context) => TaskCubit(TaskFirestoreService()),
+                ),
+              ],
               child: MainPage(),
             ),
       },
