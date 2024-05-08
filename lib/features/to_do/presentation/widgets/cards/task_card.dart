@@ -1,20 +1,29 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notenova/features/to_do/presentation/cubits/task_cubit/task_cubit.dart';
 import '../../../../../core/style/c_colors.dart';
 import '../../../../../core/utils/constants.dart';
 import '../../../domain/entities/task_model.dart';
 
 class TaskCard extends StatefulWidget {
   final Task task;
-
-  const TaskCard({super.key, required this.task});
+  final Function(bool) onCheckboxChanged;
+  const TaskCard(
+      {super.key, required this.task, required this.onCheckboxChanged});
 
   @override
   State<TaskCard> createState() => _TaskCardState();
 }
 
 class _TaskCardState extends State<TaskCard> {
-  bool? isSelected = false;
+  late bool _isChecked;
+
+  @override
+  void initState() {
+    super.initState();
+    _isChecked = widget.task.isCompleted;
+  }
 
   List<Color> getGradientColors(String category) {
     switch (category) {
@@ -95,16 +104,21 @@ class _TaskCardState extends State<TaskCard> {
                     ],
                   ),
                 ),
-                Checkbox(
-                  visualDensity: VisualDensity.compact,
-                  activeColor: Theme.of(context).primaryColorDark,
-                  value: widget.task.isCompleted,
-                  onChanged: (value) {
-                    setState(() {
-                      widget.task.isCompleted = value!;
-                    });
+                StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setState) {
+                    return Checkbox(
+                      visualDensity: VisualDensity.compact,
+                      activeColor: Theme.of(context).primaryColorDark,
+                      value: _isChecked,
+                      onChanged: (value) {
+                        setState(() {
+                          _isChecked = value ?? false;
+                        });
+                        widget.onCheckboxChanged(_isChecked);
+                      },
+                      shape: const CircleBorder(),
+                    );
                   },
-                  shape: const CircleBorder(),
                 ),
               ],
             ),

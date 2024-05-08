@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:notenova/core/style/c_colors.dart';
@@ -23,21 +25,28 @@ class TimelineDataPicker extends StatefulWidget {
 class _TimelineDataPickerState extends State<TimelineDataPicker> {
   @override
   Widget build(BuildContext context) {
-    List<DateTime> allDates =
-        widget.tasks.map((task) => task.finalDate).toSet().toList();
-    List<DateTime> dates = allDates
-        .where((date) =>
-            date.isAfter(DateTime.now().subtract(const Duration(days: 1))))
-        .toList()
+// Group tasks by date
+    final Map<DateTime, List<Task>> tasksByDate = widget.tasks.fold(
+      {},
+      (map, task) {
+        final date = DateTime(
+            task.finalDate.year, task.finalDate.month, task.finalDate.day);
+        map.putIfAbsent(date, () => []).add(task);
+        return map;
+      },
+    );
+
+    // Sort the dates in ascending order
+    final sortedDates = tasksByDate.keys.toList()
       ..sort((a, b) => a.compareTo(b));
 
     return SizedBox(
       height: 160.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: dates.length,
+        itemCount: sortedDates.length,
         itemBuilder: (context, index) {
-          final date = dates[index];
+          final date = sortedDates[index];
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: GestureDetector(
@@ -49,7 +58,7 @@ class _TimelineDataPickerState extends State<TimelineDataPicker> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
                 child: Container(
-                  width: 110.0,
+                  width: 115.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30.0),
                     color: date == widget.selectedDate
