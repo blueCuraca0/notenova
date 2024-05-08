@@ -7,8 +7,9 @@ import 'package:notenova/core/utils/constants.dart';
 class CustomAppBar extends StatelessWidget {
   late final double screenHeight;
   late final String? title;
+  late final void Function() onPressedBack;
 
-  CustomAppBar({required this.screenHeight, this.title, super.key});
+  CustomAppBar({required this.screenHeight, required this.onPressedBack, this.title, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class CustomAppBar extends StatelessWidget {
       ),
       child: IconButton(
         onPressed: () {
-          Navigator.of(context).pop();
+          onPressedBack();
         },
         icon: const Icon(Icons.arrow_back_ios_new, size: 24,),
         color: Theme.of(context).textTheme.bodySmall?.color,

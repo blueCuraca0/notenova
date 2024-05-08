@@ -60,9 +60,6 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
 
   void navigateToLearningPage(CardStack cardStack) {
     Navigator.of(context).pushReplacement(
-        _createRoute(const CardStacksPage())
-    );
-    Navigator.of(context).push(
         _createRoute(FlashcardPage(cardStack))
     );
   }
@@ -84,7 +81,13 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
 
                 SizedBox(
                   height: height / 15 * 2,
-                  child: CustomAppBar(screenHeight: height, title: "New Card Stack"),
+                  child: CustomAppBar(
+                    screenHeight: height,
+                    title: "New Card Stack",
+                    onPressedBack: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
                 ),
 
                 midSizedBoxHeight,
@@ -207,8 +210,6 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
                           text: "Create new card stack",
                           onPressed: () async {
                             CardStack cardStack = await getCardStackFromNavigator();
-                            FirebaseService.addCardStack(cardStack);
-                            navigateToLearningPage(cardStack);
                           },
                           buttonPadding: buttonPadding,
                         ),
