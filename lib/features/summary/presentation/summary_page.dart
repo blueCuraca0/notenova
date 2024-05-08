@@ -7,11 +7,21 @@ import 'package:notenova/core/widgets/bottom_nav_bar.dart';
 import 'package:notenova/core/widgets/custom_search_bar.dart';
 import 'package:notenova/features/summary/domain/entities/summary_model.dart';
 
-class SummaryPage extends StatelessWidget {
+class SummaryPage extends StatefulWidget {
   const SummaryPage({Key? key});
 
   @override
+  State<SummaryPage> createState() => _SummaryPageState();
+}
+
+class _SummaryPageState extends State<SummaryPage> {
+  String selectedCategory = 'Exams';
+
+  @override
   Widget build(BuildContext context) {
+    List<Summary> filteredSummary = summaries
+        .where((summary) => summary.category == selectedCategory)
+        .toList();
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColorDark,
       appBar: AppBar(
@@ -57,35 +67,83 @@ class SummaryPage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: smallerPadding,
-        child: Column(
-          children: [
-            bigSizedBoxHeight,
-            CustomSearchBar(
-              baseColor: Theme.of(context).cardColor,
-            ),
-            ListView.builder(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: summaries.length,
-                itemBuilder: (context, index) {
-                  final summary = summaries[index];
-                  return GestureDetector(
-                    onTap: () => {},
-                    child: SummaryCard(summary: summary),
-                  );
-                }),
-          ],
+        padding: smallPadding,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              bigSizedBoxHeight,
+              CustomSearchBar(
+                baseColor: Theme.of(context).cardColor,
+              ),
+              midSizedBoxHeight,
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    _buildCategoryButton('Exams'),
+                    _buildCategoryButton('Lectures'),
+                    _buildCategoryButton('Workshops'),
+                    _buildCategoryButton('Seminars'),
+                    _buildCategoryButton('Practices'),
+                    _buildCategoryButton('Lab works'),
+                  ],
+                ),
+              ),
+              ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: filteredSummary.length,
+                  itemBuilder: (context, index) {
+                    final summary = filteredSummary[index];
+                    return GestureDetector(
+                      onTap: () => {},
+                      child: SummaryCard(summary: summary),
+                    );
+                  }),
+              bigSizedBoxHeight,
+              bigSizedBoxHeight,
+              midSizedBoxHeight,
+              midSizedBoxHeight,
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildCategoryButton(String category) {
+    return TextButton(
+      onPressed: () {
+        setState(() {
+          selectedCategory = category;
+        });
+      },
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(10.0, 10, 10.0, 10),
+        child: Text(category,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: selectedCategory == category
+                      ? FontWeight.bold
+                      : FontWeight.normal,
+                )),
       ),
     );
   }
 }
 
-class SummaryCard extends StatelessWidget {
-  Summary summary;
-  SummaryCard({super.key, required this.summary});
+class SummaryCard extends StatefulWidget {
+  final Summary summary;
+  const SummaryCard({
+    super.key,
+    required this.summary,
+  });
+
+  @override
+  State<SummaryCard> createState() => _SummaryCardState();
+}
+
+class _SummaryCardState extends State<SummaryCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -112,7 +170,7 @@ class SummaryCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30.0),
                     gradient: LinearGradient(
-                      colors: getGradientColors(summary.category),
+                      colors: getGradientColors(widget.summary.category),
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
@@ -125,12 +183,12 @@ class SummaryCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        summary.name,
+                        widget.summary.name,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       smallSizedBoxWidth,
                       Text(
-                        summary.description,
+                        widget.summary.description,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: Theme.of(context).textTheme.bodySmall,

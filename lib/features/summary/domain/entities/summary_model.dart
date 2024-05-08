@@ -40,16 +40,30 @@ final summaries = [
   ),
   Summary(
     id: '2',
+    name: 'Trip to Paris',
+    description: 'Visit Eiffel Tower and Louvre Museum',
+    category: 'Exams',
+    photosUrl: 'https://example.com/paris.jpg',
+  ),
+  Summary(
+    id: '3',
     name: 'Beach vacation',
     description: 'Relax on the sunny beach',
     category: 'Lectures',
     photosUrl: 'https://example.com/beach.jpg',
   ),
   Summary(
-    id: '3',
+    id: '4',
     name: 'Mountain hiking',
     description: 'Conquer the highest peaks',
     category: 'Lectures',
+    photosUrl: 'https://example.com/mountain.jpg',
+  ),
+  Summary(
+    id: '5',
+    name: 'Mountain hiking',
+    description: 'Conquer the highest peaks',
+    category: 'Lab works',
     photosUrl: 'https://example.com/mountain.jpg',
   ),
 ];
