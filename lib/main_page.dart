@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notenova/features/cards/presentation/pages/card_stacks_page.dart';
 import 'package:notenova/features/summary/presentation/summary_page.dart';
-
 import 'core/utils/c_routes.dart';
 import 'core/widgets/bottom_nav_bar.dart';
 import 'features/profile/presentation/pages/user_profile_page.dart';
@@ -51,7 +50,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
+      canPop: true,
       child: Stack(
         fit: StackFit.expand,
         children: [

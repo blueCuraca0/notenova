@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_app_bar.dart';
 import 'package:notenova/features/cards/data/models/flashcard_stack_model.dart';
+import 'package:notenova/features/cards/presentation/pages/card_stacks_page.dart';
 import '../../../../core/style/c_colors.dart';
 import '../../../../core/widgets/congratulations_dialog.dart';
 import '../../domain/entities/flashcard.dart';
@@ -67,7 +68,17 @@ class _FlashcardPageState extends State<FlashcardPage> {
                   children: [
                     SizedBox(
                       height: height / 15 * 2,
-                      child: CustomAppBar(screenHeight: height, title: widget._cardStack.name,),
+                      child: CustomAppBar(
+                        screenHeight: height,
+                        title: widget._cardStack.name,
+                        onPressedBack: () {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const CardStacksPage()
+                            )
+                          );
+                        },
+                      ),
                     ),
                     Container(
                       // color: Colors.cyanAccent.withOpacity(0.1),
@@ -144,7 +155,9 @@ class _FlashcardPageState extends State<FlashcardPage> {
                           offset: _offset,
                           child: SizedBox(
                               height: height / 5 * 4,
-                              child: FlashcardTile(_flashcardList[_currentFlashcard])
+                              child: _flashcardList.isEmpty
+                                  ? const Text("sorry, cannot load your cards :(")
+                                  : FlashcardTile(_flashcardList[_currentFlashcard])
                           ),
                         ),
                       ),

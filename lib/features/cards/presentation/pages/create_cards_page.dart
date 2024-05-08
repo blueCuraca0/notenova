@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:notenova/core/utils/c_routes.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/features/cards/data/models/flashcard_stack_model.dart';
+import 'package:notenova/features/cards/presentation/pages/flashcard_page.dart';
 import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.dart';
 
 import '../../../../core/style/c_colors.dart';
@@ -38,7 +40,13 @@ class _CreateCardsPageState extends State<CreateCardsPage> {
           children: [
             SizedBox(
               height: height / 15 * 2,
-              child: CustomAppBar(screenHeight: height, title: widget.cardStack.name),
+              child: CustomAppBar(
+                screenHeight: height, 
+                title: widget.cardStack.name,
+                onPressedBack: () {
+                  Navigator.of(context).pop();
+                },
+              ),
             ),
 
             LightRoundedBG(
@@ -58,9 +66,9 @@ class _CreateCardsPageState extends State<CreateCardsPage> {
                       },
                       blendMode: BlendMode.dstOut,
                       child: SizedBox(
-                        height: (lightRoundedBGHeight - 60) / 7 * 6,
+                        height: (lightRoundedBGHeight - 60 - bottomNavBarHeight) / 7 * 6,
                         child: ListView.builder(
-                          // padding: EdgeInsets.only(0),
+                          // padding: EdgeInsets.zero(),
                           itemCount: _numCards + 1,
                           itemBuilder: (context, index) {
                             // "Add a new card" button
@@ -80,18 +88,11 @@ class _CreateCardsPageState extends State<CreateCardsPage> {
                                         _numCards++;
                                         cardList.add(Flashcard('', ''));
                                       });
-
-                                      for (int i = 0; i < cardList.length; i++) {
-                                        Flashcard card = cardList[i];
-                                        print("ID: $i. ${card.term} -> ${card.definition}");
-                                      }
                                     },
                                   ),
                                 ),
                               );
                             }
-
-                            // ObjectKey key = ObjectKey(value);
 
                             return CardEditingTile(cardList, index);
                           }
@@ -103,7 +104,11 @@ class _CreateCardsPageState extends State<CreateCardsPage> {
                       text: 'Start learning',
                       onPressed: () {
                         widget.cardStack.cardsList = cardList;
-                        Navigator.of(context).pop(widget.cardStack);
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => FlashcardPage(widget.cardStack)
+                          )
+                        );
                       }
                     ),
                   ],
