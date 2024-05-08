@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../../cards/presentation/subpages/quiz_page.dart';
+import '../../../cards/presentation/pages/card_stacks_page.dart';
+//import 'quiz_page.dart';
+
+import '../../../cards/presentation/pages/card_stacks_page.dart';
+import '../../../quizzes/presentation/main_page/quiz_page.dart';
 
 import '../../../../core/style/c_colors.dart';
-import '../../../cards/presentation/subpages/card_learning_page.dart';
+
 
 class StudyMaterialsPage extends StatelessWidget {
   const StudyMaterialsPage({super.key});
@@ -27,7 +31,7 @@ class StudyMaterialsPage extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const CardPage();
+                    return const CardStacksPage();
                   }));
                 },
                 child: Container(
@@ -42,7 +46,7 @@ class StudyMaterialsPage extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const QuizPage();
+                    return QuizPage();
                   }));
                 },
                 child: Container(
