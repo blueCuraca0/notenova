@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:notenova/features/quiz_and_card/presentation/pages/quiz_page.dart';
 import '../../../cards/presentation/pages/card_stacks_page.dart';
 //import 'quiz_page.dart';
 
 import '../../../cards/presentation/pages/card_stacks_page.dart';
-import '../../../quizzes/presentation/main_page/quiz_page.dart';
 
 import '../../../../core/style/c_colors.dart';
-
 
 class StudyMaterialsPage extends StatelessWidget {
   const StudyMaterialsPage({super.key});
@@ -46,7 +45,7 @@ class StudyMaterialsPage extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return QuizPage();
+                    return const QuizPage();
                   }));
                 },
                 child: Container(
