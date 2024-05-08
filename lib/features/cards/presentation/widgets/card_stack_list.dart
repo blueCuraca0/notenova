@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/features/cards/data/firebase_service.dart';
-import 'package:notenova/features/cards/presentation/widgets/card_stack_tile.dart';
+import 'package:notenova/features/cards/presentation/tiles/card_stack_tile.dart';
 
 import '../../data/models/flashcard_stack_model.dart';
 
@@ -14,10 +14,11 @@ class CardStackList extends StatelessWidget {
       stream: FirebaseService.getCardStackStream(),
       builder: (context, snapshot) {
 
-        List cardStackList = snapshot.data?.docs ?? [];
-        if (!snapshot.hasData) {
+        if (!snapshot.hasData || snapshot.data == null ) {
           return const SizedBox();
         }
+
+        List cardStackList = snapshot.data?.docs ?? [];
 
         return ShaderMask(
           shaderCallback: (Rect rect) {
@@ -30,7 +31,7 @@ class CardStackList extends StatelessWidget {
           },
           blendMode: BlendMode.dstOut,
           child: ListView.builder(
-            padding: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.only(top: 30, left: 30, right: 30, bottom: 100),
             itemCount: cardStackList.length,
             itemBuilder: (context, index) {
               DocumentSnapshot document = cardStackList[index];

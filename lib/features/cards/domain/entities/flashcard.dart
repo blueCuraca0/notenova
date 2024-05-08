@@ -1,6 +1,6 @@
 class Flashcard {
-  final String term;
-  final String definition;
+  String term;
+  String definition;
 
-  const Flashcard(this.term, this.definition);
+  Flashcard(this.term, this.definition);
 }
