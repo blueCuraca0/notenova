@@ -47,7 +47,7 @@ class _TaskCardState extends State<TaskCard> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30.0),
-            color: CColors.white,
+            color: Theme.of(context).cardColor,
             boxShadow: shadowCard,
           ),
           child: Padding(
@@ -87,7 +87,7 @@ class _TaskCardState extends State<TaskCard> {
                         maxLines: 1,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
-                      const Spacer(),
+                      spacer,
                       Row(
                         children: [
                           const Icon(

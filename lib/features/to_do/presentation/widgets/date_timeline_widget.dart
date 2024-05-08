@@ -1,5 +1,4 @@
 import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:notenova/core/style/c_colors.dart';
@@ -23,9 +22,17 @@ class TimelineDataPicker extends StatefulWidget {
 }
 
 class _TimelineDataPickerState extends State<TimelineDataPicker> {
+  Map<DateTime, bool> _isDateSelected = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _isDateSelected = {widget.selectedDate: true};
+  }
+
   @override
   Widget build(BuildContext context) {
-// Group tasks by date
+    // Group tasks by date
     final Map<DateTime, List<Task>> tasksByDate = widget.tasks.fold(
       {},
       (map, task) {
@@ -47,11 +54,15 @@ class _TimelineDataPickerState extends State<TimelineDataPicker> {
         itemCount: sortedDates.length,
         itemBuilder: (context, index) {
           final date = sortedDates[index];
+          final isSelected = _isDateSelected[date] ?? false;
+
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: GestureDetector(
               onTap: () {
-                widget.onDateChange(date);
+                setState(() {
+                  _isDateSelected = {date: true};
+                });
                 widget.onDateChange(date);
               },
               child: Padding(
@@ -61,7 +72,7 @@ class _TimelineDataPickerState extends State<TimelineDataPicker> {
                   width: 115.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30.0),
-                    color: date == widget.selectedDate
+                    color: isSelected
                         ? Theme.of(context).primaryColorDark
                         : Theme.of(context).cardColor,
                     boxShadow: shadowCard,
