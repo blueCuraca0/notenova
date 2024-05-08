@@ -2,8 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/utils/themes.dart';
-import 'package:notenova/features/to_do/data/services/notify_service.dart';
 import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
+import 'package:notenova/features/to_do/data/services/notify_service.dart';
 import 'core/utils/languages/generated/codegen_loader.g.dart';
 import 'firebase_options.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -44,9 +44,9 @@ class MyApp extends StatelessWidget {
       routes: {
         CRoutes.routeAuthorizationPage: (context) => const AuthorizationPage(),
         CRoutes.routeMainPage: (context) => BlocProvider<QuizCubit>(
-            create: (context) => QuizCubit(),
-            child: MainPage(),
-        ),
+              create: (context) => QuizCubit(),
+              child: MainPage(),
+            ),
       },
     );
   }

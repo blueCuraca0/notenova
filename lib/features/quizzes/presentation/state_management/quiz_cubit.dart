@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
-import 'package:notenova/features/quizzes/presentation/state management/quiz_states.dart';
+import 'package:notenova/features/quizzes/presentation/state_management/quiz_states.dart';
 import 'package:notenova/features/quizzes/domain/entities/category.dart';
 
 class QuizCubit extends Cubit<QuizState> {
