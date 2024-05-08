@@ -41,6 +41,10 @@ dependencies:
   easy_localization: ^3.0.6
   google_fonts: ^6.2.0
   firebase_auth: ^4.19.5
+  flutter_local_notifications: ^17.1.2
+  timezone: ^0.9.3
+  uuid: ^4.4.0
+  flutter_bloc: ^8.1.5
 
 dev_dependencies:
   flutter_test:
