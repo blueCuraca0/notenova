@@ -3,8 +3,8 @@ import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
-import 'package:notenova/features/quizzes/presentation/take_quiz.dart';
-import 'custom_category.dart';
+import 'package:notenova/features/quizzes/presentation/taking_quizzes/take_quiz.dart';
+import '../custom_category.dart';
 
 
 class QuizCard extends StatelessWidget {
@@ -63,7 +63,7 @@ class QuizCard extends StatelessWidget {
                       ),
                       midSizedBoxHeight,
                       CustomCategory(
-                        category: quiz.category,
+                        category: quiz.category==null ? "Unknown": quiz.category!.name,
                       ),
                     ],
                   ),
