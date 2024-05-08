@@ -61,9 +61,8 @@ class MainPage extends StatelessWidget {
             onGenerateRoute: _onGenerateRoute,
            ),
 
+          const ToDoPage(),
           //const CardStacksPage(),
-
-          // template with a custom bottom navigation bar
           Column(
             children: [
               const Expanded(child: SizedBox()),
