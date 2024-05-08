@@ -1,11 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
 import 'package:notenova/features/quizzes/presentation/quiz_card.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
-import '../../../../core/utils/languages/generated/locale_keys.g.dart';
+import 'package:notenova/features/quizzes/presentation/state%20management/quiz_cubit.dart';
+import 'package:notenova/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:notenova/features/quizzes/presentation/create_quiz_layout.dart';
 
 final List<Quiz> _quizList = [
   Quiz(
@@ -53,63 +57,96 @@ class QuizPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            expandedHeight: MediaQuery.of(context).size.height * 0.2,
-            floating: true,
-            pinned: false,
-            backgroundColor: Theme.of(context).primaryColor,
-            flexibleSpace: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                return FlexibleSpaceBar(
-                  titlePadding: EdgeInsets.only(
-                      left: 20, top: constraints.maxHeight - 70),
-                  title: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(LocaleKeys.quizzes.tr(),
-                          style: Theme.of(context).textTheme.bodyLarge),
-                      Text(LocaleKeys.check_your_knowledge.tr(),
-                          style: Theme.of(context).textTheme.bodyMedium),
-                    ],
+        body: Stack(
+          children:[
+            CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  expandedHeight: MediaQuery.of(context).size.height * 0.2,
+                  floating: true,
+                  pinned: false,
+                  backgroundColor: Theme.of(context).primaryColor,
+                  flexibleSpace: LayoutBuilder(
+                    builder: (BuildContext context, BoxConstraints constraints) {
+                      return FlexibleSpaceBar(
+                        titlePadding: EdgeInsets.only(
+                            left: 20, top: constraints.maxHeight - 70),
+                        title: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(LocaleKeys.quizzes.tr(),
+                                style: Theme.of(context).textTheme.bodyLarge),
+                            Text(LocaleKeys.check_your_knowledge.tr(),
+                                style: Theme.of(context).textTheme.bodyMedium),
+                          ],
+                        ),
+                        background: ColoredBox(color: Theme.of(context).primaryColor),
+                      );
+                    },
                   ),
-                  background: ColoredBox(color: Theme.of(context).primaryColor),
-                );
-              },
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Container(
-              margin: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColorLight,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Center(
-                child: Column(
-                  children: [
-                    const TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Search',
-                        prefixIcon: const Icon(Icons.search),
+                ),
+                SliverToBoxAdapter(
+                  child: Container(
+                    margin: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColorLight,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          const TextField(
+                            decoration: InputDecoration(
+                              hintText: 'Search',
+                              prefixIcon: const Icon(Icons.search),
+                            ),
+                          ),
+                          midSizedBoxHeight,
+                          Row(
+                            children: [
+                              CustomButton(
+                                text: 'Category',
+                                onPressed: () {},
+                                gradient: LinearGradient(
+                                  colors: CColors.pinkGradientColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                    midSizedBoxHeight,
-                    Row(
-                      children: [
-                        CustomButton(
-                          text: 'Category',
-                          onPressed: () {},
-                          gradient: LinearGradient(
-                            colors: CColors.pinkGradientColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                  ),
                 ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                      return QuizCard(
+                        quiz: _quizList[index],
+                      );
+                    },
+                    childCount: 4,
+                  ),
+                ),
+              ],
+            ),
+            Positioned(
+              left: largePadding.left,
+              bottom: 100,
+              child: CustomButton(
+                color: CColors.darkGreen,
+                height: 70,
+                width: MediaQuery.of(context).size.width- largePadding.left - largePadding.right,
+                text: LocaleKeys.create_new_quiz.tr(),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const QuizLayout(),
+                    ),
+                  );
+                },
               ),
             ),
           ),
@@ -125,6 +162,8 @@ class QuizPage extends StatelessWidget {
           ),
         ],
       ),
+          ],
+        ),
     );
   }
 }

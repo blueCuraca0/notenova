@@ -58,6 +58,60 @@ List<BoxShadow> shadowCard = [
     offset: Offset(0, -3),
   ),
 ];
+List<BoxShadow> neumorphismShadowSmallCard = const [
+  BoxShadow(
+    color: Colors.black26,
+    blurRadius: 6,
+    spreadRadius: -2,
+    offset: Offset(3, 2),
+  ),
+  BoxShadow(
+    color: Colors.white,
+    blurRadius: 7,
+    spreadRadius: -2,
+    offset: Offset(-2, -2),
+  ),
+];
+List<BoxShadow> neumorphismShadowLargeCardLeftLight = [
+  const BoxShadow(
+    color: Colors.black26,
+    blurRadius: 10,
+    spreadRadius: 5,
+    offset: Offset(10, 10),
+  ),
+  const BoxShadow(
+    color: Colors.white,
+    blurRadius: 10,
+    spreadRadius: -3,
+    offset: Offset(-5, -5),
+  ),
+  const BoxShadow(
+    color: CColors.shadow,
+    blurRadius: 10,
+    spreadRadius: -10,
+    offset: Offset(-12, -12),
+  ),
+];
+List<BoxShadow> neumorphismShadowLargeCardRightLight = [
+  const BoxShadow(
+    color: Colors.black26,
+    blurRadius: 10,
+    spreadRadius: 5,
+    offset: Offset(-10, 10),
+  ),
+  const BoxShadow(
+    color: Colors.white,
+    blurRadius: 10,
+    spreadRadius: -3,
+    offset: Offset(5, -5),
+  ),
+  const BoxShadow(
+    color: CColors.shadow,
+    blurRadius: 10,
+    spreadRadius: -10,
+    offset: Offset(12, -12),
+  ),
+];
 
 // border radius
 BorderRadius backgroundTile = const BorderRadius.only(
