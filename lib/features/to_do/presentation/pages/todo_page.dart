@@ -59,18 +59,6 @@ class ToDoPage extends StatelessWidget {
                   Text('${DateTime.now().year.toString()} ',
                       style: Theme.of(context).textTheme.bodyMedium),
                   const Spacer(),
-                  CustomButton(
-                      buttonPadding: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 15.0),
-                      onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return const CreateTaskBottomSheet();
-                          },
-                        );
-                      },
-                      text: LocaleKeys.create_task.tr()),
                 ],
               ),
             ),

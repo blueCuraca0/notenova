@@ -5,11 +5,17 @@ import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/core/widgets/custom_textfield2.dart';
 import 'package:notenova/features/to_do/data/services/notify_service.dart';
+import 'package:notenova/features/to_do/domain/entities/task_model.dart';
+import 'package:notenova/features/to_do/presentation/cubits/task_cubit/task_cubit.dart';
 import 'package:notenova/features/to_do/presentation/widgets/date_picker_widget.dart';
 import '../../../../core/widgets/custom_button.dart';
 
 class CreateTaskBottomSheet extends StatefulWidget {
-  const CreateTaskBottomSheet({super.key});
+  final TaskCubit taskCubit;
+  const CreateTaskBottomSheet({
+    super.key,
+    required this.taskCubit,
+  });
 
   @override
   State<CreateTaskBottomSheet> createState() => _CreateTaskBottomSheetState();
@@ -17,15 +23,29 @@ class CreateTaskBottomSheet extends StatefulWidget {
 
 class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
   DateTime _selectedDateTime = DateTime.now();
-  String _taskTitle = '';
-  String _taskDesc = '';
   bool _notificationEnabled = false;
+  final _nameController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  String? _selectedCategory;
 
   void _selectDateTime(BuildContext context) {
     DateTimePicker.pickDateTime(context, _selectedDateTime,
         (DateTime pickedDateTime) {
       _selectedDateTime = pickedDateTime;
     });
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    print(widget.taskCubit);
+    super.initState();
   }
 
   @override
@@ -53,11 +73,7 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
           ),
           midSizedBoxHeight,
           MyCustomTextField(
-            onChanged: (value) {
-              setState(() {
-                _taskDesc = value;
-              });
-            },
+            controller: _nameController,
             gradientColor: const Color(0xffCCD9E4),
             width: 400,
             height: 50,
@@ -67,11 +83,7 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
           ),
           smallSizedBoxHeight,
           MyCustomTextField(
-            onChanged: (value) {
-              setState(() {
-                _taskTitle = value;
-              });
-            },
+            controller: _descriptionController,
             gradientColor: const Color(0xffCCD9E4),
             width: 400,
             height: 70,
@@ -112,8 +124,8 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
                         debugPrint(
                             'Notification Scheduled for $_selectedDateTime');
                         NotificationService().scheduleNotification(
-                          title: _taskTitle,
-                          body: 'Time for $_taskDesc',
+                          title: _nameController.text,
+                          body: 'Time for ${_descriptionController.text}',
                           scheduledNotificationDateTime: _selectedDateTime,
                         );
                       }
@@ -126,7 +138,11 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               CustomButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    _selectedCategory = 'Study';
+                  });
+                },
                 text: 'Study',
                 buttonPadding:
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
@@ -135,7 +151,11 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
                 ),
               ),
               CustomButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    _selectedCategory = 'Productive';
+                  });
+                },
                 text: 'Productive',
                 buttonPadding:
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
@@ -144,7 +164,11 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
                 ),
               ),
               CustomButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    _selectedCategory = 'Life';
+                  });
+                },
                 text: 'Life',
                 buttonPadding:
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
@@ -157,8 +181,22 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
           midSizedBoxHeight,
           midSizedBoxHeight,
           CustomButton(
-            onPressed: () {},
-            text: 'Create task',
+            onPressed: () {
+              if (_nameController.text.isNotEmpty &&
+                  _descriptionController.text.isNotEmpty) {
+                final task = Task(
+                  id: DateTime.now().toString(),
+                  name: _nameController.text,
+                  isCompleted: false,
+                  finalDate: _selectedDateTime,
+                  description: _descriptionController.text,
+                  category: _selectedCategory ?? '',
+                );
+                widget.taskCubit.addTask(task);
+                Navigator.pop(context);
+              }
+            },
+            text: LocaleKeys.create_task.tr(),
             buttonPadding:
                 const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
           ),
