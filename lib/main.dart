@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/utils/themes.dart';
 import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
@@ -37,9 +38,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.dark,
+      )
+    );
     return MaterialApp(
       title: 'NoteNova',
       theme: lightTheme,
+      color: Colors.cyan,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       initialRoute: CRoutes.routeAuthorizationPage,
