@@ -38,13 +38,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.dark,
-      )
-    );
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.dark,
+    ));
     return MaterialApp(
       title: 'NoteNova',
       theme: lightTheme,
@@ -59,9 +57,9 @@ class MyApp extends StatelessWidget {
                 BlocProvider<QuizCubit>(
                   create: (context) => QuizCubit(),
                 ),
-                BlocProvider<TaskCubit>(
-                  create: (context) => TaskCubit(TaskFirestoreService()),
-                ),
+                // BlocProvider<TaskCubit>(
+                //   create: (context) => TaskCubit(TaskFirestoreService()),
+                // ),
               ],
               child: MainPage(),
             ),
