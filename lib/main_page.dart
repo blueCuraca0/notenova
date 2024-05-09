@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/cards/presentation/pages/card_stacks_page.dart';
 import 'package:notenova/features/summary/presentation/pages/summary_page.dart';
 
@@ -50,28 +51,33 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: true,
-      child: Stack(
-        fit: StackFit.expand,
+    final height = MediaQuery.sizeOf(context).height;
+
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Column(
         children: [
-          //page itself
-          Navigator(
-            key: _navigatorKey,
-            initialRoute: CRoutes.routeHomepage,
-            onGenerateRoute: _onGenerateRoute,
-          ),
+            //page itself
+            SizedBox(
+              height: height - bottomNavBarHeight,
+              child: Navigator(
+                key: _navigatorKey,
+                initialRoute: CRoutes.routeHomepage,
+                onGenerateRoute: _onGenerateRoute,
+              ),
+            ),
 
-          // const SummaryPage(),
-          //const CardStacksPage(),
+            // const SummaryPage(),
+            //const CardStacksPage(),
 
-          Column(
-            children: [
-              const Expanded(child: SizedBox()),
-              CustomBottomNavBar(_navigatorKey),
-            ],
-          )
-        ],
+            SizedBox(
+              height: bottomNavBarHeight,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: CustomBottomNavBar(_navigatorKey)
+              ),
+            )
+          ],
       ),
     );
   }

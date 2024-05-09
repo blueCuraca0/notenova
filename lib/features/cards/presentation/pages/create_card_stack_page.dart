@@ -66,7 +66,7 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height - bottomNavBarHeight;
 
     return Material(
       child: Scaffold(
@@ -80,7 +80,7 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
               children: [
 
                 SizedBox(
-                  height: height / 15 * 2,
+                  height: height / 20 * 3,
                   child: CustomAppBar(
                     screenHeight: height,
                     title: "New Card Stack",
@@ -93,7 +93,7 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
                 midSizedBoxHeight,
 
                 LightRoundedBG(
-                  height: height / 15 * 13 - (midSizedBoxHeight.height ?? 0),
+                  height: height / 20 * 17 - (midSizedBoxHeight.height ?? 0),
                   child: Padding(
                     padding: const EdgeInsets.all(30),
                     child: Column(
@@ -213,8 +213,6 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
                           },
                           buttonPadding: buttonPadding,
                         ),
-
-                        const SizedBox(height: bottomNavBarHeight,)
                       ],
                     ),
                   )

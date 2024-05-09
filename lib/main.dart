@@ -46,7 +46,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'NoteNova',
       theme: lightTheme,
-      color: Colors.cyan,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       initialRoute: CRoutes.routeAuthorizationPage,
