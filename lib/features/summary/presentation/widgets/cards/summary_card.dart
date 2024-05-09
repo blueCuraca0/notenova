@@ -61,7 +61,7 @@ class _SummaryCardState extends State<SummaryCard> {
                       Text(
                         widget.summary.description,
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
+                        maxLines: 2,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       spacer,

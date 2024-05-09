@@ -25,6 +25,7 @@ class _CalendarTaskListState extends State<CalendarTaskList>
     with SingleTickerProviderStateMixin {
   DateTime _selectedDate = DateTime.now();
   late final AnimationController _controller;
+  bool isEdit = false;
 
   @override
   void initState() {
@@ -88,10 +89,11 @@ class _CalendarTaskListState extends State<CalendarTaskList>
                                   vertical: 10.0, horizontal: 15.0),
                               onPressed: () {
                                 showModalBottomSheet(
+                                  isScrollControlled: true,
                                   context: context,
                                   builder: (BuildContext context) {
                                     return CreateTaskBottomSheet(
-                                        taskCubit: taskCubit);
+                                        isEdit: false, taskCubit: taskCubit);
                                   },
                                 );
                               },
@@ -111,6 +113,7 @@ class _CalendarTaskListState extends State<CalendarTaskList>
                     ),
                     smallSizedBoxHeight,
                     TaskList(
+                        isEdit: isEdit,
                         tasks: tasks,
                         selectedDate: _selectedDate,
                         taskCubit: taskCubit),
@@ -118,6 +121,7 @@ class _CalendarTaskListState extends State<CalendarTaskList>
                 ),
               );
             } else if (state is TaskSuccess) {
+              BlocProvider.of<TaskCubit>(context).loadTasks();
               return Container();
             } else if (state is TaskError) {
               return Center(child: Text(state.errorMessage));

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/features/to_do/domain/entities/task_model.dart';
 import 'package:notenova/features/to_do/presentation/cubits/task_cubit/task_cubit.dart';
+import 'package:notenova/features/to_do/presentation/pages/task_bottom_sheet.dart';
 import 'package:notenova/features/to_do/presentation/pages/todo_detail_page.dart';
 import 'package:notenova/features/to_do/presentation/widgets/cards/task_card.dart';
 
@@ -11,8 +12,10 @@ class TaskList extends StatelessWidget {
     required this.tasks,
     required DateTime selectedDate,
     required this.taskCubit,
+    required this.isEdit,
   }) : _selectedDate = selectedDate;
 
+  final bool isEdit;
   final List<Task> tasks;
   final DateTime _selectedDate;
   final TaskCubit taskCubit;
@@ -56,12 +59,22 @@ class TaskList extends StatelessWidget {
                 ),
               ),
               direction: DismissDirection.endToStart,
-              child: TaskCard(
-                task: task,
-                onCheckboxChanged: (value) {
-                  final updatedTask = task.copyWith(isCompleted: value);
-                  taskCubit.updateTask(updatedTask);
-                },
+              child: GestureDetector(
+                onLongPress: () => showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return CreateTaskBottomSheet(
+                        task: task, isEdit: true, taskCubit: taskCubit);
+                  },
+                ),
+                child: TaskCard(
+                  task: task,
+                  onCheckboxChanged: (value) {
+                    final updatedTask = task.copyWith(isCompleted: value);
+                    taskCubit.updateTask(updatedTask);
+                  },
+                ),
               ),
             ),
           );

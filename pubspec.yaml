@@ -45,6 +45,7 @@ dependencies:
   timezone: ^0.9.3
   uuid: ^4.4.0
   flutter_bloc: ^8.1.5
+  image_picker: ^1.1.1
 
 dev_dependencies:
   flutter_test:
@@ -71,7 +72,7 @@ flutter:
   assets:
     - assets/images/
     - assets/translations/
-
+    - assets/service_credentials.json
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

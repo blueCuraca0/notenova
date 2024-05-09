@@ -2,7 +2,7 @@ class Summary {
   final String id;
   final String name;
   final String description;
-  final String photosUrl;
+  final String photoUrl;
   final String category;
 
   Summary({
@@ -10,60 +10,22 @@ class Summary {
     required this.name,
     required this.description,
     required this.category,
-    required this.photosUrl,
+    required this.photoUrl,
   });
 
   Summary copyWith({
     String? id,
     String? name,
     String? category,
-    String? photosUrl,
+    String? photoUrl,
     String? description,
   }) {
     return Summary(
       id: id ?? this.id,
       name: name ?? this.name,
-      photosUrl: photosUrl ?? this.photosUrl,
+      photoUrl: photoUrl ?? this.photoUrl,
       description: description ?? this.description,
       category: category ?? this.category,
     );
   }
 }
-
-final summaries = [
-  Summary(
-    id: '1',
-    name: 'Trip to Paris',
-    description: 'Visit Eiffel Tower and Louvre Museum',
-    category: 'Exams',
-    photosUrl: 'https://example.com/paris.jpg',
-  ),
-  Summary(
-    id: '2',
-    name: 'Trip to Paris',
-    description: 'Visit Eiffel Tower and Louvre Museum',
-    category: 'Exams',
-    photosUrl: 'https://example.com/paris.jpg',
-  ),
-  Summary(
-    id: '3',
-    name: 'Beach vacation',
-    description: 'Relax on the sunny beach',
-    category: 'Lectures',
-    photosUrl: 'https://example.com/beach.jpg',
-  ),
-  Summary(
-    id: '4',
-    name: 'Mountain hiking',
-    description: 'Conquer the highest peaks',
-    category: 'Lectures',
-    photosUrl: 'https://example.com/mountain.jpg',
-  ),
-  Summary(
-    id: '5',
-    name: 'Mountain hiking',
-    description: 'Conquer the highest peaks',
-    category: 'Lab works',
-    photosUrl: 'https://example.com/mountain.jpg',
-  ),
-];
