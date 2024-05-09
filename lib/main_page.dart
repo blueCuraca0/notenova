@@ -55,29 +55,31 @@ class MainPage extends StatelessWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Column(
-        children: [
-            //page itself
-            SizedBox(
-              height: height - bottomNavBarHeight,
-              child: Navigator(
-                key: _navigatorKey,
-                initialRoute: CRoutes.routeHomepage,
-                onGenerateRoute: _onGenerateRoute,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+              //page itself
+              SizedBox(
+                height: height - bottomNavBarHeight,
+                child: Navigator(
+                  key: _navigatorKey,
+                  initialRoute: CRoutes.routeHomepage,
+                  onGenerateRoute: _onGenerateRoute,
+                ),
               ),
-            ),
-
-            // const SummaryPage(),
-            //const CardStacksPage(),
-
-            SizedBox(
-              height: bottomNavBarHeight,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: CustomBottomNavBar(_navigatorKey)
-              ),
-            )
-          ],
+        
+              // const SummaryPage(),
+              //const CardStacksPage(),
+        
+              SizedBox(
+                height: bottomNavBarHeight,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: CustomBottomNavBar(_navigatorKey)
+                ),
+              )
+            ],
+        ),
       ),
     );
   }
