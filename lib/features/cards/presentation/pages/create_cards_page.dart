@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:notenova/core/utils/c_routes.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
+import 'package:notenova/features/cards/data/firebase_service.dart';
 import 'package:notenova/features/cards/data/models/flashcard_stack_model.dart';
 import 'package:notenova/features/cards/presentation/pages/flashcard_page.dart';
 import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.dart';
@@ -28,7 +29,7 @@ class _CreateCardsPageState extends State<CreateCardsPage> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height - bottomNavBarHeight;
     double lightRoundedBGHeight = (height - 30) / 15 * 13;
 
     return Material(
@@ -53,65 +54,70 @@ class _CreateCardsPageState extends State<CreateCardsPage> {
               height: lightRoundedBGHeight,
               child: Padding(
                 padding: const EdgeInsets.all(30),
-                child: Column(
-                  children: [
-                    ShaderMask(
-                      shaderCallback: (Rect rect) {
-                        return const LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Colors.white, Colors.transparent, Colors.transparent, Colors.white],
-                          stops: [0.0, 0.1, 0.9, 1.0], // 10% purple, 80% transparent, 10% purple
-                        ).createShader(rect);
-                      },
-                      blendMode: BlendMode.dstOut,
-                      child: SizedBox(
-                        height: (lightRoundedBGHeight - 60 - bottomNavBarHeight) / 7 * 6,
-                        child: ListView.builder(
-                          // padding: EdgeInsets.zero(),
-                          itemCount: _numCards + 1,
-                          itemBuilder: (context, index) {
-                            // "Add a new card" button
-                            if (index == _numCards) {
-                              return  Padding(
-                                padding: const EdgeInsets.only(bottom: 50),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Theme.of(context).primaryColor,
-                                    boxShadow: neumorphismShadowSmallCard
+                child: SizedBox(
+                  height: lightRoundedBGHeight - 60,
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ShaderMask(
+                        shaderCallback: (Rect rect) {
+                          return const LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [Colors.white, Colors.transparent, Colors.transparent, Colors.white],
+                            stops: [0.0, 0.1, 0.9, 1.0], // 10% purple, 80% transparent, 10% purple
+                          ).createShader(rect);
+                        },
+                        blendMode: BlendMode.dstOut,
+                        child: SizedBox(
+                          height: (lightRoundedBGHeight - 60) / 7 * 6,
+                          child: ListView.builder(
+                            // padding: EdgeInsets.zero(),
+                            itemCount: _numCards + 1,
+                            itemBuilder: (context, index) {
+                              // "Add a new card" button
+                              if (index == _numCards) {
+                                return  Padding(
+                                  padding: const EdgeInsets.only(bottom: 100),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Theme.of(context).primaryColor,
+                                      boxShadow: neumorphismShadowSmallCard
+                                    ),
+                                    child: IconButton(
+                                      icon: const Icon(Icons.add),
+                                      onPressed: () {
+                                        setState(() {
+                                          _numCards++;
+                                          cardList.add(Flashcard('', ''));
+                                        });
+                                      },
+                                    ),
                                   ),
-                                  child: IconButton(
-                                    icon: const Icon(Icons.add),
-                                    onPressed: () {
-                                      setState(() {
-                                        _numCards++;
-                                        cardList.add(Flashcard('', ''));
-                                      });
-                                    },
-                                  ),
-                                ),
-                              );
-                            }
+                                );
+                              }
 
-                            return CardEditingTile(cardList, index);
-                          }
+                              return CardEditingTile(cardList, index);
+                            }
+                          ),
                         ),
                       ),
-                    ),
 
-                    CustomButton(
-                      text: 'Start learning',
-                      onPressed: () {
-                        widget.cardStack.cardsList = cardList;
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => FlashcardPage(widget.cardStack)
-                          )
-                        );
-                      }
-                    ),
-                  ],
+                      CustomButton(
+                        text: 'Start learning',
+                        onPressed: () {
+                          widget.cardStack.cardsList = cardList;
+                          FirebaseService.addCardStack(widget.cardStack);
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => FlashcardPage(widget.cardStack)
+                            )
+                          );
+                        }
+                      ),
+                    ],
+                  ),
                 ),
               )
             ),
