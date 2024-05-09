@@ -74,11 +74,6 @@ class ToDoPage extends StatelessWidget {
             const SliverToBoxAdapter(
               child: CalendarTaskList(),
             ),
-            const SliverToBoxAdapter(
-              child: SizedBox(
-                height: 70,
-              ),
-            ),
           ],
         ),
       ),

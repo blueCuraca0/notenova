@@ -32,73 +32,76 @@ class CardStacksPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height - bottomNavBarHeight;
+    double width = MediaQuery.of(context).size.width;
 
     return Material(
       child: Scaffold(
         backgroundColor: CColors.accent,
         resizeToAvoidBottomInset: false,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // header
-            Container(
-              height: height / 5,
-              width: width,
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: largePadding,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Cards",
-                      style: titleTextStyle,
-                    ),
-                    Text(
-                      "Let's study!",
-                      style: subtitleTextStyle,
-                    ),
-                  ],
+        body: SizedBox(
+          height: height,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // header
+              Container(
+                height: height / 5,
+                width: width,
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: largePadding,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Cards",
+                        style: titleTextStyle,
+                      ),
+                      Text(
+                        "Let's study!",
+                        style: subtitleTextStyle,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
 
-            // lighter bg
-            LightRoundedBG(
-              height: height / 5 * 4,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 30,
-                      right: 30,
-                      top: 30,
+              // lighter bg
+              LightRoundedBG(
+                height: height / 5 * 4,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 30,
+                        right: 30,
+                        top: 30,
+                      ),
+                      child: Column(
+                        children: [
+                          CustomSearchBar(baseColor: Theme.of(context).cardColor),
+                          bigSizedBoxHeight,
+                          CustomButton(
+                              text: "Create card stack",
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                    _createRoute(const CreateCardStackPage()
+                                ));
+                              }
+                          ),
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      children: [
-                        CustomSearchBar(baseColor: Theme.of(context).cardColor),
-                        bigSizedBoxHeight,
-                        CustomButton(
-                            text: "Create card stack",
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                  _createRoute(const CreateCardStackPage()
-                              ));
-                            }
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Expanded(
-                    child: CardStackList(),
-                  )
-                ],
-              ),
-            )
-          ],
+                    const Expanded(
+                      child: CardStackList(),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

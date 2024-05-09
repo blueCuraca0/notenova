@@ -52,11 +52,6 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
-    print("");
-    print("");
-    print(height);
-    print("");
-    print("");
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -84,28 +79,6 @@ class MainPage extends StatelessWidget {
             )
           ],
       ),
-      // body: Stack(
-      //   fit: StackFit.expand,
-      //   children: [
-      //     //page itself
-      //     Navigator(
-      //       key: _navigatorKey,
-      //       initialRoute: CRoutes.routeHomepage,
-      //       onGenerateRoute: _onGenerateRoute,
-      //     ),
-      //
-      //     // const SummaryPage(),
-      //     //const CardStacksPage(),
-      //
-      //     SizedBox(
-      //       // height: height,
-      //       child: Align(
-      //         alignment: Alignment.bottomCenter,
-      //         child: CustomBottomNavBar(_navigatorKey)
-      //       ),
-      //     )
-      //   ],
-      // ),
     );
   }
 }
