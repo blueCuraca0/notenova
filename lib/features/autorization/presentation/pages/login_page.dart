@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   String _password = '';
   String _errorMessage = '';
 
-  void _signIn(BuildContext context) async {
+  void _signInWithEmail() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _login,
@@ -52,6 +52,10 @@ class _LoginPageState extends State<LoginPage> {
         _errorMessage = errorMessage;
       });
     }
+  }
+
+  void _singInAnonymous() {
+
   }
 
   @override
@@ -110,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                         CustomButton(
                           text: "Sign In",
                           onPressed: () {
-                            _signIn(context);
+                            _signInWithEmail();
                           }
                         ),
                         bigSizedBoxHeight,
