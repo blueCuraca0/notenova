@@ -11,10 +11,14 @@ import 'package:notenova/features/to_do/presentation/widgets/date_picker_widget.
 import '../../../../core/widgets/custom_button.dart';
 
 class CreateTaskBottomSheet extends StatefulWidget {
+  final bool isEdit;
+  final Task? task;
   final TaskCubit taskCubit;
   const CreateTaskBottomSheet({
     super.key,
+    this.task,
     required this.taskCubit,
+    required this.isEdit,
   });
 
   @override
@@ -28,13 +32,6 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
   final _descriptionController = TextEditingController();
   String? _selectedCategory;
 
-  void _selectDateTime(BuildContext context) {
-    DateTimePicker.pickDateTime(context, _selectedDateTime,
-        (DateTime pickedDateTime) {
-      _selectedDateTime = pickedDateTime;
-    });
-  }
-
   @override
   void dispose() {
     _nameController.dispose();
@@ -44,12 +41,62 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
 
   @override
   void initState() {
-    print(widget.taskCubit);
     super.initState();
+    if (widget.task != null) {
+      _nameController.text = widget.task!.name;
+      _descriptionController.text = widget.task!.description;
+      _selectedDateTime = widget.task!.finalDate;
+      _selectedCategory = widget.task!.category;
+      _notificationEnabled = widget.task!.finalDate.isAfter(DateTime.now());
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    var buttonsCategory = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        CustomButton(
+          onPressed: () {
+            setState(() {
+              _selectedCategory = 'Study';
+            });
+          },
+          text: 'Study',
+          buttonPadding:
+              const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
+          gradient: LinearGradient(
+            colors: CColors.pinkGradientColor,
+          ),
+        ),
+        CustomButton(
+          onPressed: () {
+            setState(() {
+              _selectedCategory = 'Productive';
+            });
+          },
+          text: 'Productive',
+          buttonPadding:
+              const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
+          gradient: LinearGradient(
+            colors: CColors.blueGradientColor,
+          ),
+        ),
+        CustomButton(
+          onPressed: () {
+            setState(() {
+              _selectedCategory = 'Life';
+            });
+          },
+          text: 'Life',
+          buttonPadding:
+              const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
+          gradient: LinearGradient(
+            colors: CColors.greenGradientColor,
+          ),
+        ),
+      ],
+    );
     return Container(
       height: 600,
       padding: const EdgeInsets.all(20.0),
@@ -67,7 +114,7 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
         children: <Widget>[
           Center(
             child: Text(
-              LocaleKeys.create_task.tr(),
+              widget.isEdit ? 'Update task' : LocaleKeys.create_task.tr(),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),
@@ -134,74 +181,62 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
             ],
           ),
           midSizedBoxHeight,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              CustomButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedCategory = 'Study';
-                  });
-                },
-                text: 'Study',
-                buttonPadding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
-                gradient: LinearGradient(
-                  colors: CColors.pinkGradientColor,
-                ),
-              ),
-              CustomButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedCategory = 'Productive';
-                  });
-                },
-                text: 'Productive',
-                buttonPadding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
-                gradient: LinearGradient(
-                  colors: CColors.blueGradientColor,
-                ),
-              ),
-              CustomButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedCategory = 'Life';
-                  });
-                },
-                text: 'Life',
-                buttonPadding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
-                gradient: LinearGradient(
-                  colors: CColors.greenGradientColor,
-                ),
-              ),
-            ],
-          ),
+          buttonsCategory,
           midSizedBoxHeight,
           midSizedBoxHeight,
           CustomButton(
             onPressed: () {
-              if (_nameController.text.isNotEmpty &&
-                  _descriptionController.text.isNotEmpty) {
-                final task = Task(
-                  id: DateTime.now().toString(),
-                  name: _nameController.text,
-                  isCompleted: false,
-                  finalDate: _selectedDateTime,
-                  description: _descriptionController.text,
-                  category: _selectedCategory ?? '',
-                );
-                widget.taskCubit.addTask(task);
-                Navigator.pop(context);
+              if (widget.isEdit) {
+                _updateTask(context);
+              } else {
+                addTask(context);
               }
             },
-            text: LocaleKeys.create_task.tr(),
+            text: widget.isEdit ? 'Update task' : LocaleKeys.create_task.tr(),
             buttonPadding:
                 const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
           ),
         ],
       ),
     );
+  }
+
+  void addTask(BuildContext context) {
+    if (_nameController.text.isNotEmpty &&
+        _descriptionController.text.isNotEmpty) {
+      final task = Task(
+        id: DateTime.now().toString(),
+        name: _nameController.text,
+        isCompleted: false,
+        finalDate: _selectedDateTime,
+        description: _descriptionController.text,
+        category: _selectedCategory ?? '',
+      );
+      widget.taskCubit.addTask(task);
+      Navigator.pop(context);
+    }
+  }
+
+  void _selectDateTime(BuildContext context) {
+    DateTimePicker.pickDateTime(context, _selectedDateTime,
+        (DateTime pickedDateTime) {
+      _selectedDateTime = pickedDateTime;
+    });
+  }
+
+  void _updateTask(BuildContext context) {
+    if (_nameController.text.isNotEmpty &&
+        _descriptionController.text.isNotEmpty) {
+      final task = Task(
+        name: _nameController.text,
+        isCompleted: false,
+        finalDate: _selectedDateTime,
+        description: _descriptionController.text,
+        category: _selectedCategory ?? '',
+        id: widget.task!.id,
+      );
+      widget.taskCubit.updateTask(task);
+      Navigator.pop(context);
+    }
   }
 }
