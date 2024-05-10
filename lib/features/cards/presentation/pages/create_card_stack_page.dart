@@ -10,6 +10,8 @@ import 'package:notenova/features/cards/presentation/pages/flashcard_page.dart';
 import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.dart';
 
 import '../../../../core/style/c_colors.dart';
+import '../../../../core/widgets/bottom_nav_bar.dart';
+import '../../../../main.dart';
 import '../../data/models/flashcard_stack_model.dart';
 import 'create_cards_page.dart';
 
@@ -78,7 +80,6 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 SizedBox(
                   height: height / 20 * 3,
                   child: CustomAppBar(
@@ -89,11 +90,9 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
                     },
                   ),
                 ),
-
                 midSizedBoxHeight,
-
                 LightRoundedBG(
-                  height: height / 20 * 17 - (midSizedBoxHeight.height ?? 0),
+                  height: height / 20 * 17 - (midSizedBoxHeight.height ?? 0) + bottomNavBarHeight,
                   child: Padding(
                     padding: const EdgeInsets.all(30),
                     child: Column(
@@ -213,14 +212,22 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
                           },
                           buttonPadding: buttonPadding,
                         ),
+
+                        const SizedBox(height: bottomNavBarHeight,)
                       ],
                     ),
                   )
 
-                )
-
+                ),
               ],
             ),
+            SizedBox(
+              height: height + bottomNavBarHeight,
+              child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: CustomBottomNavBar(MyApp.navigatorKey)
+              ),
+            )
           ],
         ),
       ),
