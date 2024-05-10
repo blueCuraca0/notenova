@@ -10,6 +10,8 @@ import 'package:notenova/features/cards/presentation/pages/flashcard_page.dart';
 import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.dart';
 
 import '../../../../core/style/c_colors.dart';
+import '../../../../core/widgets/bottom_nav_bar.dart';
+import '../../../../main.dart';
 import '../../data/models/flashcard_stack_model.dart';
 import 'create_cards_page.dart';
 
@@ -60,16 +62,13 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
 
   void navigateToLearningPage(CardStack cardStack) {
     Navigator.of(context).pushReplacement(
-        _createRoute(const CardStacksPage())
-    );
-    Navigator.of(context).push(
         _createRoute(FlashcardPage(cardStack))
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height - bottomNavBarHeight;
 
     return Material(
       child: Scaffold(
@@ -81,16 +80,19 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 SizedBox(
-                  height: height / 15 * 2,
-                  child: CustomAppBar(screenHeight: height, title: "New Card Stack"),
+                  height: height / 20 * 3,
+                  child: CustomAppBar(
+                    screenHeight: height,
+                    title: "New Card Stack",
+                    onPressedBack: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
                 ),
-
                 midSizedBoxHeight,
-
                 LightRoundedBG(
-                  height: height / 15 * 13 - (midSizedBoxHeight.height ?? 0),
+                  height: height / 20 * 17 - (midSizedBoxHeight.height ?? 0) + bottomNavBarHeight,
                   child: Padding(
                     padding: const EdgeInsets.all(30),
                     child: Column(
@@ -207,8 +209,6 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
                           text: "Create new card stack",
                           onPressed: () async {
                             CardStack cardStack = await getCardStackFromNavigator();
-                            FirebaseService.addCardStack(cardStack);
-                            navigateToLearningPage(cardStack);
                           },
                           buttonPadding: buttonPadding,
                         ),
@@ -218,10 +218,16 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
                     ),
                   )
 
-                )
-
+                ),
               ],
             ),
+            SizedBox(
+              height: height + bottomNavBarHeight,
+              child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: CustomBottomNavBar(MyApp.navigatorKey)
+              ),
+            )
           ],
         ),
       ),

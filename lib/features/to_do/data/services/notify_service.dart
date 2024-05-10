@@ -5,7 +5,7 @@ import 'package:uuid/uuid.dart';
 class NotificationService {
   final FlutterLocalNotificationsPlugin notificationsPlugin =
       FlutterLocalNotificationsPlugin();
-  final Uuid uuid = Uuid();
+  final Uuid uuid = const Uuid();
   Future<void> initNotification() async {
     AndroidInitializationSettings initializationSettingsAndroid =
         const AndroidInitializationSettings('logo');
@@ -30,12 +30,6 @@ class NotificationService {
             importance: Importance.max),
         iOS: DarwinNotificationDetails());
   }
-
-  // Future showNotification(
-  //     {int id = 0, String? title, String? body, String? payLoad}) async {
-  //   return notificationsPlugin.show(
-  //       id, title, body, await notificationDetails());
-  // }
 
   Future scheduleNotification({
     String? title,

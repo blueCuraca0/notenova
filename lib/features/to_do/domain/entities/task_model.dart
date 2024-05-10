@@ -14,48 +14,22 @@ class Task {
     required this.description,
     required this.category,
   });
-}
 
-List<Task> tasks = [
-  Task(
-    id: '1',
-    name: 'Прибрати квартиру',
-    description: 'Прибрати кімнату та ванну кімнату',
-    finalDate: DateTime(2024, 5, 11, 18, 0),
-    isCompleted: false,
-    category: 'Study',
-  ),
-  Task(
-    id: '1',
-    name: 'Прибрати квартиру',
-    description: 'Прибрати кімнату та ванну кімнату',
-    finalDate: DateTime(2024, 5, 10, 18, 0),
-    isCompleted: false,
-    category: 'Study',
-  ),
-  Task(
-    id: '1',
-    name: 'Прибрати квартиру',
-    description: 'Прибрати кімнату та ванну кімнату',
-    finalDate: DateTime(2024, 5, 9, 18, 0),
-    isCompleted: false,
-    category: 'Study',
-  ),
-  Task(
-    id: '2',
-    name: 'Подивитися відеоурок Flutter',
-    description: 'Подивитися відеоурок по створенню списків в Flutter',
-    finalDate: DateTime(2024, 5, 6, 20, 0),
-    isCompleted: true,
-    category: 'Life',
-  ),
-  Task(
-    id: '2',
-    name: 'Подивитися відеоурок Flutter',
-    description:
-        'Подивитися відеоурок по створенню списків в Flutter Подивитися відеоурок по створенню списків в Flutter Подивитися відеоурок по створенню списків в Flutter Подивитися відеоурок по створенню списків в Flutter Подивитися відеоурок по створенню списків в Flutter',
-    finalDate: DateTime(2024, 5, 6, 20, 0),
-    isCompleted: false,
-    category: 'Productive',
-  ),
-];
+  Task copyWith({
+    String? id,
+    DateTime? finalDate,
+    String? name,
+    bool? isCompleted,
+    String? description,
+    String? category,
+  }) {
+    return Task(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      isCompleted: isCompleted ?? this.isCompleted,
+      description: description ?? this.description,
+      category: category ?? this.category,
+      finalDate: finalDate ?? this.finalDate,
+    );
+  }
+}
