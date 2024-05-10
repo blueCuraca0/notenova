@@ -92,7 +92,7 @@ class TakeQuizWindow extends StatelessWidget {
                       onPressed: () {
                         context.read<QuizCubit>().startQuiz(context.read<QuizCubit>().quizIndex(quiz));
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return TakeQuestion(question: quiz.questions[0], indexQuestion: 0, percentage: 0.5,);
+                          return TakeQuestion(question: quiz.questions[0], indexQuestion: 0, percentage: 0, quiz: quiz);
                         }));
                       },
                     ),

@@ -165,5 +165,42 @@ class QuizCubit extends Cubit<QuizState> {
     return state.quizzes.indexOf(quiz);
   }
 
+  Question getNextQuestion(int index){
+    return state.quizzes[0].questions[index];
+  }
+
+  double getPercentage(int indexQuestion){
+    return indexQuestion.toDouble() / state.quizzes[0].questions.length;
+  }
+
+  bool isLast(int indexQuestion){
+    return indexQuestion == state.quizzes[0].questions.length - 1;
+  }
+
+  String checkBoxType(int quizIndex, int optionIndex, int questionIndex){
+    if (state.quizzes[quizIndex].questions[questionIndex] is OneChoiceQuestion){
+      if ((state.quizzes[quizIndex].questions[questionIndex] as OneChoiceQuestion).correctAnswer == optionIndex){
+        return 'green';
+      }
+      else if (state.answers[questionIndex]![optionIndex]){
+        return 'red';
+      }
+    }
+    else
+      {
+        if ((state.quizzes[quizIndex].questions[questionIndex] as MultipleChoiceQuestion).correctAnswers.contains(optionIndex) && state.answers[questionIndex]![optionIndex]){
+          return 'green';
+        }
+        else if ( state.answers[questionIndex]![optionIndex] || (state.quizzes[quizIndex].questions[questionIndex] as MultipleChoiceQuestion).correctAnswers.contains(optionIndex)){
+          return 'red';
+        }
+      }
+    return 'white';
+  }
+
+  Quiz currentQuiz(int index) => state.quizzes[index];
+
+  int indexQuiz(Quiz quiz) => state.quizzes.indexOf(quiz);
+
   List<Category> get categories => state.categories;
 }

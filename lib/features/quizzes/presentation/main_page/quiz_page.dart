@@ -158,7 +158,7 @@ class QuizPage extends StatelessWidget {
                 ),
               ],
             ),
-            Positioned(
+            Positioned( //TODO: fix the button floating up
               left: largePadding.left,
               bottom: 100,
               child: CustomButton(
