@@ -55,8 +55,6 @@ class MainPage extends StatelessWidget {
             key: MyApp.navigatorKey,
             initialRoute: CRoutes.routeHomepage,
             onGenerateRoute: _onGenerateRoute,
-          ),
-        ),
       ),
     );
   }

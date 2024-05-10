@@ -5,6 +5,7 @@ import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/core/widgets/custom_search_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:notenova/core/widgets/custom_textfield2.dart';
+import 'package:notenova/features/quizzes/domain/entities/question.dart';
 
 import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -103,15 +104,27 @@ class QuizLayout extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return Row(
                             children: [
-                              CustomButton(
-                                text: getCategories(context)[index].name,
-                                onPressed: () {
-                                    context.read<QuizCubit>().changeCategory(getCategories(context)[index]);
-                                },
-                                gradient: LinearGradient(
-                                  colors:
-                                      getCategories(context)[index].gradient,
-                                ),
+                              BlocBuilder<QuizCubit, QuizState>(
+                                builder: (context, state) {
+                                  return CustomButton(
+                                      text: state.categories[index].name,
+                                      onPressed: () {
+                                          context.read<QuizCubit>().changeCategory(state.categories[index]);
+                                          for (int i = 0; i < state.categories.length; i++) {
+                                            if (i != index) {
+                                              state.categories[i].isSelected = false;
+                                            }
+                                            else{
+                                              state.categories[i].isSelected = true;
+                                            }
+                                          }
+                                      },
+                                      gradient: LinearGradient(
+                                        colors:
+                                            state.categories[index].isSelected ? state.categories[index].darkGradient! : state.categories[index].gradient,
+                                      ),
+                                  );
+                                }
                               ),
                               midSizedBoxWidth,
                             ],
@@ -126,6 +139,7 @@ class QuizLayout extends StatelessWidget {
                         return CustomButton(
                             text: 'Go to questions',
                             onPressed: () {
+                              state.newQuiz!.questions = [OneChoiceQuestion.empty(options: [''])];
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
