@@ -13,6 +13,7 @@ import '../../../../core/style/c_colors.dart';
 import '../../../../core/widgets/bottom_nav_bar.dart';
 import '../../../../main.dart';
 import '../../data/models/flashcard_stack_model.dart';
+import '../../domain/entities/flashcard_stack.dart';
 import 'create_cards_page.dart';
 
 class CreateCardStackPage extends StatefulWidget {
@@ -50,10 +51,10 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
     final cardStack = await Navigator.of(context).push(
         _createRoute(CreateCardsPage(
             CardStack(
-                title,
-                [],
-                description: description,
-                category: category
+              title,
+              [],
+              description: description,
+              category: category
             )
         ))
     );
@@ -74,160 +75,148 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
       child: Scaffold(
         backgroundColor: CColors.accent,
         resizeToAvoidBottomInset: false,
-        body: Stack(
-          alignment: Alignment.center,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: height / 20 * 3,
-                  child: CustomAppBar(
-                    screenHeight: height,
-                    title: "New Card Stack",
-                    onPressedBack: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ),
-                midSizedBoxHeight,
-                LightRoundedBG(
-                  height: height / 20 * 17 - (midSizedBoxHeight.height ?? 0) + bottomNavBarHeight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(30),
-                    child: Column(
+            SizedBox(
+              height: height / 20 * 3,
+              child: CustomAppBar(
+                screenHeight: height,
+                title: "New Card Stack",
+                onPressedBack: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+            midSizedBoxHeight,
+            LightRoundedBG(
+              height: height / 20 * 17 - (midSizedBoxHeight.height ?? 0) + bottomNavBarHeight,
+              child: Padding(
+                padding: const EdgeInsets.all(30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+
+                    // TITLE
+                    Text(
+                      "Title",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    midSizedBoxHeight,
+                    MyCustomTextField(
+                      baseColor: Theme.of(context).cardColor,
+                      maxLines: 1,
+                      onChanged: (value) {
+                        title = value;
+                      },
+                    ),
+
+                    bigSizedBoxHeight,
+
+                    // DESCRIPTION
+                    Text(
+                      "Description",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    midSizedBoxHeight,
+                    MyCustomTextField(
+                      baseColor: Theme.of(context).cardColor,
+                      height: 100,
+                      onChanged: (value) {
+                        description = value;
+                      },
+                    ),
+
+                    bigSizedBoxHeight,
+
+                    // CATEGORY
+                    Text(
+                      "Category",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    midSizedBoxHeight,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
-                        // TITLE
-                        Text(
-                          "Title",
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        midSizedBoxHeight,
-                        MyCustomTextField(
-                          baseColor: Theme.of(context).cardColor,
-                          maxLines: 1,
-                          onChanged: (value) {
-                            title = value;
-                          },
-                        ),
-
-                        bigSizedBoxHeight,
-
-                        // DESCRIPTION
-                        Text(
-                          "Description",
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        midSizedBoxHeight,
-                        MyCustomTextField(
-                          baseColor: Theme.of(context).cardColor,
-                          height: 100,
-                          onChanged: (value) {
-                            description = value;
-                          },
-                        ),
-
-                        bigSizedBoxHeight,
-
-                        // CATEGORY
-                        Text(
-                          "Category",
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        midSizedBoxHeight,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomButton(
-                              text: "Code",
-                              onPressed: () {
-                                category = "Code";
-                                setState(() {
-                                  if (categoryIndex == 0) {
-                                    categoryIndex = -1;
-                                  } else {
-                                    categoryIndex = 0;
-                                  }
-                                });
-                              },
-                              buttonPadding: EdgeInsets.symmetric(
-                                vertical: categoryIndex == 0 ? 10 : 7,
-                                horizontal: categoryIndex == 0 ? 30 : 25,
-                              ),
-                              gradient: LinearGradient(colors: CColors.blueGradientColor),
-                            ),
-                            CustomButton(
-                              text: "Work",
-                              onPressed: () {
-                                category = "Work";
-                                setState(() {
-                                  if (categoryIndex == 1) {
-                                    categoryIndex = -1;
-                                  } else {
-                                    categoryIndex = 1;
-                                  }
-                                });
-                              },
-                              buttonPadding: EdgeInsets.symmetric(
-                                vertical: categoryIndex == 1 ? 10 : 7,
-                                horizontal: categoryIndex == 1 ? 35 : 25,
-                              ),
-                              gradient: LinearGradient(colors: CColors.pinkGradientColor),
-                            ),
-                            CustomButton(
-                              text: "English",
-                              onPressed: () {
-                                category = "English";
-                                setState(() {
-                                  if (categoryIndex == 2) {
-                                    categoryIndex = -1;
-                                  } else {
-                                    categoryIndex = 2;
-                                  }
-                                });
-                              },
-                              buttonPadding: EdgeInsets.symmetric(
-                                vertical: categoryIndex == 2 ? 10 : 7,
-                                horizontal: categoryIndex == 2 ? 35 : 25,
-                              ),
-                              gradient: LinearGradient(colors: CColors.greenGradientColor),
-                            ),
-                          ],
-                        ),
-                        midSizedBoxHeight,
-                        Text(
-                          "+ Add category",
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-
-                        // CREATE STACK BUTTON
-                        const Expanded(child: SizedBox()),
                         CustomButton(
-                          text: "Create new card stack",
-                          onPressed: () async {
-                            CardStack cardStack = await getCardStackFromNavigator();
+                          text: "Code",
+                          onPressed: () {
+                            category = "Code";
+                            setState(() {
+                              if (categoryIndex == 0) {
+                                categoryIndex = -1;
+                              } else {
+                                categoryIndex = 0;
+                              }
+                            });
                           },
-                          buttonPadding: buttonPadding,
+                          buttonPadding: EdgeInsets.symmetric(
+                            vertical: categoryIndex == 0 ? 10 : 7,
+                            horizontal: categoryIndex == 0 ? 30 : 25,
+                          ),
+                          gradient: LinearGradient(colors: CColors.blueGradientColor),
                         ),
-
-                        const SizedBox(height: bottomNavBarHeight,)
+                        CustomButton(
+                          text: "Work",
+                          onPressed: () {
+                            category = "Work";
+                            setState(() {
+                              if (categoryIndex == 1) {
+                                categoryIndex = -1;
+                              } else {
+                                categoryIndex = 1;
+                              }
+                            });
+                          },
+                          buttonPadding: EdgeInsets.symmetric(
+                            vertical: categoryIndex == 1 ? 10 : 7,
+                            horizontal: categoryIndex == 1 ? 35 : 25,
+                          ),
+                          gradient: LinearGradient(colors: CColors.pinkGradientColor),
+                        ),
+                        CustomButton(
+                          text: "English",
+                          onPressed: () {
+                            category = "English";
+                            setState(() {
+                              if (categoryIndex == 2) {
+                                categoryIndex = -1;
+                              } else {
+                                categoryIndex = 2;
+                              }
+                            });
+                          },
+                          buttonPadding: EdgeInsets.symmetric(
+                            vertical: categoryIndex == 2 ? 10 : 7,
+                            horizontal: categoryIndex == 2 ? 35 : 25,
+                          ),
+                          gradient: LinearGradient(colors: CColors.greenGradientColor),
+                        ),
                       ],
                     ),
-                  )
+                    midSizedBoxHeight,
+                    Text(
+                      "+ Add category",
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
 
+                    // CREATE STACK BUTTON
+                    const Expanded(child: SizedBox()),
+                    CustomButton(
+                      text: "Create new card stack",
+                      onPressed: () async {
+                        CardStack cardStack = await getCardStackFromNavigator();
+                      },
+                      buttonPadding: buttonPadding,
+                    ),
+
+                    const SizedBox(height: bottomNavBarHeight,)
+                  ],
                 ),
-              ],
+              )
+
             ),
-            SizedBox(
-              height: height + bottomNavBarHeight,
-              child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: CustomBottomNavBar(MyApp.navigatorKey)
-              ),
-            )
           ],
         ),
       ),

@@ -33,9 +33,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  static final _navigatorKey = GlobalKey<NavigatorState>();
-  static GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
-
   MyApp({super.key});
 
   @override

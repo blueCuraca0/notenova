@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_app_bar.dart';
-import 'package:notenova/features/cards/data/models/flashcard_stack_model.dart';
 import 'package:notenova/features/cards/presentation/pages/card_stacks_page.dart';
 import '../../../../core/style/c_colors.dart';
 import '../../../../core/widgets/congratulations_dialog.dart';
 import '../../domain/entities/flashcard.dart';
+import '../../domain/entities/flashcard_stack.dart';
 import '../tiles/flashcard_tile.dart';
 
 class FlashcardPage extends StatefulWidget {

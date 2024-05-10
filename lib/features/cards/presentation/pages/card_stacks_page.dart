@@ -41,80 +41,69 @@ class CardStacksPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: CColors.accent,
         resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: [
-            SizedBox(
-              height: height,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // header
-                  Container(
-                    height: height / 5,
-                    width: width,
-                    alignment: Alignment.bottomLeft,
-                    child: Padding(
-                      padding: largePadding,
+        body: SizedBox(
+          height: height,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // header
+              Container(
+                height: height / 5,
+                width: width,
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: largePadding,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Cards",
+                        style: titleTextStyle,
+                      ),
+                      Text(
+                        "Let's study!",
+                        style: subtitleTextStyle,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // lighter bg
+              LightRoundedBG(
+                height: height / 5 * 4,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 30,
+                        right: 30,
+                        top: 30,
+                      ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Cards",
-                            style: titleTextStyle,
-                          ),
-                          Text(
-                            "Let's study!",
-                            style: subtitleTextStyle,
+                          CustomSearchBar(baseColor: Theme.of(context).cardColor),
+                          bigSizedBoxHeight,
+                          CustomButton(
+                              text: "Create card stack",
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                    _createRoute(const CreateCardStackPage()
+                                ));
+                              }
                           ),
                         ],
                       ),
                     ),
-                  ),
-
-                  // lighter bg
-                  LightRoundedBG(
-                    height: height / 5 * 4,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 30,
-                            right: 30,
-                            top: 30,
-                          ),
-                          child: Column(
-                            children: [
-                              CustomSearchBar(baseColor: Theme.of(context).cardColor),
-                              bigSizedBoxHeight,
-                              CustomButton(
-                                  text: "Create card stack",
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                        _createRoute(const CreateCardStackPage()
-                                    ));
-                                  }
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Expanded(
-                          child: CardStackList(),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: height,
-              child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: CustomBottomNavBar(MyApp.navigatorKey)
-              ),
-            )
-          ],
+                    const Expanded(
+                      child: CardStackList(),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

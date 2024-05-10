@@ -54,9 +54,6 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void _singInAnonymous() {
-
-  }
 
   @override
   Widget build(BuildContext context) {
