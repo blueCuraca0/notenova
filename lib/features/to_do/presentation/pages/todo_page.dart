@@ -21,75 +21,64 @@ class ToDoPage extends StatelessWidget {
       create: (context) => TaskCubit(TaskFirestoreService()),
       child: Scaffold(
         backgroundColor: CColors.accent,
-        body: Stack(
-          children: [
-            CustomScrollView(
-              slivers: [
-                SliverAppBar(
-                  expandedHeight: MediaQuery.of(context).size.height * 0.1,
-                  floating: true,
-                  pinned: false,
-                  automaticallyImplyLeading: false,
-                  backgroundColor: Theme.of(context).primaryColor,
-                  surfaceTintColor: Theme.of(context).primaryColor,
-                  flexibleSpace: LayoutBuilder(
-                    builder: (BuildContext context, BoxConstraints constraints) {
-                      return FlexibleSpaceBar(
-                        titlePadding: EdgeInsets.only(
-                            left: 10, top: constraints.maxHeight - 70),
-                        title: Padding(
-                          padding: smallerPadding,
-                          child: Row(
-                            children: [
-                              Text('To-do',
-                                  style: Theme.of(context).textTheme.bodyLarge),
-                              const Spacer(),
-                              Icon(
-                                Icons.person,
-                                color: Theme.of(context).cardColor,
-                              ),
-                            ],
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              expandedHeight: MediaQuery.of(context).size.height * 0.1,
+              floating: true,
+              pinned: false,
+              automaticallyImplyLeading: false,
+              backgroundColor: Theme.of(context).primaryColor,
+              surfaceTintColor: Theme.of(context).primaryColor,
+              flexibleSpace: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  return FlexibleSpaceBar(
+                    titlePadding: EdgeInsets.only(
+                        left: 10, top: constraints.maxHeight - 70),
+                    title: Padding(
+                      padding: smallerPadding,
+                      child: Row(
+                        children: [
+                          Text('To-do',
+                              style: Theme.of(context).textTheme.bodyLarge),
+                          const Spacer(),
+                          Icon(
+                            Icons.person,
+                            color: Theme.of(context).cardColor,
                           ),
-                        ),
-                        background:
-                            ColoredBox(color: Theme.of(context).primaryColor),
-                      );
-                    },
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Row(
-                      children: [
-                        Text('${DateTime.now().day.toString()} ',
-                            style: Theme.of(context).textTheme.bodyMedium),
-                        Text('${DateFormat('MMMM').format(DateTime.now())}, ',
-                            style: Theme.of(context).textTheme.bodyMedium),
-                        Text('${DateTime.now().year.toString()} ',
-                            style: Theme.of(context).textTheme.bodyMedium),
-                        const Spacer(),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ),
-                const SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 10,
-                  ),
-                ),
-                const SliverToBoxAdapter(
-                  child: CalendarTaskList(),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: height,
-              child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: CustomBottomNavBar(MyApp.navigatorKey)
+                    background:
+                        ColoredBox(color: Theme.of(context).primaryColor),
+                  );
+                },
               ),
-            )
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  children: [
+                    Text('${DateTime.now().day.toString()} ',
+                        style: Theme.of(context).textTheme.bodyMedium),
+                    Text('${DateFormat('MMMM').format(DateTime.now())}, ',
+                        style: Theme.of(context).textTheme.bodyMedium),
+                    Text('${DateTime.now().year.toString()} ',
+                        style: Theme.of(context).textTheme.bodyMedium),
+                    const Spacer(),
+                  ],
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 10,
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: CalendarTaskList(),
+            ),
           ],
         ),
       ),

@@ -21,80 +21,67 @@ class StudyMaterialsPage extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
 
     return Scaffold(
-      body: Stack(
+      body: Column(
         children: [
-          Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(70),
-                alignment: Alignment.center,
-                child: const Text(
-                  "Study Materials Page",
-                  style: TextStyle(fontSize: 25),
-                ),
-              ),
+          Container(
+            padding: const EdgeInsets.all(70),
+            alignment: Alignment.center,
+            child: const Text(
+              "Study Materials Page",
+              style: TextStyle(fontSize: 25),
+            ),
+          ),
 
-              Padding(
-                padding: const EdgeInsets.all(30),
-                child: Column(
+          Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomButton(
-                          text: "Cards",
-                          color: Theme.of(context).cardColor,
-                          buttonPadding: buttonPadding,
-                          width: width / 2 - 40,
-                          height: bottomNavBarHeight * 3,
-                          onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return const CardStacksPage();
-                            }));
-                          },
-                        ),
-                        CustomButton(
-                          text: "Quizzes",
-                          color: Theme.of(context).cardColor,
-                          buttonPadding: buttonPadding,
-                          width: width / 2 - 40,
-                          height: bottomNavBarHeight * 3,
-                          onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return QuizPage();
-                            }));
-                          },
-                        ),
-                      ],
-                    ),
-
-                    bigSizedBoxHeight,
-
-                    // S U M M A R Y
                     CustomButton(
-                      text: "Summaries",
+                      text: "Cards",
                       color: Theme.of(context).cardColor,
                       buttonPadding: buttonPadding,
-                      height: bottomNavBarHeight * 2,
+                      width: width / 2 - 40,
+                      height: bottomNavBarHeight * 3,
                       onPressed: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return const SummariesPage();
+                          return const CardStacksPage();
                         }));
                       },
                     ),
-
+                    CustomButton(
+                      text: "Quizzes",
+                      color: Theme.of(context).cardColor,
+                      buttonPadding: buttonPadding,
+                      width: width / 2 - 40,
+                      height: bottomNavBarHeight * 3,
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return QuizPage();
+                        }));
+                      },
+                    ),
                   ],
                 ),
-              )
-            ],
-          ),
 
+                bigSizedBoxHeight,
 
-          SizedBox(
-            height: height,
-            child: Align(
-                alignment: Alignment.bottomCenter,
-                child: CustomBottomNavBar(MyApp.navigatorKey)
+                // S U M M A R Y
+                CustomButton(
+                  text: "Summaries",
+                  color: Theme.of(context).cardColor,
+                  buttonPadding: buttonPadding,
+                  height: bottomNavBarHeight * 2,
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return const SummariesPage();
+                    }));
+                  },
+                ),
+
+              ],
             ),
           )
         ],
