@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
@@ -28,42 +29,50 @@ class QuizCard extends StatelessWidget {
               }));
             },
             child: Container(
-              padding: smallPadding,
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 30),
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
                 boxShadow: [
                   BoxShadow(
                     color: Theme.of(context).shadowColor,
                     blurRadius: 10,
-                    offset: const Offset(0, 5),
+                    offset: const Offset(10, 10),
                   ),
                 ],
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(30),
               ),
               child: Row(
                 children: [
                   midSizedBoxWidth,
-                  Container(
-                    decoration: BoxDecoration(
+                  ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                    ),
                     child: Image.network(
                       quiz.image,
-                      height: 100,
-                      width: 100,
+                      height: MediaQuery.of(context).size.height * 0.11,
+                      width: MediaQuery.of(context).size.width * 0.26,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  midSizedBoxWidth,
+                  bigSizedBoxWidth,
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        quiz.title,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                      Row(
+                        children: [
+                          smallSizedBoxWidth,
+                          Text(
+                            quiz.title,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
                       ),
                       midSizedBoxHeight,
-                      CustomCategory(
-                        category: quiz.category==null ? "Unknown": quiz.category!.name,
+                      CustomButton(
+                        text: quiz.category==null ? "Unknown": quiz.category!.name,
+                        onPressed: () {},
+                        gradient: LinearGradient(
+                          colors: quiz.category==null? CColors.pinkGradientColor: quiz.category!.gradient,
+                        ),
                       ),
                     ],
                   ),

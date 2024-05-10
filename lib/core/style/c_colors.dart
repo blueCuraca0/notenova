@@ -26,6 +26,21 @@ class CColors {
     const Color(0xffC8E1C9)
   ];
 
+  static List<Color> darkPinkGradientColor = [
+    const Color(0xff893C4E),
+    const Color(0xffE8897D)
+  ];
+
+  static List<Color> darkBlueGradientColor = [
+    const Color(0xff1B2944),
+    const Color(0xff334669)
+  ];
+
+  static List<Color> darkGreenGradientColor = [
+    const Color(0xff476842),
+    const Color(0xffBBCDBB)
+  ];
+
   static const Color darkPrimary = Color(0xff1B2944);
   static const Color darkPrimarySoft = Color(0xff334669);
   static const Color veryDark = Color(0xff0D1930);
