@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../style/c_colors.dart';
 import '../utils/c_routes.dart';
+import '../utils/constants.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final GlobalKey<NavigatorState> _navigator;
 
   const CustomBottomNavBar(this._navigator, {super.key});
 
-  static const double _bottomNavBarHeightPanel = 80;
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: _bottomNavBarHeightPanel,
+        height: bottomNavBarHeight,
         child: Stack(
           children: [
             ClipRRect(
@@ -41,7 +40,7 @@ class CustomBottomNavBar extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: SizedBox(
-                height: _bottomNavBarHeightPanel,
+                height: bottomNavBarHeight,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,

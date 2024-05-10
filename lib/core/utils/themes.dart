@@ -9,9 +9,7 @@ ThemeData lightTheme = ThemeData(
   primaryColorLight: CColors.accentSoft,
   shadowColor: CColors.shadow,
   cardColor: CColors.white,
-
   scaffoldBackgroundColor: CColors.accentSoft,
-
   textTheme: TextTheme(
     bodyLarge: GoogleFonts.ubuntu(
       fontSize: largeTextSize,
@@ -36,7 +34,6 @@ ThemeData darkTheme = ThemeData(
   primaryColorDark: CColors.veryDark,
   primaryColorLight: CColors.darkPrimarySoft,
   cardColor: CColors.darkPrimary,
-
   textTheme: TextTheme(
     bodyLarge: GoogleFonts.ubuntu(
       fontSize: largeTextSize,

@@ -2,16 +2,30 @@ class Summary {
   final String id;
   final String name;
   final String description;
-  final List<String> photosUrl;
-  final bool isCompleted;
-  final int category;
+  final String photoUrl;
+  final String category;
 
-  Summary(
-    this.photosUrl, {
-    required this.isCompleted,
+  Summary({
     required this.id,
     required this.name,
     required this.description,
     required this.category,
+    required this.photoUrl,
   });
+
+  Summary copyWith({
+    String? id,
+    String? name,
+    String? category,
+    String? photoUrl,
+    String? description,
+  }) {
+    return Summary(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      photoUrl: photoUrl ?? this.photoUrl,
+      description: description ?? this.description,
+      category: category ?? this.category,
+    );
+  }
 }

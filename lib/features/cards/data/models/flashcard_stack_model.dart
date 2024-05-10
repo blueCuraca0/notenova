@@ -2,9 +2,14 @@ import '../../domain/entities/flashcard.dart';
 
 class CardStack {
   String name;
+  String description = '';
+  String category = '';
   List<Flashcard> cardsList;
 
-  CardStack(this.name, this.cardsList);
+  CardStack(this.name, this.cardsList, {String? description, String? category}) {
+    this.description = description ?? '';
+    this.category = category ?? '';
+  }
 
   static CardStack cardStackFromJson(Map<String, dynamic> json) {
     List<Map<String, dynamic>> listOfCardMaps = [...json['cards']];

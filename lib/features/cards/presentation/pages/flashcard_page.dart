@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
+import 'package:notenova/core/widgets/custom_app_bar.dart';
 import 'package:notenova/features/cards/data/models/flashcard_stack_model.dart';
-import 'package:notenova/features/cards/data/firebase_service.dart';
+import 'package:notenova/features/cards/presentation/pages/card_stacks_page.dart';
 import '../../../../core/style/c_colors.dart';
+import '../../../../core/widgets/congratulations_dialog.dart';
 import '../../domain/entities/flashcard.dart';
-import '../cards/flashcard_tile.dart';
+import '../tiles/flashcard_tile.dart';
 
 class FlashcardPage extends StatefulWidget {
   final CardStack _cardStack;
@@ -35,7 +37,16 @@ class _FlashcardPageState extends State<FlashcardPage> {
       _currentFlashcard++;
     } else {
       _currentFlashcard = 0;
-      // TODO: show that user had finished this stack
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => CongratulationsDialog(
+          title: 'Congratulations 🎉',
+          content: 'This stack is finished! \nYour results are '
+              '$_wellLearnedCards/${_flashcardList.length}',
+          actionText: 'Back to card stacks'
+        )
+      );
     }
   }
 
@@ -44,119 +55,121 @@ class _FlashcardPageState extends State<FlashcardPage> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    return StreamBuilder<Object>(
-        stream: null,
-        builder: (context, snapshot) {
-          return Material(
-            child: Scaffold(
-              backgroundColor: CColors.accent,
-              body: Stack(
-                alignment: Alignment.center,
-                children: [
-                  // card ui
-                  SizedBox(
-                    height: height,
-                    width: width,
-                    child: Column(
-                      children: [
-                        Container(
-                          // color: Colors.purple.withOpacity(0.1),
-                          height: height / 15 * 2,
-                          alignment: Alignment.bottomCenter,
-                          child: Text(
-                            widget._cardStack.name,
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                        ),
-                        Container(
-                          // color: Colors.cyanAccent.withOpacity(0.1),
-                          height: height / 15,
-                          alignment: Alignment.center,
-                          child: Text(
-                            "${_wellLearnedCards + _needRepeatCards}/${_flashcardList.length}",
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ),
-                        Container(
-                          // color: Colors.orange.withOpacity(0.1),
-                          height: height / 15,
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: CColors.transparentPink,
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(0),
-                                    bottomLeft: Radius.circular(0),
-                                    topRight: Radius.circular(20),
-                                    bottomRight: Radius.circular(20),
-                                  ),
-                                  boxShadow: neumorphismShadowSmallCard
-                                ),
-                                width: width / 6,
-                                alignment: Alignment.center,
-                                child: Text("$_needRepeatCards"),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: CColors.primary,
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    bottomLeft: Radius.circular(20),
-                                    topRight: Radius.circular(0),
-                                    bottomRight: Radius.circular(0),
-                                  ),
-                                  boxShadow: neumorphismShadowSmallCard
-                                ),
-                                width: width / 6,
-                                alignment: Alignment.center,
-                                child: Text("$_wellLearnedCards"),
+    return PopScope(
+      canPop: false,
+      child: StreamBuilder<Object>(
+          stream: null,
+          builder: (context, snapshot) {
+            return Material(
+              child: Scaffold(
+                backgroundColor: CColors.accent,
+                body: SizedBox(
+                  height: height,
+                  width: width,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: height / 15 * 2,
+                        child: CustomAppBar(
+                          screenHeight: height,
+                          title: widget._cardStack.name,
+                          onPressedBack: () {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const CardStacksPage()
                               )
-                            ],
-                          ),
+                            );
+                          },
                         ),
-                        SizedBox(
-                          // color: Colors.red.withOpacity(0.2),
-                          height: height / 15 * 11,
-                          child: GestureDetector(
-                            onPanUpdate: (details) {
-                              setState(() {
-                                _offset += details.delta;
-                              });
-                            },
-                            onPanEnd: (details) {
-                              setState(() {
-                                if ((_offset.dx).abs() > width / 4) {
-                                  if (_offset.dx > 0) {
-                                    _wellLearnedCards++;
-                                  } else {
-                                    _needRepeatCards++;
-                                  }
-                                }
-                                nextFlashCard();
-                                _offset = Offset.zero;
-                              });
-                            },
-                            child: Transform.translate(
-                              offset: _offset,
-                              child: SizedBox(
-                                  height: height / 5 * 4,
-                                  child: FlashcardTile(_flashcardList[_currentFlashcard])
+                      ),
+                      Container(
+                        // color: Colors.cyanAccent.withOpacity(0.1),
+                        height: height / 15,
+                        alignment: Alignment.center,
+                        child: Text(
+                          "${_wellLearnedCards + _needRepeatCards}/${_flashcardList.length}",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ),
+                      Container(
+                        // color: Colors.orange.withOpacity(0.1),
+                        height: height / 15,
+                        alignment: Alignment.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: CColors.transparentPink,
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(0),
+                                  bottomLeft: Radius.circular(0),
+                                  topRight: Radius.circular(20),
+                                  bottomRight: Radius.circular(20),
+                                ),
+                                boxShadow: neumorphismShadowSmallCard
                               ),
+                              width: width / 6,
+                              alignment: Alignment.center,
+                              child: Text("$_needRepeatCards"),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: CColors.primary,
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20),
+                                  topRight: Radius.circular(0),
+                                  bottomRight: Radius.circular(0),
+                                ),
+                                boxShadow: neumorphismShadowSmallCard
+                              ),
+                              width: width / 6,
+                              alignment: Alignment.center,
+                              child: Text("$_wellLearnedCards"),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        // color: Colors.red.withOpacity(0.2),
+                        height: height / 15 * 11,
+                        child: GestureDetector(
+                          onPanUpdate: (details) {
+                            setState(() {
+                              _offset += details.delta;
+                            });
+                          },
+                          onPanEnd: (details) {
+                            setState(() {
+                              if ((_offset.dx).abs() > width / 4) {
+                                if (_offset.dx > 0) {
+                                  _wellLearnedCards++;
+                                } else {
+                                  _needRepeatCards++;
+                                }
+                              }
+                              nextFlashCard();
+                              _offset = Offset.zero;
+                            });
+                          },
+                          child: Transform.translate(
+                            offset: _offset,
+                            child: SizedBox(
+                                height: height / 5 * 4,
+                                child: _flashcardList.isEmpty
+                                    ? const Text("sorry, cannot load your cards :(")
+                                    : FlashcardTile(_flashcardList[_currentFlashcard])
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-
-                  // TODO: appbar, navbar etc.
-                ],
+                ),
               ),
-            ),
-          );
-        });
+            );
+          }),
+    );
   }
 }

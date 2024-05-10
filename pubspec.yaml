@@ -40,11 +40,13 @@ dependencies:
   cloud_firestore: ^4.17.2
   easy_localization: ^3.0.6
   google_fonts: ^6.2.0
+  firebase_auth: ^4.19.5
   flutter_local_notifications: ^17.1.2
   timezone: ^0.9.3
   uuid: ^4.4.0
   flutter_bloc: ^8.1.5
-
+  image_picker: ^1.1.1
+  bloc: ^8.1.4
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -70,7 +72,7 @@ flutter:
   assets:
     - assets/images/
     - assets/translations/
-
+    - assets/service_credentials.json
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

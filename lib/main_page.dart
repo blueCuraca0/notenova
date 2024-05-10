@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/cards/presentation/pages/card_stacks_page.dart';
+import 'package:notenova/features/summary/presentation/pages/summary_page.dart';
 
 import 'core/utils/c_routes.dart';
 import 'core/widgets/bottom_nav_bar.dart';
@@ -7,11 +9,10 @@ import 'features/profile/presentation/pages/user_profile_page.dart';
 import 'features/quiz_and_card/presentation/pages/study_materials_page.dart';
 import 'features/tips/presentation/pages/homepage.dart';
 import 'features/to_do/presentation/pages/todo_page.dart';
+import 'main.dart';
 
 class MainPage extends StatelessWidget {
-  final _navigatorKey = GlobalKey<NavigatorState>();
-
-  MainPage({super.key});
+  const MainPage({super.key});
 
   Route _onGenerateRoute(RouteSettings settings) {
     late Widget page;
@@ -32,15 +33,9 @@ class MainPage extends StatelessWidget {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => page,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(0.0, 1.0);
-        const end = Offset.zero;
-        const curve = Curves.ease;
-
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-        return SlideTransition(
-          position: animation.drive(tween),
+        final tween = Tween<double>(begin: 0.0, end: 1.0).chain(CurveTween(curve: Curves.ease));
+        return FadeTransition(
+          opacity: animation.drive(tween),
           child: child,
         );
       },
@@ -49,27 +44,17 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-           //page itself
-          Navigator(
-             key: _navigatorKey,
+    final height = MediaQuery.sizeOf(context).height;
+
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: height,
+          child: Navigator(
+            key: MyApp.navigatorKey,
             initialRoute: CRoutes.routeHomepage,
             onGenerateRoute: _onGenerateRoute,
-           ),
-
-          //const ToDoPage(),
-          //const CardStacksPage(),
-          Column(
-            children: [
-              const Expanded(child: SizedBox()),
-              CustomBottomNavBar(_navigatorKey),
-            ],
-          )
-        ],
       ),
     );
   }

@@ -5,8 +5,11 @@ import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/core/widgets/custom_search_bar.dart';
 import 'package:notenova/features/cards/presentation/pages/create_card_stack_page.dart';
 import 'package:notenova/features/cards/presentation/widgets/card_stack_list.dart';
+import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.dart';
 
 import '../../../../core/style/c_colors.dart';
+import '../../../../core/widgets/bottom_nav_bar.dart';
+import '../../../../main.dart';
 
 class CardStacksPage extends StatelessWidget {
   const CardStacksPage({super.key});
@@ -31,65 +34,66 @@ class CardStacksPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height ;
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
 
     return Material(
       child: Scaffold(
         backgroundColor: CColors.accent,
         resizeToAvoidBottomInset: false,
         body: Stack(
-          alignment: Alignment.center,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // header
-                Container(
-                  height: height / 5,
-                  width: width,
-                  alignment: Alignment.bottomLeft,
-                  child: Padding(
-                    padding: largePadding,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Cards",
-                          style: titleTextStyle,
-                        ),
-                        Text(
-                          "Let's study!",
-                          style: subtitleTextStyle,
-                        ),
-                      ],
+            SizedBox(
+              height: height,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // header
+                  Container(
+                    height: height / 5,
+                    width: width,
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding: largePadding,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Cards",
+                            style: titleTextStyle,
+                          ),
+                          Text(
+                            "Let's study!",
+                            style: subtitleTextStyle,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
 
-                // lighter bg
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(40),
-                  child: Container(
-                    color: CColors.accentSoft,
+                  // lighter bg
+                  LightRoundedBG(
                     height: height / 5 * 4,
-                    // padding: largePadding,
                     child: Column(
                       children: [
-                        Container(
-                          padding: const EdgeInsets.only(top: 30, left: 30, right: 30),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 30,
+                            right: 30,
+                            top: 30,
+                          ),
                           child: Column(
                             children: [
                               CustomSearchBar(baseColor: Theme.of(context).cardColor),
                               bigSizedBoxHeight,
                               CustomButton(
-                                text: "Create card stack",
-                                onPressed: () {
-                                  Navigator.of(context).push(
-                                      _createRoute(const CreateCardStackPage()
-                                  ));
-                                }
+                                  text: "Create card stack",
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                        _createRoute(const CreateCardStackPage()
+                                    ));
+                                  }
                               ),
                             ],
                           ),
@@ -99,12 +103,17 @@ class CardStacksPage extends StatelessWidget {
                         )
                       ],
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: height,
+              child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: CustomBottomNavBar(MyApp.navigatorKey)
+              ),
             )
-
-            // TODO: appbar, navbar etc.
           ],
         ),
       ),
