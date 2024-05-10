@@ -1,10 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:notenova/core/utils/c_routes.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/features/cards/data/firebase_service.dart';
-import 'package:notenova/features/cards/data/models/flashcard_stack_model.dart';
 import 'package:notenova/features/cards/presentation/pages/flashcard_page.dart';
 import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.dart';
 
@@ -14,6 +10,7 @@ import '../../../../core/widgets/bottom_nav_bar.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../main.dart';
 import '../../domain/entities/flashcard.dart';
+import '../../domain/entities/flashcard_stack.dart';
 import '../tiles/card_editing_tile.dart';
 
 class CreateCardsPage extends StatefulWidget {

@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:notenova/core/widgets/custom_button.dart';
-import 'package:notenova/features/cards/presentation/pages/flashcard_page.dart';
 import 'package:notenova/features/cards/presentation/widgets/learning_mode_dialod.dart';
 
 import '../../../../core/style/c_colors.dart';
 import '../../../../core/utils/constants.dart';
-import '../../data/models/flashcard_stack_model.dart';
+import '../../domain/entities/flashcard_stack.dart';
 
 class CardStackTile extends StatelessWidget {
   final CardStack _cardStack;

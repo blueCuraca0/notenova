@@ -13,6 +13,7 @@ import '../../../../core/style/c_colors.dart';
 import '../../../../core/widgets/bottom_nav_bar.dart';
 import '../../../../main.dart';
 import '../../data/models/flashcard_stack_model.dart';
+import '../../domain/entities/flashcard_stack.dart';
 import 'create_cards_page.dart';
 
 class CreateCardStackPage extends StatefulWidget {
@@ -50,10 +51,10 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
     final cardStack = await Navigator.of(context).push(
         _createRoute(CreateCardsPage(
             CardStack(
-                title,
-                [],
-                description: description,
-                category: category
+              title,
+              [],
+              description: description,
+              category: category
             )
         ))
     );
