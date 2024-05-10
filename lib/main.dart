@@ -29,11 +29,14 @@ Future<void> main() async {
       path: 'assets/translations',
       assetLoader: const CodegenLoader(),
       fallbackLocale: const Locale('en'),
-      child: const MyApp()));
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  static final _navigatorKey = GlobalKey<NavigatorState>();
+  static GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
+
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +48,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'NoteNova',
       theme: lightTheme,
-      color: Colors.cyan,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
-      initialRoute: CRoutes.routeAuthorizationPage,
+      initialRoute: CRoutes.routeMainPage,
       routes: {
         CRoutes.routeAuthorizationPage: (context) => const AuthorizationPage(),
         CRoutes.routeMainPage: (context) => MultiBlocProvider(

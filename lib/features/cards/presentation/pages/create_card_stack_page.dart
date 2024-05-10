@@ -10,6 +10,8 @@ import 'package:notenova/features/cards/presentation/pages/flashcard_page.dart';
 import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.dart';
 
 import '../../../../core/style/c_colors.dart';
+import '../../../../core/widgets/bottom_nav_bar.dart';
+import '../../../../main.dart';
 import '../../data/models/flashcard_stack_model.dart';
 import 'create_cards_page.dart';
 
@@ -66,7 +68,7 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height - bottomNavBarHeight;
 
     return Material(
       child: Scaffold(
@@ -78,9 +80,8 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 SizedBox(
-                  height: height / 15 * 2,
+                  height: height / 20 * 3,
                   child: CustomAppBar(
                     screenHeight: height,
                     title: "New Card Stack",
@@ -89,11 +90,9 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
                     },
                   ),
                 ),
-
                 midSizedBoxHeight,
-
                 LightRoundedBG(
-                  height: height / 15 * 13 - (midSizedBoxHeight.height ?? 0),
+                  height: height / 20 * 17 - (midSizedBoxHeight.height ?? 0) + bottomNavBarHeight,
                   child: Padding(
                     padding: const EdgeInsets.all(30),
                     child: Column(
@@ -219,10 +218,16 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
                     ),
                   )
 
-                )
-
+                ),
               ],
             ),
+            SizedBox(
+              height: height + bottomNavBarHeight,
+              child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: CustomBottomNavBar(MyApp.navigatorKey)
+              ),
+            )
           ],
         ),
       ),
