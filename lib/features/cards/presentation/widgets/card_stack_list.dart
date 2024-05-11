@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/features/cards/data/firebase_service.dart';
 import 'package:notenova/features/cards/presentation/tiles/card_stack_tile.dart';
@@ -15,7 +16,7 @@ class CardStackList extends StatelessWidget {
       stream: FirebaseService.getCardStackStream(),
       builder: (context, snapshot) {
 
-        if (!snapshot.hasData || snapshot.data == null ) {
+        if (!snapshot.hasData || snapshot.data == null) {
           return const SizedBox();
         }
 
@@ -36,16 +37,14 @@ class CardStackList extends StatelessWidget {
             itemCount: cardStackList.length,
             itemBuilder: (context, index) {
               DocumentSnapshot document = cardStackList[index];
+
               // getting a single card stack
               Map<String, dynamic> data = document.data() as Map<String, dynamic>;
               CardStack cardStack = CardStackModel.cardStackFromJson(data);
 
-              // outputs card stack's info (for testing)
-              // List<dynamic> cards = data['cards'] as List<dynamic>;
-              // print(data['name']);
-              // for(var card in cards) {
-              //   print("$card");
-              // }
+              if (data['uid'] != FirebaseAuth.instance.currentUser?.uid) {
+                return const SizedBox();
+              }
 
               return CardStackTile(cardStack);
             },
