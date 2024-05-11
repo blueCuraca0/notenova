@@ -70,85 +70,100 @@ class TextRecognition extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: smallPadding,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            midSizedBoxHeight,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                CustomButton(
-                  width: 170,
-                  color: Theme.of(context).primaryColorLight,
-                  onPressed: () {
-                    context
-                        .read<TextRecognitionCubit>()
-                        .getImageAndRecognize(ImageSource.gallery);
-                  },
-                  text: LocaleKeys.select_image_from_gallery.tr(),
-                ),
-                midSizedBoxHeight,
-                CustomButton(
-                  width: 170,
-                  color: Theme.of(context).primaryColorLight,
-                  onPressed: () {
-                    context
-                        .read<TextRecognitionCubit>()
-                        .getImageAndRecognize(ImageSource.camera);
-                  },
-                  text: LocaleKeys.select_image_from_photo.tr(),
-                ),
-              ],
-            ),
-            midSizedBoxHeight,
-            BlocBuilder<TextRecognitionCubit, TextRecognitionState>(
-              builder: (context, state) {
-                if (state is TextRecognitionInitial) {
-                  return const Text('Select an image to recognize text');
-                } else if (state is TextRecognitionLoading) {
-                  return const CircularProgressIndicator();
-                } else if (state is TextRecognitionLoaded) {
-                  return Column(
-                    children: [
-                      if (state.selectedImage != null) midSizedBoxHeight,
-                      Padding(
-                          padding: smallPadding,
-                          child: Image.file(state.selectedImage!)),
-                      Text(
-                        LocaleKeys.recognition_text.tr(),
-                        style: Theme.of(context).textTheme.bodyLarge,
+    return ListView(
+      children: [
+        Padding(
+          padding: smallPadding,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              midSizedBoxHeight,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CustomButton(
+                    width: 170,
+                    color: Theme.of(context).primaryColorLight,
+                    onPressed: () {
+                      context
+                          .read<TextRecognitionCubit>()
+                          .getImageAndRecognize(ImageSource.gallery);
+                    },
+                    text: LocaleKeys.select_image_from_gallery.tr(),
+                  ),
+                  midSizedBoxHeight,
+                  CustomButton(
+                    width: 170,
+                    color: Theme.of(context).primaryColorLight,
+                    onPressed: () {
+                      context
+                          .read<TextRecognitionCubit>()
+                          .getImageAndRecognize(ImageSource.camera);
+                    },
+                    text: LocaleKeys.select_image_from_photo.tr(),
+                  ),
+                ],
+              ),
+              midSizedBoxHeight,
+              BlocBuilder<TextRecognitionCubit, TextRecognitionState>(
+                builder: (context, state) {
+                  if (state is TextRecognitionInitial) {
+                    return Center(
+                        child:
+                            Text(LocaleKeys.select_an_image_to_recognize.tr()));
+                  } else if (state is TextRecognitionLoading) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 250.0),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                            strokeWidth: 10.0,
+                            color: Theme.of(context).primaryColorDark),
                       ),
-                      midSizedBoxHeight,
-                      SingleChildScrollView(
-                        child: Text(
-                          state.detectedText,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
+                    );
+                  } else if (state is TextRecognitionLoaded) {
+                    return SizedBox(
+                      height: 900,
+                      child: Column(
+                        children: [
+                          midSizedBoxHeight,
+                          CustomButton(
+                            color: Theme.of(context).primaryColorLight,
+                            onPressed: () {
+                              Navigator.pop(context, state.detectedText);
+                            },
+                            text: LocaleKeys.add.tr(),
+                          ),
+                          if (state.selectedImage != null) midSizedBoxHeight,
+                          Padding(
+                              padding: mediumPadding,
+                              child: Image.file(state.selectedImage!)),
+                          Text(
+                            LocaleKeys.recognition_text.tr(),
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          midSizedBoxHeight,
+                          Expanded(
+                            child: Text(
+                              state.detectedText,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ),
+                          bigSizedBoxHeight,
+                          bigSizedBoxHeight,
+                        ],
                       ),
-                      bigSizedBoxHeight,
-                      bigSizedBoxHeight,
-                      CustomButton(
-                        color: Theme.of(context).primaryColorDark,
-                        onPressed: () {
-                          Navigator.pop(context, state.detectedText);
-                        },
-                        text: LocaleKeys.add.tr(),
-                      ),
-                    ],
-                  );
-                } else if (state is TextRecognitionError) {
-                  return const Text('Error occurred! Please, try again.');
-                } else {
-                  return Container();
-                }
-              },
-            ),
-          ],
+                    );
+                  } else if (state is TextRecognitionError) {
+                    return Text(LocaleKeys.error_occured.tr());
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
