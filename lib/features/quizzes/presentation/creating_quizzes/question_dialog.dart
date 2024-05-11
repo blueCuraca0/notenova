@@ -36,7 +36,8 @@ class QuestionDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color color = Theme.of(context).primaryColor;
+    final Color color = Theme.of(context).cardColor;
+    final Color colorButton = Theme.of(context).primaryColor;
 
     return AlertDialog(
       title: Text(title),
@@ -48,8 +49,8 @@ class QuestionDialog extends StatelessWidget {
       shadowColor: Colors.white,
       actionsAlignment: MainAxisAlignment.spaceBetween,
       actions: [
-        DialogButton(button1, color, button1Action),
-        DialogButton(button2, color, button2Action),
+        DialogButton(button1, colorButton, button1Action),
+        DialogButton(button2, colorButton, button2Action),
       ],
     );
   }

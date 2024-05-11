@@ -56,6 +56,8 @@ class MainPage extends StatelessWidget {
             initialRoute: CRoutes.routeHomepage,
             onGenerateRoute: _onGenerateRoute,
       ),
+    ),
+      ),
     );
   }
 }
