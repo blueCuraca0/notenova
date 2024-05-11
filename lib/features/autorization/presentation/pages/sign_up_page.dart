@@ -1,19 +1,18 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:notenova/core/utils/constants.dart';
-import 'package:notenova/core/widgets/congratulations_dialog.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/core/widgets/custom_textfield2.dart';
 import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+class SignUpPage extends StatefulWidget {
+  SignUpPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   String _login = '';
   String _password = '';
   String _errorMessage = '';
@@ -103,23 +102,23 @@ class _LoginPageState extends State<LoginPage> {
                         _errorMessage.isEmpty
                             ? const SizedBox()
                             : Text(
-                                _errorMessage,
-                                style: Theme.of(context).textTheme.bodySmall
-                                    ?.copyWith(color: Theme.of(context).colorScheme.error),
-                              ),
-                        bigSizedBoxHeight,
-                        CustomButton(
-                          text: "Sign In",
-                          onPressed: () {
-                            _signInWithEmail();
-                          }
+                          _errorMessage,
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(color: Theme.of(context).colorScheme.error),
                         ),
                         bigSizedBoxHeight,
                         CustomButton(
-                          text: "Sign Up",
-                          onPressed: () {
-                            // _signIn();
-                          }
+                            text: "Sign In",
+                            onPressed: () {
+                              _signInWithEmail();
+                            }
+                        ),
+                        bigSizedBoxHeight,
+                        CustomButton(
+                            text: "Sign Up",
+                            onPressed: () {
+                              // _signIn();
+                            }
                         ),
                         bigSizedBoxHeight,
                       ],
