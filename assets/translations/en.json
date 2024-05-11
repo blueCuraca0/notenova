@@ -71,5 +71,14 @@
   "add_category": "Add category",
   "create_new_quiz": "Create new quiz",
   "quizzes": "Quizzes",
-  "quizzes": "Quizzes"
+  "update_task": "Update task",
+  "update_summary": "Update summary",
+  "no_summary": "No summary yet",
+  "select_an_image_to_recognize": "Select an image to recognize text",
+  "error_occured": "Error occurred! Please, try again.",
+  "select_text_from_photo": "Select text from photo...",
+  "to_do": "To do",
+  "select_lan": "Select Language",
+  "no_image_selected": "No image selected",
+  "select_time_date": "Select date & time"
 }

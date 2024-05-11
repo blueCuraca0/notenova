@@ -34,7 +34,15 @@ class SummariesPage extends StatefulWidget {
 }
 
 class _SummariesPageState extends State<SummariesPage> {
-  String selectedCategory = LocaleKeys.exams.tr();
+  String selectedCategory = 'Exams';
+  List<String> categoryIds = [
+    'Exams',
+    'Lectures',
+    'Workshops',
+    'Seminars',
+    'Practices',
+    'Lab_works'
+  ];
   bool isEdit = false;
 
   @override
@@ -65,7 +73,10 @@ class _SummariesPageState extends State<SummariesPage> {
               midSizedBoxWidth,
               Text(
                 LocaleKeys.my_summary.tr(),
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge
+                    ?.copyWith(fontSize: 25),
               ),
               midSizedBoxHeight,
             ],
@@ -153,35 +164,51 @@ class _SummariesPageState extends State<SummariesPage> {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: [
-          _buildCategoryButton(LocaleKeys.exams.tr(), context),
-          _buildCategoryButton(LocaleKeys.lectures.tr(), context),
-          _buildCategoryButton(LocaleKeys.workshops.tr(), context),
-          _buildCategoryButton(LocaleKeys.seminars.tr(), context),
-          _buildCategoryButton(LocaleKeys.practices.tr(), context),
-          _buildCategoryButton(LocaleKeys.lab_works.tr(), context),
-        ],
+        children: categoryIds.map((category) {
+          return _buildCategoryButton(category, context);
+        }).toList(),
       ),
     );
   }
 
-  Widget _buildCategoryButton(String category, BuildContext context) {
+  Widget _buildCategoryButton(String categoryId, BuildContext context) {
+    String categoryTranslation = getCategoryTranslation(categoryId);
+
     return TextButton(
       onPressed: () {
         setState(() {
-          selectedCategory = category;
+          selectedCategory = categoryId;
           BlocProvider.of<SummaryCubit>(context).loadSummary();
         });
       },
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10.0, 10, 10.0, 10),
-        child: Text(category,
+        child: Text(categoryTranslation,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: selectedCategory == category
+                  fontWeight: selectedCategory == categoryId
                       ? FontWeight.bold
                       : FontWeight.normal,
                 )),
       ),
     );
+  }
+
+  String getCategoryTranslation(String categoryId) {
+    switch (categoryId) {
+      case 'Exams':
+        return LocaleKeys.exams.tr();
+      case 'Lectures':
+        return LocaleKeys.lectures.tr();
+      case 'Workshops':
+        return LocaleKeys.workshops.tr();
+      case 'Seminars':
+        return LocaleKeys.seminars.tr();
+      case 'Practices':
+        return LocaleKeys.practices.tr();
+      case 'Lab_works':
+        return LocaleKeys.lab_works.tr();
+      default:
+        return '';
+    }
   }
 }

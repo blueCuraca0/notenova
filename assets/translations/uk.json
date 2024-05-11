@@ -69,5 +69,15 @@
   "definition_on_one_side": "Визначення на одному боці",
   "term_on_another": "Термін на іншому",
   "add_category": "Додати категорію",
-  "create_new_quiz": "Створити новий тест"
+  "create_new_quiz": "Створити новий тест",
+  "update_task": "Оновити завдання",
+  "update_summary": "Оновити конпект",
+  "no_summary": "Ще немає конспектів",
+  "select_an_image_to_recognize": "Виберіть зображення для розпізнавання тексту",
+  "error_occured": "Виникла помилка! Будь ласка, спробуйте ще раз.",
+  "select_text_from_photo": "Вибрати текст з фото...",
+  "to_do": "Список завдань",
+  "select_lan": "Вибрати мову",
+  "no_image_selected": "Оберіть картинку",
+  "select_time_date": "Вибрати дату & час"
 }
