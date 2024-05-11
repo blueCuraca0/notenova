@@ -1,10 +1,10 @@
-
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
 import 'package:notenova/features/quizzes/presentation/state_management/quiz_states.dart';
 import 'package:notenova/features/quizzes/domain/entities/category.dart';
 import 'package:notenova/features/quizzes/domain/entities/question.dart';
+import 'dart:math';
+import 'package:notenova/core/style/c_colors.dart';
 
 class QuizCubit extends Cubit<QuizState> {
   QuizCubit() : super(QuizInitialState());
@@ -202,5 +202,34 @@ class QuizCubit extends Cubit<QuizState> {
 
   int indexQuiz(Quiz quiz) => state.quizzes.indexOf(quiz);
 
+  //working with categories
   List<Category> get categories => state.categories;
+
+  void addCategory(String name){
+    final List<Category> categories = state.categories;
+    var randNum = Random().nextInt(3);
+    switch (randNum){
+      case 0:
+        categories.add(Category(name: name, gradient: CColors.pinkGradientColor, darkGradient: CColors.darkPinkGradientColor));
+        break;
+      case 1:
+        categories.add(Category(name: name, gradient: CColors.blueGradientColor, darkGradient: CColors.darkBlueGradientColor));
+        break;
+      case 2:
+        categories.add(Category(name: name, gradient: CColors.greenGradientColor, darkGradient: CColors.darkGreenGradientColor));
+        break;
+    }
+    emit(QuizChanged(quizzes: state.quizzes, categories: categories, newQuiz: state.newQuiz));
+  }
+
+  void deleteCategory(Category category){
+    final List<Category> categories = state.categories;
+    categories.remove(category);
+    emit(QuizChanged(quizzes: state.quizzes, categories: categories, newQuiz: state.newQuiz));
+  }
+
+  //quizzes filter
+  List<Quiz> filterQuizzes(Category category){
+    return state.quizzes.where((element) => element.category == category).toList();
+  }
 }

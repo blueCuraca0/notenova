@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/features/summary/presentation/pages/summary_page.dart';
+import 'package:notenova/features/quizzes/presentation/main_page/quiz_page.dart';
 import '../../../../core/widgets/bottom_nav_bar.dart';
 import '../../../../main.dart';
 import '../../../cards/presentation/pages/card_stacks_page.dart';
-//import 'quiz_page.dart';
 
 import '../../../cards/presentation/pages/card_stacks_page.dart';
 
@@ -50,6 +50,18 @@ class StudyMaterialsPage extends StatelessWidget {
                           return const CardStacksPage();
                         }));
                       },
+                  //  Q I Z Z E S
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return QuizPage();
+                      }));
+                    },
+                    child: Container(
+                      color: CColors.accent,
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(20),
+                      child: const Text("Quizzes"),
                     ),
                     CustomButton(
                       text: "Quizzes",

@@ -80,6 +80,8 @@ class MainPage extends StatelessWidget {
           ],
         ),
       ),
+    ),
+      ),
     );
   }
 }
