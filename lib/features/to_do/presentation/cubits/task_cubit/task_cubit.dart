@@ -20,7 +20,8 @@ class TaskCubit extends Cubit<TaskState> {
 
   Future<void> addTask(Task task) async {
     try {
-      // emit(TaskLoading());
+      emit(TaskLoading());
+      await Future.delayed(const Duration(milliseconds: 500));
       await _taskService.addTask(task);
       emit(TaskLoading());
       loadTasks();
@@ -29,8 +30,19 @@ class TaskCubit extends Cubit<TaskState> {
     }
   }
 
-  // TODO: fix update with list and checkbox !!!!!!!!!!!!!!!!
   Future<void> updateTask(Task task) async {
+    try {
+      emit(TaskLoading());
+      await Future.delayed(const Duration(milliseconds: 500));
+      await _taskService.updateTask(task);
+      emit(TaskLoading());
+      loadTasks();
+    } catch (e) {
+      emit(TaskError('Failed to update task.'));
+    }
+  }
+
+  Future<void> updateTaskCheckBox(Task task) async {
     try {
       await _taskService.updateTask(task);
     } catch (e) {

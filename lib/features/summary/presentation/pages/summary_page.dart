@@ -1,18 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
-import 'package:notenova/features/summary/data/firebase_services.dart';
-import 'package:notenova/features/summary/domain/entities/summary_model.dart';
+import 'package:notenova/features/summary/data/services/firebase_services.dart';
+import 'package:notenova/features/summary/domain/entities/summary.dart';
 import 'package:notenova/features/summary/presentation/cubits/summary_cubits/summary_cubit.dart';
 import 'package:notenova/features/summary/presentation/cubits/summary_cubits/summary_state.dart';
-import 'package:notenova/features/summary/presentation/pages/create_edit_summary_page.dart';
-import 'package:notenova/features/summary/presentation/pages/detail_summary_page.dart';
-import 'package:notenova/features/summary/presentation/widgets/cards/summary_card.dart';
+import 'package:notenova/features/summary/presentation/pages/create_edit_summary_sheet.dart';
 import 'package:notenova/features/summary/presentation/widgets/custom_back_button.dart';
+import 'package:notenova/features/summary/presentation/widgets/summary_list.dart';
 
 class SummaryPage extends StatelessWidget {
   const SummaryPage({super.key});
@@ -37,6 +35,7 @@ class SummariesPage extends StatefulWidget {
 
 class _SummariesPageState extends State<SummariesPage> {
   String selectedCategory = LocaleKeys.exams.tr();
+  bool isEdit = false;
 
   @override
   void initState() {
@@ -46,6 +45,7 @@ class _SummariesPageState extends State<SummariesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final SummaryCubit summaryCubit = BlocProvider.of<SummaryCubit>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColorDark,
       appBar: AppBar(
@@ -98,72 +98,40 @@ class _SummariesPageState extends State<SummariesPage> {
                       isScrollControlled: true,
                       context: context,
                       builder: (BuildContext context) {
-                        return const EditAndCreateSummaryPage();
+                        return EditAndCreateSummaryPage(
+                          isEdit: false,
+                          summaryCubit: summaryCubit,
+                        );
                       },
                     );
                   }),
               midSizedBoxHeight,
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    _buildCategoryButton(LocaleKeys.exams.tr(), context),
-                    _buildCategoryButton(LocaleKeys.lectures.tr(), context),
-                    _buildCategoryButton(LocaleKeys.workshops.tr(), context),
-                    _buildCategoryButton(LocaleKeys.seminars.tr(), context),
-                    _buildCategoryButton(LocaleKeys.practices.tr(), context),
-                    _buildCategoryButton(LocaleKeys.lab_works.tr(), context),
-                  ],
-                ),
-              ),
+              _selectCategoryButton(),
               BlocBuilder<SummaryCubit, SummaryState>(
                 builder: (context, state) {
                   if (state is SummaryLoading) {
-                    return const Center(child: CircularProgressIndicator());
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 300.0),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                            strokeWidth: 10.0,
+                            color: Theme.of(context).shadowColor),
+                      ),
+                    );
                   } else if (state is SummaryLoaded) {
                     final summaries = state.summaries;
+
+                    // filtration for category
                     List<Summary> filteredSummary = summaries
                         .where(
                             (summary) => summary.category == selectedCategory)
                         .toList();
-                    return ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount:
-                          filteredSummary.isEmpty ? 1 : filteredSummary.length,
-                      itemBuilder: (context, index) {
-                        if (filteredSummary.isEmpty) {
-                          return Center(
-                              child: Text(
-                            'No summary yet',
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor),
-                          ));
-                        } else {
-                          final summary = filteredSummary[index];
-                          return GestureDetector(
-                            onTap: () => {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return DetailSummaryPage(summary: summary);
-                                },
-                              ),
-                            },
-                            child: SummaryCard(summary: summary),
-                          );
-                        }
-                      },
-                    );
+                    return SummaryList(
+                        filteredSummary: filteredSummary,
+                        summaryCubit: summaryCubit);
                   } else if (state is SummaryError) {
-                    return Center(
-                      child: Text(
-                        'Error: ${state.errorMessage}',
-                        style: const TextStyle(
-                          color: Colors.red,
-                        ),
-                      ),
+                    return Text(
+                      ' ${state.errorMessage}',
                     );
                   } else {
                     return Container();
@@ -177,6 +145,22 @@ class _SummariesPageState extends State<SummariesPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _selectCategoryButton() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          _buildCategoryButton(LocaleKeys.exams.tr(), context),
+          _buildCategoryButton(LocaleKeys.lectures.tr(), context),
+          _buildCategoryButton(LocaleKeys.workshops.tr(), context),
+          _buildCategoryButton(LocaleKeys.seminars.tr(), context),
+          _buildCategoryButton(LocaleKeys.practices.tr(), context),
+          _buildCategoryButton(LocaleKeys.lab_works.tr(), context),
+        ],
       ),
     );
   }

@@ -6,11 +6,13 @@ class CustomArrowBackButton extends StatelessWidget {
   final Function onPressed;
   final double? height;
   final double? width;
+  final double? iconHeight;
   const CustomArrowBackButton({
     super.key,
     required this.onPressed,
     required this.height,
     required this.width,
+    this.iconHeight = 20,
   });
 
   @override
@@ -25,8 +27,8 @@ class CustomArrowBackButton extends StatelessWidget {
       ),
       child: IconButton(
         onPressed: () => onPressed(),
-        icon: const Icon(
-          size: 20,
+        icon: Icon(
+          size: iconHeight,
           Icons.arrow_back_ios_new,
           color: CColors.textDark,
         ),

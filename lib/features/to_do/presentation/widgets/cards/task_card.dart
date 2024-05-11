@@ -78,6 +78,7 @@ class _TaskCardState extends State<TaskCard> {
                     children: <Widget>[
                       Text(
                         widget.task.name,
+                        maxLines: 1,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       smallSizedBoxWidth,

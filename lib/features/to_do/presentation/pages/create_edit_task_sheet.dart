@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
@@ -53,50 +54,6 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    var buttonsCategory = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        CustomButton(
-          onPressed: () {
-            setState(() {
-              _selectedCategory = 'Study';
-            });
-          },
-          text: 'Study',
-          buttonPadding:
-              const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
-          gradient: LinearGradient(
-            colors: CColors.pinkGradientColor,
-          ),
-        ),
-        CustomButton(
-          onPressed: () {
-            setState(() {
-              _selectedCategory = 'Productive';
-            });
-          },
-          text: 'Productive',
-          buttonPadding:
-              const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
-          gradient: LinearGradient(
-            colors: CColors.blueGradientColor,
-          ),
-        ),
-        CustomButton(
-          onPressed: () {
-            setState(() {
-              _selectedCategory = 'Life';
-            });
-          },
-          text: 'Life',
-          buttonPadding:
-              const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
-          gradient: LinearGradient(
-            colors: CColors.greenGradientColor,
-          ),
-        ),
-      ],
-    );
     return Container(
       height: 600,
       padding: const EdgeInsets.all(20.0),
@@ -139,49 +96,10 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
             baseColor: Theme.of(context).cardColor,
           ),
           midSizedBoxHeight,
-          Row(
-            children: <Widget>[
-              const Icon(
-                Icons.notifications_active,
-                size: 20,
-                color: CColors.text,
-              ),
-              smallSizedBoxWidth,
-              GestureDetector(
-                onTap: () => _selectDateTime(context),
-                child: Text(
-                    _selectedDateTime.isAfter(DateTime.now())
-                        ? DateFormat('dd-MMMM, HH:mm').format(_selectedDateTime)
-                        : 'Select date & time',
-                    style: Theme.of(context).textTheme.bodySmall),
-              ),
-              spacer,
-              Switch(
-                  inactiveTrackColor: Theme.of(context).primaryColor,
-                  activeTrackColor: Theme.of(context).cardColor,
-                  inactiveThumbColor: Theme.of(context).primaryColorLight,
-                  activeColor: Theme.of(context).primaryColorDark,
-                  value: _notificationEnabled,
-                  onChanged: (value) {
-                    if (_selectedDateTime.isAfter(DateTime.now())) {
-                      setState(() {
-                        _notificationEnabled = value;
-                      });
-                      if (_notificationEnabled) {
-                        debugPrint(
-                            'Notification Scheduled for $_selectedDateTime');
-                        NotificationService().scheduleNotification(
-                          title: _nameController.text,
-                          body: 'Time for ${_descriptionController.text}',
-                          scheduledNotificationDateTime: _selectedDateTime,
-                        );
-                      }
-                    } else {}
-                  }),
-            ],
-          ),
+          _selectTimeAndNotifyButtons(),
           midSizedBoxHeight,
-          buttonsCategory,
+          SingleChildScrollView(
+              scrollDirection: Axis.horizontal, child: _buttonsCategory()),
           midSizedBoxHeight,
           midSizedBoxHeight,
           CustomButton(
@@ -198,6 +116,104 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _selectTimeAndNotifyButtons() {
+    return Row(
+      children: <Widget>[
+        const Icon(
+          Icons.notifications_active,
+          size: 20,
+          color: CColors.text,
+        ),
+        smallSizedBoxWidth,
+        GestureDetector(
+          onTap: () => _selectDateTime(context),
+          child: Text(
+              _selectedDateTime.isAfter(DateTime.now())
+                  ? DateFormat('dd-MMMM, HH:mm').format(_selectedDateTime)
+                  : 'Select date & time',
+              style: Theme.of(context).textTheme.bodySmall),
+        ),
+        spacer,
+        Switch(
+            inactiveTrackColor: Theme.of(context).primaryColor,
+            activeTrackColor: Theme.of(context).cardColor,
+            inactiveThumbColor: Theme.of(context).primaryColorLight,
+            activeColor: Theme.of(context).primaryColorDark,
+            value: _notificationEnabled,
+            onChanged: (value) {
+              if (_selectedDateTime.isAfter(DateTime.now())) {
+                setState(() {
+                  _notificationEnabled = value;
+                });
+                if (_notificationEnabled) {
+                  debugPrint('Notification Scheduled for $_selectedDateTime');
+                  NotificationService().scheduleNotification(
+                    title: _nameController.text,
+                    body: 'Time for ${_descriptionController.text}',
+                    scheduledNotificationDateTime: _selectedDateTime,
+                  );
+                }
+              } else {}
+            }),
+      ],
+    );
+  }
+
+  Widget _buttonsCategory() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        CustomButton(
+          onPressed: () {
+            setState(() {
+              _selectedCategory = LocaleKeys.study.tr();
+            });
+          },
+          text: LocaleKeys.study.tr(),
+          buttonPadding:
+              const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
+          gradient: LinearGradient(
+            colors: _selectedCategory == LocaleKeys.study.tr()
+                ? [CColors.text, CColors.text]
+                : CColors.pinkGradientColor,
+          ),
+        ),
+        smallSizedBoxWidth,
+        CustomButton(
+          onPressed: () {
+            setState(() {
+              _selectedCategory = LocaleKeys.productive.tr();
+            });
+          },
+          text: LocaleKeys.productive.tr(),
+          buttonPadding:
+              const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
+          gradient: LinearGradient(
+            colors: _selectedCategory == LocaleKeys.productive.tr()
+                ? [CColors.text, CColors.text]
+                : CColors.blueGradientColor,
+          ),
+        ),
+        smallSizedBoxWidth,
+        CustomButton(
+          onPressed: () {
+            setState(() {
+              _selectedCategory = LocaleKeys.life.tr();
+            });
+          },
+          text: LocaleKeys.life.tr(),
+          buttonPadding:
+              const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
+          gradient: LinearGradient(
+            colors: _selectedCategory == LocaleKeys.life.tr()
+                ? [CColors.text, CColors.text]
+                : CColors.greenGradientColor,
+          ),
+        ),
+      ],
     );
   }
 

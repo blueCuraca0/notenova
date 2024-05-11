@@ -39,7 +39,7 @@ class MainPage extends StatelessWidget {
         const curve = Curves.ease;
 
         var tween =
-        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
         return SlideTransition(
           position: animation.drive(tween),
@@ -51,9 +51,7 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery
-        .sizeOf(context)
-        .height;
+    final height = MediaQuery.sizeOf(context).height;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -77,8 +75,7 @@ class MainPage extends StatelessWidget {
               height: height,
               child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: CustomBottomNavBar(_navigatorKey)
-              ),
+                  child: CustomBottomNavBar(_navigatorKey)),
             )
           ],
         ),
