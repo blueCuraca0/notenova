@@ -13,13 +13,6 @@ class UserProfilePage extends StatefulWidget {
 
 class _UserProfilePageState extends State<UserProfilePage> {
 
-  void _logIn(BuildContext context) {
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const AuthorizationPage()),
-      (r) => false
-    );
-  }
-
   void _logOut(BuildContext context) {
     FirebaseAuth.instance.signOut();
     setState(() {});
@@ -27,8 +20,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.sizeOf(context).height;
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(30),
@@ -43,17 +34,12 @@ class _UserProfilePageState extends State<UserProfilePage> {
               ),
             ),
             bigSizedBoxHeight,
-            FirebaseAuth.instance.currentUser == null
-                ? CustomButton(
-                    text: "Log in",
-                    onPressed: () {
-                      _logIn(context);
-                    })
-                : CustomButton(
-                    text: "Log out",
-                    onPressed: () {
-                      _logOut(context);
-                    }),
+            CustomButton(
+              text: "Log out",
+              onPressed: () {
+                _logOut(context);
+              }
+            ),
           ],
         ),
       ),
