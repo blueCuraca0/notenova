@@ -24,7 +24,7 @@ Future<void> main() async {
   runApp(EasyLocalization(
       supportedLocales: const [
         Locale('en'),
-        Locale('ua'),
+        Locale('uk'),
       ],
       path: 'assets/translations',
       assetLoader: const CodegenLoader(),
@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'NoteNova',
       theme: lightTheme,
+      locale: context.locale,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       initialRoute: CRoutes.routeMainPage,

@@ -85,7 +85,7 @@ class CodegenLoader extends AssetLoader{
   "add_category": "Add category",
   "create_new_quiz": "Create new quiz"
 };
-static const Map<String,dynamic> ua = {
+static const Map<String,dynamic> uk = {
   "create_task": "Створити завдання",
   "name": "Ім'я",
   "email": "Електронна пошта",
@@ -156,5 +156,5 @@ static const Map<String,dynamic> ua = {
   "add_category": "Додати категорію",
   "create_new_quiz": "Створити новий тест"
 };
-static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ua": ua};
+static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "uk": uk};
 }

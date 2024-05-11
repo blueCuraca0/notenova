@@ -5,10 +5,10 @@ import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
-import 'package:notenova/features/to_do/data/services/firebase_service.dart';
+import 'package:notenova/features/to_do/domain/entities/task_model.dart';
 import 'package:notenova/features/to_do/presentation/cubits/task_cubit/task_cubit.dart';
 import 'package:notenova/features/to_do/presentation/cubits/task_cubit/task_state.dart';
-import 'package:notenova/features/to_do/presentation/pages/task_bottom_sheet.dart';
+import 'package:notenova/features/to_do/presentation/pages/create_edit_task_sheet.dart';
 import 'package:notenova/features/to_do/presentation/widgets/date_timeline_widget.dart';
 import 'package:notenova/features/to_do/presentation/widgets/lists/tasks_list.dart';
 
@@ -46,33 +46,42 @@ class _CalendarTaskListState extends State<CalendarTaskList>
   @override
   Widget build(BuildContext context) {
     final TaskCubit taskCubit = BlocProvider.of<TaskCubit>(context);
-    return Container(
-      constraints: const BoxConstraints(minHeight: 900),
-      decoration: const BoxDecoration(
-        color: CColors.accentSoft,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(40.0),
-          topRight: Radius.circular(40.0),
+    return SlideTransition(
+      position: Tween<Offset>(
+        begin: const Offset(0.0, 0.5),
+        end: Offset.zero,
+      ).animate(CurvedAnimation(
+        curve: Curves.easeOut,
+        parent: _controller,
+      )),
+      child: Container(
+        constraints: const BoxConstraints(minHeight: 900),
+        decoration: const BoxDecoration(
+          color: CColors.accentSoft,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(40.0),
+            topRight: Radius.circular(40.0),
+          ),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: BlocBuilder<TaskCubit, TaskState>(
-          builder: (context, state) {
-            if (state is TaskLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is TaskLoaded) {
-              final tasks = state.tasks;
-              print(tasks.length);
-              return SlideTransition(
-                position: Tween<Offset>(
-                  begin: const Offset(0.0, 0.5),
-                  end: Offset.zero,
-                ).animate(CurvedAnimation(
-                  curve: Curves.easeOut,
-                  parent: _controller,
-                )),
-                child: Column(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: BlocBuilder<TaskCubit, TaskState>(
+            builder: (context, state) {
+              if (state is TaskLoading) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 300.0),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                        strokeWidth: 10.0,
+                        color: Theme.of(context).shadowColor),
+                  ),
+                );
+              } else if (state is TaskLoaded) {
+                final tasks = state.tasks;
+
+                deleteTasksBeforeToday(tasks);
+
+                return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
@@ -118,19 +127,30 @@ class _CalendarTaskListState extends State<CalendarTaskList>
                         selectedDate: _selectedDate,
                         taskCubit: taskCubit),
                   ],
-                ),
-              );
-            } else if (state is TaskSuccess) {
-              BlocProvider.of<TaskCubit>(context).loadTasks();
-              return Container();
-            } else if (state is TaskError) {
-              return Center(child: Text(state.errorMessage));
-            } else {
-              return Container();
-            }
-          },
+                );
+              } else if (state is TaskSuccess) {
+                BlocProvider.of<TaskCubit>(context).loadTasks();
+                return Container();
+              } else if (state is TaskError) {
+                return Center(child: Text(state.errorMessage));
+              } else {
+                return Container();
+              }
+            },
+          ),
         ),
       ),
     );
+  }
+
+// for deleting task before date now
+  void deleteTasksBeforeToday(List<Task> tasks) {
+    final today = DateTime.now();
+    final yesterday = DateTime(today.year, today.month, today.day - 1);
+    final tasksToRemove =
+        tasks.where((task) => task.finalDate.isBefore(yesterday)).toList();
+    for (Task task in tasksToRemove) {
+      BlocProvider.of<TaskCubit>(context).deleteTask(task.id);
+    }
   }
 }

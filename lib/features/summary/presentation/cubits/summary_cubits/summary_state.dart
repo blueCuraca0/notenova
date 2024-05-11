@@ -1,4 +1,4 @@
-import 'package:notenova/features/summary/domain/entities/summary_model.dart';
+import 'package:notenova/features/summary/domain/entities/summary.dart';
 
 abstract class SummaryState {}
 
