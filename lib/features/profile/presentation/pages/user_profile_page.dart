@@ -4,26 +4,25 @@ import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/features/autorization/presentation/pages/authoriazation_page.dart';
 
-class UserProfilePage extends StatelessWidget {
+class UserProfilePage extends StatefulWidget {
   const UserProfilePage({super.key});
+
+  @override
+  State<UserProfilePage> createState() => _UserProfilePageState();
+}
+
+class _UserProfilePageState extends State<UserProfilePage> {
 
   void _logIn(BuildContext context) {
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (context) => const AuthorizationPage()),
-      (r) {
-        return false;
-      }
+      (r) => false
     );
   }
 
   void _logOut(BuildContext context) {
     FirebaseAuth.instance.signOut();
-    // Navigator.of(context).pushAndRemoveUntil(
-    //     MaterialPageRoute(builder: (context) => const AuthorizationPage()),
-    //         (r) {
-    //       return false;
-    //     }
-    // );
+    setState(() {});
   }
 
   @override

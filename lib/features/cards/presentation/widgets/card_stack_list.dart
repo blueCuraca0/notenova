@@ -15,7 +15,7 @@ class CardStackList extends StatelessWidget {
       stream: FirebaseService.getCardStackStream(),
       builder: (context, snapshot) {
 
-        if (!snapshot.hasData || snapshot.data == null ) {
+        if (!snapshot.hasData || snapshot.data == null) {
           return const SizedBox();
         }
 
@@ -39,13 +39,6 @@ class CardStackList extends StatelessWidget {
               // getting a single card stack
               Map<String, dynamic> data = document.data() as Map<String, dynamic>;
               CardStack cardStack = CardStackModel.cardStackFromJson(data);
-
-              // outputs card stack's info (for testing)
-              // List<dynamic> cards = data['cards'] as List<dynamic>;
-              // print(data['name']);
-              // for(var card in cards) {
-              //   print("$card");
-              // }
 
               return CardStackTile(cardStack);
             },
