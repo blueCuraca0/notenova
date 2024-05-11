@@ -5,15 +5,19 @@ class CongratulationsDialog extends StatelessWidget {
   late final String _title;
   late final String _content;
   late final String _actionText;
+  late final void Function(BuildContext context) _goBack;
 
   CongratulationsDialog({
     required String title,
     required String content,
     required String actionText,
+    required void Function(BuildContext context) goBack,
     super.key}) {
+
     _title = title;
     _content = content;
     _actionText = actionText;
+    _goBack = goBack;
   }
 
   @override
@@ -33,8 +37,7 @@ class CongratulationsDialog extends StatelessWidget {
         actions: [
           OutlinedButton(
             onPressed: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
+              _goBack(context);
             },
             style: OutlinedButton.styleFrom(
               backgroundColor: Theme.of(context).primaryColorDark,
