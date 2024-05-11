@@ -5,31 +5,29 @@ import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/features/autorization/presentation/pages/authoriazation_page.dart';
 import 'package:notenova/features/profile/presentation/pages/settings_page.dart';
 
-class UserProfilePage extends StatelessWidget {
+class UserProfilePage extends StatefulWidget {
   const UserProfilePage({super.key});
 
-  void _logIn(BuildContext context) {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const AuthorizationPage()),
-        (r) {
-      return false;
-    });
-  }
+//   void _logIn(BuildContext context) {
+//     Navigator.of(context).pushAndRemoveUntil(
+//         MaterialPageRoute(builder: (context) => const AuthorizationPage()),
+//         (r) {
+//       return false;
+//     });
+//   }
+  @override
+  State<UserProfilePage> createState() => _UserProfilePageState();
+}
+
+class _UserProfilePageState extends State<UserProfilePage> {
 
   void _logOut(BuildContext context) {
     FirebaseAuth.instance.signOut();
-    // Navigator.of(context).pushAndRemoveUntil(
-    //     MaterialPageRoute(builder: (context) => const AuthorizationPage()),
-    //         (r) {
-    //       return false;
-    //     }
-    // );
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.sizeOf(context).height;
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(30),
@@ -54,17 +52,12 @@ class UserProfilePage extends StatelessWidget {
               ),
             ),
             bigSizedBoxHeight,
-            FirebaseAuth.instance.currentUser == null
-                ? CustomButton(
-                    text: "Log in",
-                    onPressed: () {
-                      _logIn(context);
-                    })
-                : CustomButton(
-                    text: "Log out",
-                    onPressed: () {
-                      _logOut(context);
-                    }),
+            CustomButton(
+              text: "Log out",
+              onPressed: () {
+                _logOut(context);
+              }
+            ),
           ],
         ),
       ),

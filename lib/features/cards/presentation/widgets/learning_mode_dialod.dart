@@ -9,25 +9,6 @@ class LearningModeDialog extends StatelessWidget {
   final CardStack _cardStack;
   const LearningModeDialog(this._cardStack, {super.key});
 
-  Route _createRoute(Widget page) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(0.0, 1.0);
-        const end = Offset.zero;
-        const curve = Curves.ease;
-
-        var tween =
-        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final Color color = Theme.of(context).primaryColor;
@@ -43,7 +24,15 @@ class LearningModeDialog extends StatelessWidget {
       shadowColor: Colors.white,
       actionsAlignment: MainAxisAlignment.spaceBetween,
       actions: [
-        DialogButton("Flashcards", FlashcardPage(_cardStack), color),
+        DialogButton(
+            "Flashcards",
+            FlashcardPage(
+              _cardStack,
+              (context) {
+                Navigator.of(context).pop();
+              }
+            ),
+            color),
         DialogButton("Writing", WritingCardPage(), color),
       ],
     );
