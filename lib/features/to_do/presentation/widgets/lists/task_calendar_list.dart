@@ -78,9 +78,7 @@ class _CalendarTaskListState extends State<CalendarTaskList>
                 );
               } else if (state is TaskLoaded) {
                 final tasks = state.tasks;
-
                 deleteTasksBeforeToday(tasks);
-
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -111,21 +109,37 @@ class _CalendarTaskListState extends State<CalendarTaskList>
                       ),
                     ),
                     smallSizedBoxHeight,
-                    TimelineDataPicker(
-                      onDateChange: (date) {
-                        setState(() {
-                          _selectedDate = date;
-                        });
-                      },
-                      selectedDate: DateTime.now(),
-                      tasks: tasks,
-                    ),
-                    smallSizedBoxHeight,
-                    TaskList(
-                        isEdit: isEdit,
-                        tasks: tasks,
-                        selectedDate: _selectedDate,
-                        taskCubit: taskCubit),
+                    tasks.isNotEmpty
+                        ? Column(
+                            children: [
+                              TimelineDataPicker(
+                                onDateChange: (date) {
+                                  setState(() {
+                                    _selectedDate = date;
+                                  });
+                                },
+                                selectedDate: DateTime.now(),
+                                tasks: tasks,
+                              ),
+                              smallSizedBoxHeight,
+                              TaskList(
+                                  isEdit: isEdit,
+                                  tasks: tasks,
+                                  selectedDate: _selectedDate,
+                                  taskCubit: taskCubit),
+                            ],
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.only(top: 35.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('No tasks yet',
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium),
+                              ],
+                            ),
+                          ),
                   ],
                 );
               } else if (state is TaskSuccess) {
