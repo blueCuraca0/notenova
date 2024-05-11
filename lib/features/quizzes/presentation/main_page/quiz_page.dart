@@ -165,12 +165,6 @@ class QuizPage extends StatelessWidget {
               },
             ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Align(
-                alignment: Alignment.bottomCenter,
-                child: CustomBottomNavBar(MyApp.navigatorKey)),
-          )
         ],
       ),
     );

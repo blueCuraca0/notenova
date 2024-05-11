@@ -50,19 +50,8 @@ class StudyMaterialsPage extends StatelessWidget {
                           return const CardStacksPage();
                         }));
                       },
-                  //  Q I Z Z E S
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return QuizPage();
-                      }));
-                    },
-                    child: Container(
-                      color: CColors.accent,
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(20),
-                      child: const Text("Quizzes"),
                     ),
+
                     CustomButton(
                       text: "Quizzes",
                       color: Theme.of(context).cardColor,
