@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
-import 'package:notenova/features/summary/domain/entities/summary_model.dart';
+import 'package:notenova/features/summary/domain/entities/summary.dart';
 
 class SummaryCard extends StatefulWidget {
   final Summary summary;

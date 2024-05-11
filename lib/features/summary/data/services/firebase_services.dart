@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:notenova/features/summary/domain/entities/summary_model.dart';
+import 'package:notenova/features/summary/domain/entities/summary.dart';
 
 class SummaryFirestoreService {
   final CollectionReference _summaryCollection =

@@ -5,8 +5,9 @@ import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
-import 'package:notenova/features/summary/domain/entities/summary_model.dart';
+import 'package:notenova/features/summary/domain/entities/summary.dart';
 import 'package:notenova/features/summary/presentation/widgets/custom_back_button.dart';
+import 'package:octo_image/octo_image.dart';
 
 class DetailSummaryPage extends StatelessWidget {
   final Summary summary;
@@ -15,12 +16,13 @@ class DetailSummaryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,
-            expandedHeight: 300.0,
+            expandedHeight: 270.0,
             flexibleSpace: ClipRRect(
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(40.0),
@@ -29,9 +31,8 @@ class DetailSummaryPage extends StatelessWidget {
               child: Stack(
                 children: [
                   summary.photoUrl.isNotEmpty
-                      ? Image.network(
-                          summary.photoUrl,
-                          height: 350,
+                      ? OctoImage(
+                          image: NetworkImage(summary.photoUrl),
                           fit: BoxFit.cover,
                         )
                       : Container(
@@ -57,11 +58,13 @@ class DetailSummaryPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  bigSizedBoxHeight,
                   Text(
                       textAlign: TextAlign.center,
                       summary.name,
-                      style: Theme.of(context).textTheme.bodyLarge),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(fontSize: 30)),
                   bigSizedBoxHeight,
                   getCustomButton(summary.category),
                   bigSizedBoxHeight,

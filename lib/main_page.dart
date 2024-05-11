@@ -9,10 +9,11 @@ import 'features/profile/presentation/pages/user_profile_page.dart';
 import 'features/quiz_and_card/presentation/pages/study_materials_page.dart';
 import 'features/tips/presentation/pages/homepage.dart';
 import 'features/to_do/presentation/pages/todo_page.dart';
-import 'main.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+  final _navigatorKey = GlobalKey<NavigatorState>();
+
+  MainPage({super.key});
 
   Route _onGenerateRoute(RouteSettings settings) {
     late Widget page;
@@ -33,9 +34,15 @@ class MainPage extends StatelessWidget {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => page,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        final tween = Tween<double>(begin: 0.0, end: 1.0).chain(CurveTween(curve: Curves.ease));
-        return FadeTransition(
-          opacity: animation.drive(tween),
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
           child: child,
         );
       },
@@ -49,12 +56,29 @@ class MainPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
-        child: SizedBox(
-          height: height,
-          child: Navigator(
-            key: MyApp.navigatorKey,
-            initialRoute: CRoutes.routeHomepage,
-            onGenerateRoute: _onGenerateRoute,
+        child: Stack(
+          children: [
+            //page itself
+            SizedBox(
+              height: height,
+              child: Navigator(
+                key: _navigatorKey,
+                initialRoute: CRoutes.routeHomepage,
+                onGenerateRoute: _onGenerateRoute,
+              ),
+            ),
+
+            // const SummaryPage(),
+            //const CardStacksPage(),
+
+            SizedBox(
+              height: height,
+              child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: CustomBottomNavBar(_navigatorKey)),
+            )
+          ],
+        ),
       ),
     ),
       ),

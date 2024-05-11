@@ -47,6 +47,8 @@ dependencies:
   flutter_bloc: ^8.1.5
   image_picker: ^1.1.1
   bloc: ^8.1.4
+  octo_image: ^2.0.0
+  firebase_storage: ^11.7.5
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -72,6 +74,7 @@ flutter:
   assets:
     - assets/images/
     - assets/translations/
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
