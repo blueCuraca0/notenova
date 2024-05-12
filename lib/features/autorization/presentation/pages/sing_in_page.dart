@@ -1,27 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
-import 'package:notenova/core/widgets/congratulations_dialog.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/core/widgets/custom_textfield2.dart';
+import 'package:notenova/features/autorization/presentation/pages/sign_up_page.dart';
 import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+class SignInPage extends StatefulWidget {
+  SignInPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  String _login = '';
+class _SignInPageState extends State<SignInPage> {
+  String _email = '';
   String _password = '';
   String _errorMessage = '';
 
   void _signInWithEmail() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _login,
+          email: _email,
           password: _password
       );
     } on FirebaseAuthException catch (e) {
@@ -54,6 +54,52 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  void _signInWithGoogle() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _email,
+          password: _password
+      );
+    } on FirebaseAuthException catch (e) {
+
+      late final errorMessage;
+
+      switch (e.code) {
+        case "invalid-credential":
+          errorMessage = "Your email address or password is wrong.";
+          break;
+        case "invalid-email":
+          errorMessage = "Your email address appears to be malformed.";
+          break;
+        case "wrong-password":
+          errorMessage = "Your password is wrong.";
+          break;
+        case "user-not-found":
+          errorMessage = "User with this email doesn't exist.";
+          break;
+        case "user-disabled":
+          errorMessage = "User with this email has been disabled.";
+          break;
+        default:
+          errorMessage = "An undefined Error happened.";
+      }
+
+      setState(() {
+        _errorMessage = errorMessage;
+      });
+    }
+  }
+
+  Widget _getErrorText() {
+    return _errorMessage.isEmpty
+        ? const SizedBox()
+        : Text(
+      _errorMessage,
+      style: Theme.of(context).textTheme.bodySmall
+          ?.copyWith(color: Theme.of(context).colorScheme.error),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -84,14 +130,17 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        // Email TextField
                         MyCustomTextField(
                           baseColor: Theme.of(context).cardColor,
-                          hintText: "Login",
+                          hintText: "Email",
                           onChanged: (value) {
-                            _login = value;
+                            _email = value;
                           },
                         ),
                         bigSizedBoxHeight,
+
+                        // Password TextField
                         MyCustomTextField(
                           baseColor: Theme.of(context).cardColor,
                           hintText: "Password",
@@ -100,14 +149,11 @@ class _LoginPageState extends State<LoginPage> {
                           },
                         ),
                         midSizedBoxHeight,
-                        _errorMessage.isEmpty
-                            ? const SizedBox()
-                            : Text(
-                                _errorMessage,
-                                style: Theme.of(context).textTheme.bodySmall
-                                    ?.copyWith(color: Theme.of(context).colorScheme.error),
-                              ),
+
+                        _getErrorText(),
                         bigSizedBoxHeight,
+
+                        // Sign In Button
                         CustomButton(
                           text: "Sign In",
                           onPressed: () {
@@ -115,10 +161,23 @@ class _LoginPageState extends State<LoginPage> {
                           }
                         ),
                         bigSizedBoxHeight,
+
+                        // Sign In With Google Button
+                        CustomButton(
+                            text: "Sign In with Google",
+                            onPressed: () {
+                              _signInWithGoogle();
+                            }
+                        ),
+                        bigSizedBoxHeight,
+
+                        // Sign Up Button
                         CustomButton(
                           text: "Sign Up",
                           onPressed: () {
-                            // _signIn();
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => SignUpPage())
+                            );
                           }
                         ),
                         bigSizedBoxHeight,

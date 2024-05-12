@@ -53,7 +53,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 900,
+      height: 800,
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
@@ -71,7 +71,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
             child: Row(
               children: [
                 CustomArrowBackButton(
-                    height: 35,
+                    height: 40,
                     width: 40,
                     onPressed: () {
                       Navigator.pop(context);
@@ -79,7 +79,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
                 bigSizedBoxWidth,
                 Text(
                   widget.isEdit
-                      ? 'Update Summary'
+                      ? LocaleKeys.update_summary.tr()
                       : LocaleKeys.create_summary.tr(),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
@@ -117,7 +117,9 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
                 _descriptionController.text = result as String;
               }
             },
-            child: const Text('Select text from photo...'),
+            child: Text(
+              LocaleKeys.select_image_from_photo.tr(),
+            ),
           ),
           midSizedBoxHeight,
           widget.isEdit ? const Text('') : selectPhotoForSummary(),
@@ -135,7 +137,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
               }
             },
             text: widget.isEdit
-                ? 'Update Summary'
+                ? LocaleKeys.update_summary.tr()
                 : LocaleKeys.create_summary.tr(),
             buttonPadding:
                 const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
@@ -147,21 +149,26 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
   }
 
   void addSummary(BuildContext context) async {
-    var imageName = DateTime.now().millisecondsSinceEpoch.toString();
-    var storageRef =
-        FirebaseStorage.instance.ref().child('summary/$imageName.jpg');
-    var uploadTask = storageRef.putFile(_image!);
-    var downloadUrl = await (await uploadTask).ref.getDownloadURL();
     if (_nameController.text.isNotEmpty &&
-        _descriptionController.text.isNotEmpty &&
-        _image.toString().isNotEmpty) {
+        _descriptionController.text.isNotEmpty) {
+      var imageName = DateTime.now().millisecondsSinceEpoch.toString();
+      var summaryPhotoUrl = '';
+      if (_image != null) {
+        var storageRef =
+            FirebaseStorage.instance.ref().child('summary/$imageName.jpg');
+        var uploadTask = storageRef.putFile(_image!);
+        var downloadUrl = await (await uploadTask).ref.getDownloadURL();
+        summaryPhotoUrl = downloadUrl.toString();
+      }
+
       final summary = Summary(
         id: DateTime.now().toString(),
         name: _nameController.text,
         description: _descriptionController.text,
         category: _selectedCategory ?? '',
-        photoUrl: downloadUrl.toString()!,
+        photoUrl: summaryPhotoUrl,
       );
+
       widget.summaryCubit.addSummary(summary);
     }
   }
@@ -182,110 +189,113 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
   }
 
   Widget buttonCategorySummary() {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            CustomButton(
-              onPressed: () {
-                setState(() {
-                  _selectedCategory = LocaleKeys.lectures.tr();
-                });
-              },
-              text: LocaleKeys.lectures.tr(),
-              buttonPadding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-              gradient: LinearGradient(
-                colors: _selectedCategory == LocaleKeys.lectures.tr()
-                    ? [CColors.text, CColors.text]
-                    : CColors.pinkGradientColor,
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              CustomButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedCategory = 'Lectures';
+                  });
+                },
+                text: LocaleKeys.lectures.tr(),
+                buttonPadding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                gradient: LinearGradient(
+                  colors: _selectedCategory == 'Lectures'
+                      ? [CColors.text, CColors.text]
+                      : CColors.pinkGradientColor,
+                ),
               ),
-            ),
-            CustomButton(
-              onPressed: () {
-                setState(() {
-                  _selectedCategory = LocaleKeys.seminars.tr();
-                });
-              },
-              text: LocaleKeys.seminars.tr(),
-              buttonPadding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-              gradient: LinearGradient(
-                colors: _selectedCategory == LocaleKeys.seminars.tr()
-                    ? [CColors.text, CColors.text]
-                    : CColors.blueGradientColor,
+              CustomButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedCategory = 'Seminars';
+                  });
+                },
+                text: LocaleKeys.seminars.tr(),
+                buttonPadding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                gradient: LinearGradient(
+                  colors: _selectedCategory == 'Seminars'
+                      ? [CColors.text, CColors.text]
+                      : CColors.blueGradientColor,
+                ),
               ),
-            ),
-            CustomButton(
-              onPressed: () {
-                setState(() {
-                  _selectedCategory = LocaleKeys.lab_works.tr();
-                });
-              },
-              text: LocaleKeys.lab_works.tr(),
-              buttonPadding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-              gradient: LinearGradient(
-                colors: _selectedCategory == LocaleKeys.lab_works.tr()
-                    ? [CColors.text, CColors.text]
-                    : CColors.greenGradientColor,
+              CustomButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedCategory = 'Lab works';
+                  });
+                },
+                text: LocaleKeys.lab_works.tr(),
+                buttonPadding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                gradient: LinearGradient(
+                  colors: _selectedCategory == 'Lab works'
+                      ? [CColors.text, CColors.text]
+                      : CColors.greenGradientColor,
+                ),
               ),
-            ),
-          ],
-        ),
-        smallSizedBoxHeight,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            CustomButton(
-              onPressed: () {
-                setState(() {
-                  _selectedCategory = LocaleKeys.workshops.tr();
-                });
-              },
-              text: LocaleKeys.workshops.tr(),
-              buttonPadding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-              gradient: LinearGradient(
-                colors: _selectedCategory == LocaleKeys.workshops.tr()
-                    ? [CColors.text, CColors.text]
-                    : CColors.pinkGradientColor,
+            ],
+          ),
+          smallSizedBoxHeight,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              CustomButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedCategory = 'Workshops';
+                  });
+                },
+                text: LocaleKeys.workshops.tr(),
+                buttonPadding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                gradient: LinearGradient(
+                  colors: _selectedCategory == 'Workshops'
+                      ? [CColors.text, CColors.text]
+                      : CColors.pinkGradientColor,
+                ),
               ),
-            ),
-            CustomButton(
-              onPressed: () {
-                setState(() {
-                  _selectedCategory = LocaleKeys.practices.tr();
-                });
-              },
-              text: LocaleKeys.practices.tr(),
-              buttonPadding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-              gradient: LinearGradient(
-                colors: _selectedCategory == LocaleKeys.practices.tr()
-                    ? [CColors.text, CColors.text]
-                    : CColors.blueGradientColor,
+              CustomButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedCategory = 'Practices';
+                  });
+                },
+                text: LocaleKeys.practices.tr(),
+                buttonPadding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                gradient: LinearGradient(
+                  colors: _selectedCategory == 'Practices'
+                      ? [CColors.text, CColors.text]
+                      : CColors.blueGradientColor,
+                ),
               ),
-            ),
-            CustomButton(
-              onPressed: () {
-                setState(() {
-                  _selectedCategory = LocaleKeys.exams.tr();
-                });
-              },
-              text: LocaleKeys.exams.tr(),
-              buttonPadding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-              gradient: LinearGradient(
-                colors: _selectedCategory == LocaleKeys.exams.tr()
-                    ? [CColors.text, CColors.text]
-                    : CColors.greenGradientColor,
+              CustomButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedCategory = 'Exams';
+                  });
+                },
+                text: LocaleKeys.exams.tr(),
+                buttonPadding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                gradient: LinearGradient(
+                  colors: _selectedCategory == 'Exams'
+                      ? [CColors.text, CColors.text]
+                      : CColors.greenGradientColor,
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -323,7 +333,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
           Expanded(
             child: Center(
               child: _image == null
-                  ? const Text('No image selected.')
+                  ? Text(LocaleKeys.no_image_selected.tr())
                   : SizedBox(height: 50, child: Image.file(_image!)),
             ),
           ),

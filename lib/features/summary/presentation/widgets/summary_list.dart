@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/features/summary/domain/entities/summary.dart';
 import 'package:notenova/features/summary/presentation/cubits/summary_cubits/summary_cubit.dart';
 import 'package:notenova/features/summary/presentation/pages/create_edit_summary_sheet.dart';
@@ -27,7 +28,7 @@ class SummaryList extends StatelessWidget {
         if (filteredSummary.isEmpty) {
           return Center(
               child: Text(
-            'No summary yet',
+            LocaleKeys.no_summary.tr(),
             style: TextStyle(color: Theme.of(context).primaryColor),
           ));
         } else {

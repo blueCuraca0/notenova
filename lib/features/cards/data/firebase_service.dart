@@ -5,12 +5,12 @@ import '../domain/entities/flashcard_stack.dart';
 
 class FirebaseService {
   static final CollectionReference cardStacks =
-  FirebaseFirestore.instance.collection('card_stacks');
+      FirebaseFirestore.instance.collection('card_stacks');
 
   static Future<void> addCardStack(CardStack cardStack) {
     List<Map<String, String>> cardsToList = [];
 
-    for(Flashcard card in cardStack.cardsList) {
+    for (Flashcard card in cardStack.cardsList) {
       cardsToList.add({'term': card.term, 'definition': card.definition});
     }
 
@@ -26,11 +26,11 @@ class FirebaseService {
     return cardStacks.snapshots();
   }
 
-  // static Future<void> updateHabit(String docID, CardModel cardModel) {
-  //   return card_stacks.doc(docID).update({
-  //     'term': cardModel.term,
-  //     'definition': cardModel.definition,
-  //     // 'timestamp': Timestamp.now()
-  //   });
-  // }
+// static Future<void> updateHabit(String docID, CardModel cardModel) {
+//   return card_stacks.doc(docID).update({
+//     'term': cardModel.term,
+//     'definition': cardModel.definition,
+//     // 'timestamp': Timestamp.now()
+//   });
+// }
 }
