@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:notenova/features/autorization/data/firebase_service.dart';
 import '../../../../../core/style/c_colors.dart';
 import '../../../../../core/utils/constants.dart';
 import '../../../domain/entities/task_model.dart';
@@ -122,6 +123,8 @@ class _TaskCardState extends State<TaskCard> {
           onChanged: (value) {
             setState(() {
               _isChecked = value ?? false;
+              FirebaseServiceAuth.updateUserXP(
+                  (value ?? false) ? standardXP : (-standardXP));
             });
             widget.onCheckboxChanged(_isChecked);
           },

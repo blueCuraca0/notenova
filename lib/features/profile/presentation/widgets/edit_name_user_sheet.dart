@@ -5,7 +5,7 @@ import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/core/widgets/custom_textfield2.dart';
-import 'package:notenova/features/profile/presentation/cubits/user_cubit.dart';
+import 'package:notenova/features/profile/presentation/cubits/user_cubit/user_cubit.dart';
 
 class EditUserNameWidget extends StatefulWidget {
   final UserDataCubit userDataCubit;

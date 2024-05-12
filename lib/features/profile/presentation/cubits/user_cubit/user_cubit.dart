@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notenova/features/profile/presentation/cubits/user_state.dart';
+import 'package:notenova/features/profile/presentation/cubits/user_cubit/user_state.dart';
 
 class UserDataCubit extends Cubit<UserState> {
   final FirebaseFirestore _firestore;
@@ -42,5 +42,20 @@ class UserDataCubit extends Cubit<UserState> {
       'name': name,
     });
     getUserData();
+  }
+
+  Future<void> getAvatartUser(User user) async {
+    final snapshot = await _firestore.collection('users').doc(user?.uid).get();
+    if (snapshot.exists) {
+      final userData = snapshot.data();
+      final avatar = userData?['avatar'];
+      if (avatar != null) {
+        print('User avatar: $avatar');
+      } else {
+        emit(UserError('User avatar not found'));
+      }
+    } else {
+      emit(UserError('User data not found'));
+    }
   }
 }

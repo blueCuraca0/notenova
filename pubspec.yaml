@@ -49,6 +49,8 @@ dependencies:
   bloc: ^8.1.4
   octo_image: ^2.0.0
   firebase_storage: ^11.7.5
+  google_sign_in: ^6.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

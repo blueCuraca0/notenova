@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/style/c_colors.dart';
-import 'package:notenova/features/profile/presentation/cubits/user_cubit.dart';
-import 'package:notenova/features/profile/presentation/cubits/user_state.dart';
+import 'package:notenova/features/profile/presentation/cubits/user_cubit/user_cubit.dart';
+import 'package:notenova/features/profile/presentation/cubits/user_cubit/user_state.dart';
 import 'package:notenova/features/profile/presentation/widgets/edit_name_user_sheet.dart';
 import 'package:notenova/features/profile/presentation/widgets/edit_photo_user_sheet.dart';
 
@@ -29,7 +30,6 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
           return const CircularProgressIndicator();
         } else if (state is UserLoaded) {
           final userData = state.userData;
-
           final userAvatar = userData['avatar'] ?? '';
           final userName = userData['name'];
           return ListTile(

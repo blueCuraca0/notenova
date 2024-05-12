@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
-import 'package:notenova/features/profile/presentation/cubits/user_cubit.dart';
+import 'package:notenova/features/profile/presentation/cubits/user_cubit/user_cubit.dart';
 import 'package:notenova/features/profile/presentation/widgets/settings_buttons.dart';
-import 'package:notenova/features/profile/presentation/widgets/settings_fields.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
+import 'package:notenova/features/profile/presentation/cubits/fav_cubit/fav_cubit.dart';
+import 'package:notenova/features/profile/presentation/cubits/fav_cubit/fav_states.dart';
+import 'package:notenova/features/profile/presentation/widgets/tip_box_profile.dart';
 import 'package:notenova/features/profile/presentation/widgets/user_information.dart';
 
 class UserProfilePage extends StatelessWidget {
@@ -14,25 +18,117 @@ class UserProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    context.read<FavCubit>().loadFavs();
+    return Scaffold(
       backgroundColor: CColors.accent,
       body: CustomScrollView(
         slivers: [
-          CustomSliverAppBarWidget(),
-          SliverToBoxAdapter(
+          const CustomSliverAppBarWidget(),
+          const SliverToBoxAdapter(
             child: smallSizedBoxHeight,
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: SettingsButton(),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: bigSizedBoxHeight,
           ),
-          // !! TO-DO: Add uses favorites
-          SliverToBoxAdapter(
-            child: SettingsFieldsWidget(),
+          const SliverToBoxAdapter(
+            child: BackgroundWidget(),
+          ),
+          BlocBuilder<FavCubit, FavState>(
+            builder: (context, state) {
+              if (state is FavLoading) {
+                return SliverToBoxAdapter(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    color: Theme.of(context).primaryColorLight,
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: Theme.of(context).primaryColorDark,
+                      ),
+                    ),
+                  ),
+                );
+              } else if (state is FavError) {
+                return SliverToBoxAdapter(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    color: Theme.of(context).primaryColorLight,
+                    child: Center(
+                      child: Text(state.message),
+                    ),
+                  ),
+                );
+              } else if (state is FavLoaded) {
+                return SliverToBoxAdapter(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    color: Theme.of(context).primaryColorLight,
+                    child: ListView.builder(
+                      itemCount: state.favtips.length + 1,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: lPadding,
+                          color: Theme.of(context).primaryColorLight,
+                          child: index < state.favtips.length
+                              ? TipsBoxProfile(
+                                  tip: state.favtips[index],
+                                )
+                              : SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
+                                ),
+                        );
+                      },
+                    ),
+                  ),
+                );
+              } else {
+                return SliverToBoxAdapter(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    color: Theme.of(context).primaryColorLight,
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: Theme.of(context).primaryColorDark,
+                      ),
+                    ),
+                  ),
+                );
+              }
+            },
           ),
         ],
+      ),
+    );
+  }
+}
+
+class BackgroundWidget extends StatelessWidget {
+  const BackgroundWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 30),
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColorLight,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(40),
+          topRight: Radius.circular(40),
+        ),
+      ),
+      child: Center(
+        child: Text(
+          LocaleKeys.favorite_tips_of_the_day.tr(),
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }

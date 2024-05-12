@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../domain/entities/flashcard.dart';
 import '../domain/entities/flashcard_stack.dart';
 
-class FirebaseService {
+class FirebaseServiceCards {
   static final CollectionReference cardStacks =
       FirebaseFirestore.instance.collection('card_stacks');
 

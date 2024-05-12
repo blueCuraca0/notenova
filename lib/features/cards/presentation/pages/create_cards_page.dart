@@ -106,7 +106,7 @@ class _CreateCardsPageState extends State<CreateCardsPage> {
                         text: 'Start learning',
                         onPressed: () {
                           widget.cardStack.cardsList = cardList;
-                          FirebaseService.addCardStack(widget.cardStack);
+                          FirebaseServiceCards.addCardStack(widget.cardStack);
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => FlashcardPage(
