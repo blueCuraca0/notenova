@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notenova/core/style/c_colors.dart';
 
+int standardXP = 10;
+
 const double bottomNavBarHeight = 80;
 
 // text size

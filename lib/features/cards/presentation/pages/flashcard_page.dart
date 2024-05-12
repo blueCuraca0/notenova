@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_app_bar.dart';
+import 'package:notenova/features/autorization/data/firebase_service.dart';
 import 'package:notenova/features/tips/presentation/pages/homepage.dart';
 import '../../../../core/style/c_colors.dart';
 import '../../../../core/widgets/congratulations_dialog.dart';
@@ -38,7 +39,7 @@ class _FlashcardPageState extends State<FlashcardPage> {
     if (_currentFlashcard < _flashcardList.length - 1) {
       _currentFlashcard++;
     } else {
-      _currentFlashcard = 0;
+      FirebaseServiceAuth.updateUserXP(_wellLearnedCards);
       showDialog(
         context: context,
         barrierDismissible: false,

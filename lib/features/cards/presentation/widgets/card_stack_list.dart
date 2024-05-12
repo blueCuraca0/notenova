@@ -8,12 +8,14 @@ import '../../data/models/flashcard_stack_model.dart';
 import '../../domain/entities/flashcard_stack.dart';
 
 class CardStackList extends StatelessWidget {
-  const CardStackList({super.key});
+  String? searchInput;
+
+  CardStackList({super.key});
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseService.getCardStackStream(),
+      stream: FirebaseServiceCards.getCardStackStream(),
       builder: (context, snapshot) {
 
         if (!snapshot.hasData || snapshot.data == null) {

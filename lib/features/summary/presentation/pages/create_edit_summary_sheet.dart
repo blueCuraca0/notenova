@@ -14,6 +14,8 @@ import 'package:notenova/features/summary/presentation/cubits/summary_cubits/sum
 import 'package:notenova/features/summary/presentation/pages/text_recognition.dart';
 import 'package:notenova/features/summary/presentation/widgets/custom_back_button.dart';
 
+import '../../../autorization/data/firebase_service.dart';
+
 class EditAndCreateSummaryPage extends StatefulWidget {
   final bool isEdit;
   final SummaryCubit summaryCubit;
@@ -133,6 +135,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
                 Navigator.pop(context);
               } else {
                 addSummary(context);
+                FirebaseServiceAuth.updateUserXP(standardXP);
                 Navigator.pop(context);
               }
             },
