@@ -29,9 +29,6 @@ class TaskList extends StatelessWidget {
       itemCount: tasks.length,
       itemBuilder: (context, index) {
         final task = tasks[index];
-
-        print(task.finalDate);
-        print(task.description);
         if (DateFormat('yyyy-MM-dd').format(task.finalDate) ==
             DateFormat('yyyy-MM-dd').format(_selectedDate)) {
           return GestureDetector(
