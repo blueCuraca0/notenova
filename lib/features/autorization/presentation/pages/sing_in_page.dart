@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
@@ -19,6 +21,11 @@ class _SignInPageState extends State<SignInPage> {
   String _errorMessage = '';
 
   void _signInWithEmail() async {
+
+    setState(() {
+      _errorMessage = '';
+    });
+
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _email,
@@ -28,60 +35,30 @@ class _SignInPageState extends State<SignInPage> {
 
       late final errorMessage;
 
-      switch (e.code) {
-        case "invalid-credential":
-          errorMessage = "Your email address or password is wrong.";
-          break;
-        case "invalid-email":
-          errorMessage = "Your email address appears to be malformed.";
-          break;
-        case "wrong-password":
-          errorMessage = "Your password is wrong.";
-          break;
-        case "user-not-found":
-          errorMessage = "User with this email doesn't exist.";
-          break;
-        case "user-disabled":
-          errorMessage = "User with this email has been disabled.";
-          break;
-        default:
-          errorMessage = "An undefined Error happened.";
-      }
-
-      setState(() {
-        _errorMessage = errorMessage;
-      });
-    }
-  }
-
-  void _signInWithGoogle() async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _email,
-          password: _password
-      );
-    } on FirebaseAuthException catch (e) {
-
-      late final errorMessage;
-
-      switch (e.code) {
-        case "invalid-credential":
-          errorMessage = "Your email address or password is wrong.";
-          break;
-        case "invalid-email":
-          errorMessage = "Your email address appears to be malformed.";
-          break;
-        case "wrong-password":
-          errorMessage = "Your password is wrong.";
-          break;
-        case "user-not-found":
-          errorMessage = "User with this email doesn't exist.";
-          break;
-        case "user-disabled":
-          errorMessage = "User with this email has been disabled.";
-          break;
-        default:
-          errorMessage = "An undefined Error happened.";
+      if (_email.isEmpty) {
+        errorMessage = "Field \"email\" is empty.";
+      } else if (_password.isEmpty) {
+        errorMessage = "Field \"password\" is empty.";
+      } else {
+        switch (e.code) {
+          case "invalid-credential":
+            errorMessage = "Your email address or password is wrong.";
+            break;
+          case "invalid-email":
+            errorMessage = "Your email address appears to be malformed.";
+            break;
+          case "wrong-password":
+            errorMessage = "Your password is wrong.";
+            break;
+          case "user-not-found":
+            errorMessage = "User with this email doesn't exist.";
+            break;
+          case "user-disabled":
+            errorMessage = "User with this email has been disabled.";
+            break;
+          default:
+            errorMessage = "An undefined Error happened.";
+        }
       }
 
       setState(() {
@@ -159,15 +136,6 @@ class _SignInPageState extends State<SignInPage> {
                           onPressed: () {
                             _signInWithEmail();
                           }
-                        ),
-                        bigSizedBoxHeight,
-
-                        // Sign In With Google Button
-                        CustomButton(
-                            text: "Sign In with Google",
-                            onPressed: () {
-                              _signInWithGoogle();
-                            }
                         ),
                         bigSizedBoxHeight,
 

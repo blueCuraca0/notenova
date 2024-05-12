@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:notenova/core/utils/constants.dart';
 
 class CongratulationsDialog extends StatelessWidget {
   late final String _title;

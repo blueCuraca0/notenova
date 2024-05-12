@@ -12,6 +12,8 @@ import 'package:notenova/features/quizzes/presentation/state_management/quiz_sta
 import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
 import 'package:notenova/features/quizzes/presentation/creating_quizzes/widgets/single_question_block.dart';
 
+import '../../../autorization/data/firebase_service.dart';
+
 
 class QuestionCreate extends StatelessWidget {
   const QuestionCreate({Key? key}) : super(key: key);
@@ -96,6 +98,7 @@ class QuestionCreate extends StatelessWidget {
                     padding: lPadding,
                     child: CustomButton(text: LocaleKeys.create_new_quiz.tr(), onPressed: (){
                       addNewQuiz(context, state.newQuiz!);
+                      FirebaseServiceAuth.updateUserXP(standardXP);
                       Navigator.pop(context);
                       Navigator.pop(context);
                     }),
