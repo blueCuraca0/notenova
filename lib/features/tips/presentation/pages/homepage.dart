@@ -34,9 +34,7 @@ class _HomePageInside extends StatelessWidget{
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          CustomScrollView(
+      body: CustomScrollView(
             slivers: [
               SliverAppBar(
                 automaticallyImplyLeading: false,
@@ -98,8 +96,14 @@ class _HomePageInside extends StatelessWidget{
               BlocBuilder<TipCubit, TipState>(
                 builder: (context, state) {
                   if (state is TipLoading) {
-                    return Center(
-                      child: CircularProgressIndicator(color: Theme.of(context).primaryColorDark,),
+                    return SliverToBoxAdapter(
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.7,
+                        color: Theme.of(context).primaryColorLight,
+                        child: Center(
+                          child: CircularProgressIndicator(color: Theme.of(context).primaryColorDark,),
+                        ),
+                      ),
                     );
                   }
                   else if (state is TipLoaded) {
@@ -117,27 +121,31 @@ class _HomePageInside extends StatelessWidget{
                           ),
                           );
                         } else if (state is TipError){
-                          return Center(
-                            child: Text(state.message),
+                          return SliverToBoxAdapter(
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.7,
+                              color: Theme.of(context).primaryColorLight,
+                              child: Text(state.message),
+                            ),
                           );
                         }
                         else{
-                          return const Center(
-                            child: CircularProgressIndicator(),
+                          return const SliverToBoxAdapter(
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
                           );
                         }
                   },
                   ),
               SliverToBoxAdapter(
                 child: Container(
-                  height: MediaQuery.of(context).size.height * 0.5,//TODO: костиль
+                  height: MediaQuery.of(context).size.height * 0.1,
                   color: Theme.of(context).primaryColorLight,
                 ),
               ),
         ],
       ),
-    ],
-    ),
     );
   }
 }

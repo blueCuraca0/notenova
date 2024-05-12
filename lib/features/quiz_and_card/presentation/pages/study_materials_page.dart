@@ -53,21 +53,17 @@ class StudyMaterialsPage extends StatelessWidget {
                         }));
                       },),
                   //  Q I Z Z E S
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return BlocProvider<QuizCubit>(
-                          create: (context) => QuizCubit(),
-                            child: QuizPage());
-                      }));
-                    },
-                    child: Container(
-                      color: CColors.accent,
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(20),
-                      child: const Text("Quizzes"),
-                    ),
-                    ),
+                    CustomButton(
+                      text: "Quizzes",
+                      color: Theme.of(context).cardColor,
+                      buttonPadding: buttonPadding,
+                      width: width / 2 - 40,
+                      height: bottomNavBarHeight * 3,
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return QuizPage();
+                        }));
+                      },),
                   ],
                 ),
 

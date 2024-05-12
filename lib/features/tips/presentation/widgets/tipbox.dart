@@ -3,19 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:notenova/features/tips/domain/tips.dart';
 import 'package:notenova/core/utils/constants.dart';
+import 'package:notenova/features/tips/presentation/pages/tip_page.dart';
+import 'package:notenova/features/profile/presentation/state_management/fav_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TipsBox extends StatelessWidget {
   final Tip tip;
 
   const TipsBox({super.key, required this.tip});
 
+  bool checkFav(BuildContext context) {
+    return context.read<FavCubit>().inFavs(tip);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          /*Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return TakeQuizWindow(quiz: quiz);
-                }));*/
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return TipPage(tip: tip, text: checkFav(context)? 'Liked' : 'Like'); //TODO: hardcoded string
+                }));
         },
         child: Container(
           height: MediaQuery.of(context).size.height * 0.22,
@@ -49,6 +56,7 @@ class TipsBox extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    spacer,
                     Text(
                         tip.date,
                         style: Theme.of(context).textTheme.bodyMedium,
@@ -60,12 +68,13 @@ class TipsBox extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     midSizedBoxHeight,
-                    Expanded(
+                    FittedBox(
                       child: Text(
                         tip.subtitle,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
+                    spacer,
                   ],
                 ),
               ),
