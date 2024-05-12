@@ -14,7 +14,7 @@ import 'main_page.dart';
 import 'features/autorization/presentation/pages/authoriazation_page.dart';
 import 'core/utils/c_routes.dart';
 import 'package:timezone/data/latest.dart' as tz;
-import 'package:notenova/features/profile/presentation/state_management/fav_cubit.dart';
+import 'package:notenova/features/profile/presentation/cubits/fav_cubit/fav_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
