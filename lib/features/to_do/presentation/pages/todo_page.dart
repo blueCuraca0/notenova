@@ -91,8 +91,11 @@ class _CustomSliverAppBarWidgetState extends State<CustomSliverAppBarWidget> {
               padding: smallerPadding,
               child: Row(
                 children: [
-                  Text(LocaleKeys.to_quiz.tr(),
-                      style: Theme.of(context).textTheme.bodyLarge),
+                  Text(LocaleKeys.to_do.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(fontSize: 20)),
                   const Spacer(),
                   Icon(
                     Icons.person,

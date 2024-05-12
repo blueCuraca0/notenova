@@ -31,7 +31,6 @@ class StudyMaterialsPage extends StatelessWidget {
               style: TextStyle(fontSize: 25),
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.all(30),
             child: Column(
@@ -46,7 +45,8 @@ class StudyMaterialsPage extends StatelessWidget {
                       width: width / 2 - 40,
                       height: bottomNavBarHeight * 3,
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
                           return const CardStacksPage();
                         }));
                       },
@@ -59,7 +59,8 @@ class StudyMaterialsPage extends StatelessWidget {
                       width: width / 2 - 40,
                       height: bottomNavBarHeight * 3,
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
                           return QuizPage();
                         }));
                       },
@@ -76,12 +77,12 @@ class StudyMaterialsPage extends StatelessWidget {
                   buttonPadding: buttonPadding,
                   height: bottomNavBarHeight * 2,
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return const SummariesPage();
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const SummaryPage();
                     }));
                   },
                 ),
-
               ],
             ),
           )
