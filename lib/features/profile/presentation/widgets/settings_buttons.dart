@@ -28,12 +28,8 @@ class _SettingsButtonState extends State<SettingsButton> {
           //       _logOut(context);
           //     }),
           TextButton(
-            child: Text(
-              LocaleKeys.settings.tr(),
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
+            child: Text(LocaleKeys.settings.tr(),
+                style: Theme.of(context).textTheme.bodyMedium),
             onPressed: () {
               Navigator.push(
                 context,

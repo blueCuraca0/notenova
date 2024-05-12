@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
-import 'package:notenova/core/widgets/custom_search_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:notenova/core/widgets/custom_textfield2.dart';
 import 'package:notenova/features/quizzes/domain/entities/question.dart';

@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/cards/domain/entities/flashcard.dart';
-import '../../../../core/style/c_colors.dart';
 
 class FlashcardTile extends StatefulWidget {
   final Flashcard flashcard;

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:notenova/features/to_do/domain/entities/task_model.dart';
 
 class TaskFirestoreService {
@@ -38,9 +39,8 @@ class TaskFirestoreService {
         'category': task.category,
         'finalDate': task.finalDate,
       });
-      print(currentUserId);
     } catch (e) {
-      print('$e');
+      debugPrint('$e');
     }
   }
 

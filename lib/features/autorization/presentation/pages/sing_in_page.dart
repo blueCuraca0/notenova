@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
@@ -9,7 +8,7 @@ import 'package:notenova/features/autorization/presentation/pages/sign_up_page.d
 import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.dart';
 
 class SignInPage extends StatefulWidget {
-  SignInPage({super.key});
+  const SignInPage({super.key});
 
   @override
   State<SignInPage> createState() => _SignInPageState();
@@ -33,7 +32,7 @@ class _SignInPageState extends State<SignInPage> {
       );
     } on FirebaseAuthException catch (e) {
 
-      late final errorMessage;
+      late final String errorMessage;
 
       if (_email.isEmpty) {
         errorMessage = "Field \"email\" is empty.";
@@ -144,7 +143,7 @@ class _SignInPageState extends State<SignInPage> {
                           text: "Sign Up",
                           onPressed: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => SignUpPage())
+                              MaterialPageRoute(builder: (context) => const SignUpPage())
                             );
                           }
                         ),

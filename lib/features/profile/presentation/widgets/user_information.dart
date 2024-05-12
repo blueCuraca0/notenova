@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/style/c_colors.dart';
@@ -46,7 +45,7 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
                         }),
                     child: Text(
                         overflow: TextOverflow.fade,
-                        '$userName',
+                        'Hello, \n$userName',
                         style: Theme.of(context)
                             .textTheme
                             .bodyLarge

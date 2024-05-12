@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
 import 'package:notenova/features/quizzes/presentation/taking_quizzes/take_quiz.dart';
-import '../custom_category.dart';
 
 
 class QuizCard extends StatelessWidget {

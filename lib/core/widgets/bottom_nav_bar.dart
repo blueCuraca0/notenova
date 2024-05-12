@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:notenova/core/widgets/congratulations_dialog.dart';
 
 import '../../features/autorization/presentation/pages/authoriazation_page.dart';
 import '../style/c_colors.dart';

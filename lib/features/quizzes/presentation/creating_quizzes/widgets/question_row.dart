@@ -12,7 +12,7 @@ class QuestionRow extends StatelessWidget{
   final Function onChangedText;
   final String type;
 
-  QuestionRow({super.key, required this.questionIndex, required this.optionIndex, required this.deleteOption, required this.onChangedText, required this.type});
+  const QuestionRow({super.key, required this.questionIndex, required this.optionIndex, required this.deleteOption, required this.onChangedText, required this.type});
 
   @override
   Widget build(BuildContext context) {
