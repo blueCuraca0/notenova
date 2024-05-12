@@ -10,8 +10,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:notenova/features/quizzes/presentation/creating_quizzes/create_quiz_layout.dart';
 import 'package:notenova/features/quizzes/presentation/state_management/quiz_states.dart';
 import 'package:notenova/core/widgets/custom_search_bar.dart';
-import 'package:notenova/core/widgets/bottom_nav_bar.dart';
-import 'package:notenova/main.dart';
 import 'package:notenova/features/quizzes/presentation/button_back.dart';
 import 'package:notenova/features/quizzes/domain/entities/category.dart';
 

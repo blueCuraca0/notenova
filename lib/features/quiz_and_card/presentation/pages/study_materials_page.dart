@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/features/summary/presentation/pages/summary_page.dart';
@@ -6,6 +7,7 @@ import 'package:notenova/features/quizzes/presentation/main_page/quiz_page.dart'
 import '../../../../core/widgets/bottom_nav_bar.dart';
 import '../../../../main.dart';
 import '../../../cards/presentation/pages/card_stacks_page.dart';
+import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
 
 import '../../../cards/presentation/pages/card_stacks_page.dart';
 
@@ -49,9 +51,8 @@ class StudyMaterialsPage extends StatelessWidget {
                             MaterialPageRoute(builder: (context) {
                           return const CardStacksPage();
                         }));
-                      },
-                    ),
-
+                      },),
+                  //  Q I Z Z E S
                     CustomButton(
                       text: "Quizzes",
                       color: Theme.of(context).cardColor,
@@ -63,8 +64,7 @@ class StudyMaterialsPage extends StatelessWidget {
                             MaterialPageRoute(builder: (context) {
                           return QuizPage();
                         }));
-                      },
-                    ),
+                      },),
                   ],
                 ),
 

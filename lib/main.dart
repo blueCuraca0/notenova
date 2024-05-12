@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/utils/themes.dart';
+import 'package:notenova/features/profile/data/firebase_service_fav.dart';
 import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
 import 'package:notenova/features/to_do/data/services/firebase_service.dart';
 import 'package:notenova/features/to_do/data/services/notify_service.dart';
@@ -13,6 +14,7 @@ import 'main_page.dart';
 import 'features/autorization/presentation/pages/authoriazation_page.dart';
 import 'core/utils/c_routes.dart';
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:notenova/features/profile/presentation/state_management/fav_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,8 +55,8 @@ class MyApp extends StatelessWidget {
         CRoutes.routeAuthorizationPage: (context) => const AuthorizationPage(),
         CRoutes.routeMainPage: (context) => MultiBlocProvider(
               providers: [
-                BlocProvider<QuizCubit>(
-                  create: (context) => QuizCubit(),
+                BlocProvider<FavCubit>(
+                  create: (context) => FavCubit(FavTipsFirebaseService()),
                 ),
               ],
               child: MainPage(),
