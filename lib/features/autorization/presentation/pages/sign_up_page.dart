@@ -13,44 +13,77 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  String _login = '';
+  String _name = '';
+  String _email = '';
   String _password = '';
+  String _confirmPassword = '';
   String _errorMessage = '';
 
-  void _signInWithEmail() async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _login,
-          password: _password
-      );
-    } on FirebaseAuthException catch (e) {
+  void _signUp() async {
 
-      late final errorMessage;
+    setState(() {
+      _errorMessage = '';
+    });
 
-      switch (e.code) {
-        case "invalid-credential":
-          errorMessage = "Your email address or password is wrong.";
-          break;
-        case "invalid-email":
-          errorMessage = "Your email address appears to be malformed.";
-          break;
-        case "wrong-password":
-          errorMessage = "Your password is wrong.";
-          break;
-        case "user-not-found":
-          errorMessage = "User with this email doesn't exist.";
-          break;
-        case "user-disabled":
-          errorMessage = "User with this email has been disabled.";
-          break;
-        default:
-          errorMessage = "An undefined Error happened.";
-      }
-
+    if (_name.isEmpty) {
       setState(() {
-        _errorMessage = errorMessage;
+        _errorMessage = "Field \"name\" is empty.";
       });
+    } else if (_email.isEmpty) {
+      setState(() {
+        _errorMessage = "Field \"email\" is empty.";
+      });
+    } else if (_password.isEmpty || _confirmPassword.isEmpty) {
+      setState(() {
+        _errorMessage = "Field \"password\" is empty.";
+      });
+    } else if (_password != _confirmPassword) {
+      setState(() {
+        _errorMessage = "Passwords are not the same.";
+      });
+    } else {
+
+      try {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _email,
+          password: _password,
+        );
+      } on FirebaseAuthException catch (e) {
+
+        late final errorMessage;
+
+        switch (e.code) {
+          case "weak-password":
+            errorMessage = "The password provided is too weak.";
+            break;
+          case "email-already-in-use":
+            errorMessage = "The account already exists for that email.";
+            break;
+          case "invalid-email":
+            errorMessage = "Your email address appears to be malformed.";
+            break;
+          default:
+            errorMessage = "An undefined Error happened.";
+        }
+
+        setState(() {
+          _errorMessage = errorMessage;
+        });
+
+      } catch (e) {}
+
     }
+
+  }
+
+  Widget _getErrorText() {
+    return _errorMessage.isEmpty
+        ? const SizedBox()
+        : Text(
+      _errorMessage,
+      style: Theme.of(context).textTheme.bodySmall
+          ?.copyWith(color: Theme.of(context).colorScheme.error),
+    );
   }
 
 
@@ -71,26 +104,39 @@ class _SignUpPageState extends State<SignUpPage> {
                   alignment: Alignment.center,
                   padding: const EdgeInsets.only(top: 50),
                   child: Text(
-                    "NoteNova",
+                    "Sign Up",
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
               ),
               LightRoundedBG(
-                  height: height / 10 * 7,
+                  height: height / 10 * 8,
                   child: Padding(
                     padding: const EdgeInsets.all(30),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        // Name TextField
                         MyCustomTextField(
                           baseColor: Theme.of(context).cardColor,
-                          hintText: "Login",
+                          hintText: "Name",
                           onChanged: (value) {
-                            _login = value;
+                            _name = value;
                           },
                         ),
                         bigSizedBoxHeight,
+
+                        // Email TextField
+                        MyCustomTextField(
+                          baseColor: Theme.of(context).cardColor,
+                          hintText: "Email",
+                          onChanged: (value) {
+                            _email = value;
+                          },
+                        ),
+                        bigSizedBoxHeight,
+
+                        // Password TextField
                         MyCustomTextField(
                           baseColor: Theme.of(context).cardColor,
                           hintText: "Password",
@@ -98,26 +144,26 @@ class _SignUpPageState extends State<SignUpPage> {
                             _password = value;
                           },
                         ),
+                        bigSizedBoxHeight,
+
+                        // Confirm Password TextField
+                        MyCustomTextField(
+                          baseColor: Theme.of(context).cardColor,
+                          hintText: "Confirm password",
+                          onChanged: (value) {
+                            _confirmPassword = value;
+                          },
+                        ),
                         midSizedBoxHeight,
-                        _errorMessage.isEmpty
-                            ? const SizedBox()
-                            : Text(
-                          _errorMessage,
-                          style: Theme.of(context).textTheme.bodySmall
-                              ?.copyWith(color: Theme.of(context).colorScheme.error),
-                        ),
+
+                        _getErrorText(),
                         bigSizedBoxHeight,
-                        CustomButton(
-                            text: "Sign In",
-                            onPressed: () {
-                              _signInWithEmail();
-                            }
-                        ),
-                        bigSizedBoxHeight,
+
+                        // Sign Up Button
                         CustomButton(
                             text: "Sign Up",
                             onPressed: () {
-                              // _signIn();
+                              _signUp();
                             }
                         ),
                         bigSizedBoxHeight,
