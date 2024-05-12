@@ -1,15 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/utils/constants.dart';
-import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/features/tips/domain/tips.dart';
 import 'package:notenova/features/quizzes/presentation/button_back.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/features/profile/presentation/cubits/fav_cubit/fav_cubit.dart';
-import 'package:notenova/features/profile/data/firebase_service_fav.dart';
-import 'package:notenova/features/profile/presentation/cubits/fav_cubit/fav_states.dart';
 
 class TipPage extends StatefulWidget {
   final Tip tip;

@@ -44,7 +44,8 @@ class UserDataCubit extends Cubit<UserState> {
     getUserData();
   }
 
-  Future<void> getAvatartUser(User user) async {
+  Future<void> getAvatarUser() async {
+    final user = _auth.currentUser;
     final snapshot = await _firestore.collection('users').doc(user?.uid).get();
     if (snapshot.exists) {
       final userData = snapshot.data();

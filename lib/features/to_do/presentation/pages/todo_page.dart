@@ -43,7 +43,7 @@ class CurrentTimeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
         child: Row(
           children: [
             Text('${DateTime.now().day.toString()} ',
@@ -88,16 +88,21 @@ class _CustomAppBarWidgetState extends State<CustomAppBarWidget> {
               padding: smallerPadding,
               child: Row(
                 children: [
+                  smallSizedBoxWidth,
                   Text(LocaleKeys.to_do.tr(),
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge
                           ?.copyWith(fontSize: 20)),
                   const Spacer(),
-                  Icon(
-                    Icons.person,
-                    color: Theme.of(context).cardColor,
+                  const Padding(
+                    padding: EdgeInsets.only(top: 15.0),
+                    child: CircleAvatar(
+                      radius: 30,
+                      backgroundImage: AssetImage('assets/images/cat.jpg'),
+                    ),
                   ),
+                  smallSizedBoxWidth,
                 ],
               ),
             ),

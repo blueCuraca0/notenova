@@ -7,7 +7,7 @@ import 'package:notenova/features/autorization/data/firebase_service.dart';
 import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.dart';
 
 class SignUpPage extends StatefulWidget {
-  SignUpPage({super.key});
+  const SignUpPage({super.key});
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -22,7 +22,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void _signUp() async {
 
-    late final errorMessage;
+    late final String errorMessage;
 
     setState(() {
       _errorMessage = '';
@@ -62,7 +62,7 @@ class _SignUpPageState extends State<SignUpPage> {
           default:
             errorMessage = "An undefined Error happened.";
         }
-      } catch (e) {}
+      }
     }
 
     setState(() {

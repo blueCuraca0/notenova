@@ -4,8 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/utils/themes.dart';
 import 'package:notenova/features/profile/data/firebase_service_fav.dart';
-import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
-import 'package:notenova/features/to_do/data/services/firebase_service.dart';
 import 'package:notenova/features/to_do/data/services/notify_service.dart';
 import 'core/utils/languages/generated/codegen_loader.g.dart';
 import 'firebase_options.dart';
@@ -31,11 +29,11 @@ Future<void> main() async {
       path: 'assets/translations',
       assetLoader: const CodegenLoader(),
       fallbackLocale: const Locale('en'),
-      child: MyApp()));
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

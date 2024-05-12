@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
@@ -16,7 +14,7 @@ import '../../../autorization/data/firebase_service.dart';
 
 
 class QuestionCreate extends StatelessWidget {
-  const QuestionCreate({Key? key}) : super(key: key);
+  const QuestionCreate({super.key});
 
   void addNewQuiz(BuildContext context, Quiz quiz) {
     context.read<QuizCubit>().addQuiz(quiz);
@@ -69,11 +67,11 @@ class QuestionCreate extends StatelessWidget {
                                 barrierDismissible: true
                             );
                           },
-                            child: const Icon(Icons.add),
                           backgroundColor: Theme.of(context).primaryColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
+                            child: const Icon(Icons.add),
                           ),
                         ],
                       ),
