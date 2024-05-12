@@ -4,14 +4,14 @@ import 'package:notenova/features/to_do/domain/entities/task_model.dart';
 import 'package:notenova/features/to_do/presentation/cubits/task_cubit/task_state.dart';
 
 class TaskCubit extends Cubit<TaskState> {
-  final TaskFirestoreService _firestoreService;
+  final TaskFirestoreService _taskService;
 
-  TaskCubit(this._firestoreService) : super(TaskInitial());
+  TaskCubit(this._taskService) : super(TaskInitial());
 
   Future<void> loadTasks() async {
+    emit(TaskLoading());
     try {
-      emit(TaskLoading());
-      final tasks = await _firestoreService.getTasks().first;
+      final tasks = await _taskService.getTasks().first;
       emit(TaskLoaded(tasks));
     } catch (e) {
       emit(TaskError('Failed to load tasks $e.'));
@@ -21,35 +21,38 @@ class TaskCubit extends Cubit<TaskState> {
   Future<void> addTask(Task task) async {
     try {
       emit(TaskLoading());
-      await _firestoreService.addTask(task);
-      emit(TaskSuccess('task added successfully.'));
+      await Future.delayed(const Duration(milliseconds: 500));
+      await _taskService.addTask(task);
+      emit(TaskLoading());
+      loadTasks();
     } catch (e) {
       emit(TaskError('Failed to add task.'));
     }
-
-    final tasks = await _firestoreService.getTasks().first;
-    emit(TaskLoaded(tasks));
   }
 
   Future<void> updateTask(Task task) async {
-    emit(TaskLoading());
     try {
-      await _firestoreService.updateTask(task);
-
-      emit(TaskSuccess('Task updated successfully.'));
+      emit(TaskLoading());
+      await Future.delayed(const Duration(milliseconds: 500));
+      await _taskService.updateTask(task);
+      emit(TaskLoading());
+      loadTasks();
     } catch (e) {
       emit(TaskError('Failed to update task.'));
     }
+  }
 
-    final tasks = await _firestoreService.getTasks().first;
-    emit(TaskLoaded(tasks));
+  Future<void> updateTaskCheckBox(Task task) async {
+    try {
+      await _taskService.updateTask(task);
+    } catch (e) {
+      emit(TaskError('Failed to update task.'));
+    }
   }
 
   Future<void> deleteTask(String task) async {
     try {
-      emit(TaskLoading());
-      await _firestoreService.deleteTask(task);
-      emit(TaskSuccess('task deleted successfully.'));
+      await _taskService.deleteTask(task);
     } catch (e) {
       emit(TaskError('task to delete todo.'));
     }

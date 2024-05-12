@@ -8,6 +8,9 @@ import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:notenova/core/widgets/custom_textfield2.dart';
+import 'package:notenova/features/quizzes/presentation/taking_quizzes/take_question.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
 
 class TakeQuizWindow extends StatelessWidget {
   Quiz quiz;
@@ -87,8 +90,9 @@ class TakeQuizWindow extends StatelessWidget {
                     child: CustomButton(
                       text: LocaleKeys.take_quiz.tr(),
                       onPressed: () {
+                        context.read<QuizCubit>().startQuiz(context.read<QuizCubit>().quizIndex(quiz));
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return const MyCustomTextField(gradientColor: Color(0xffCCD9E4), baseColor: Colors.white, width: 400, height: 200, title: 'Title', maxLines: 8,);
+                          return TakeQuestion(question: quiz.questions[0], indexQuestion: 0, percentage: 0, quiz: quiz);
                         }));
                       },
                     ),

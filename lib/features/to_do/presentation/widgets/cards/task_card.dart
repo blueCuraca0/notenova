@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/features/to_do/presentation/cubits/task_cubit/task_cubit.dart';
 import '../../../../../core/style/c_colors.dart';
 import '../../../../../core/utils/constants.dart';
+import '../../../../autorization/data/firebase_service.dart';
 import '../../../domain/entities/task_model.dart';
 
 class TaskCard extends StatefulWidget {
@@ -78,6 +79,7 @@ class _TaskCardState extends State<TaskCard> {
                     children: <Widget>[
                       Text(
                         widget.task.name,
+                        maxLines: 1,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       smallSizedBoxWidth,
@@ -113,6 +115,9 @@ class _TaskCardState extends State<TaskCard> {
                       onChanged: (value) {
                         setState(() {
                           _isChecked = value ?? false;
+                          FirebaseServiceAuth.updateUserXP(
+                              (value ?? false) ? standardXP : (-standardXP)
+                          );
                         });
                         widget.onCheckboxChanged(_isChecked);
                       },

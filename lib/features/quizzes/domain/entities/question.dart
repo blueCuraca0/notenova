@@ -1,18 +1,20 @@
 abstract class Question{
-  final String question;
-  final List<String> options;
+  String question;
+  List<String> options;
 
   Question({required this.question, required this.options});
 }
 
 class OneChoiceQuestion extends Question{
-  final int correctAnswer;
+  int correctAnswer;
 
-  OneChoiceQuestion({required question, required options, required this.correctAnswer}) : super(question: question, options: options);
+  OneChoiceQuestion({required super.question, required super.options, required this.correctAnswer});
+  OneChoiceQuestion.empty({super.question= '', super.options=const [], this.correctAnswer = -1});
 }
 
 class MultipleChoiceQuestion extends Question{
-  final List<int> correctAnswers;
+  List<int> correctAnswers;
 
-  MultipleChoiceQuestion({required question, required options, required this.correctAnswers}) : super(question: question, options: options);
+  MultipleChoiceQuestion({required super.question, required super.options, required this.correctAnswers});
+  MultipleChoiceQuestion.empty({super.question = '', super.options = const [], this.correctAnswers= const []});
 }

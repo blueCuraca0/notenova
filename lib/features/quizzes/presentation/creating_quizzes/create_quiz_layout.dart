@@ -5,6 +5,8 @@ import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/core/widgets/custom_search_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:notenova/core/widgets/custom_textfield2.dart';
+import 'package:notenova/features/quizzes/domain/entities/question.dart';
+import 'package:notenova/features/quizzes/presentation/creating_quizzes/widgets/add_category_dialog.dart';
 
 import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,12 +14,21 @@ import 'package:notenova/features/quizzes/presentation/state_management/quiz_cub
 import 'package:notenova/features/quizzes/domain/entities/category.dart';
 import 'package:notenova/features/quizzes/presentation/state_management/quiz_states.dart';
 import 'package:notenova/features/quizzes/presentation/creating_quizzes/questions_create.dart';
+import 'package:notenova/features/quizzes/presentation/button_back.dart';
 
 class QuizLayout extends StatelessWidget {
   const QuizLayout({super.key});
 
   List<Category> getCategories(BuildContext context) {
     return context.read<QuizCubit>().categories;
+  }
+
+  void addCategory(String name, BuildContext context) {
+    context.read<QuizCubit>().addCategory(name);
+  }
+
+  void deleteCategory(Category category, BuildContext context) {
+    context.read<QuizCubit>().deleteCategory(category);
   }
 
   @override
@@ -27,27 +38,32 @@ class QuizLayout extends StatelessWidget {
 
     return BlocBuilder<QuizCubit, QuizState>(
       builder: (context, state) => Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
+              leading: const ButtonBack(),
+              leadingWidth: 80,
               backgroundColor: Theme.of(context).primaryColor,
               expandedHeight: height * 0.08,
               title: Text(LocaleKeys.create_new_quiz.tr(),
-              style: Theme.of(context).textTheme.bodyLarge),
-              pinned: true,
-              flexibleSpace: const FlexibleSpaceBar(
-              ),
+                    style: Theme.of(context).textTheme.bodyLarge),
             ),
             SliverToBoxAdapter(
               child: Container(
-                color: Theme.of(context).cardColor,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                ),
                 padding: lPadding,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-
                         ClipRRect(
                             borderRadius: BorderRadius.circular(30),
                             child: Image.network(
@@ -92,10 +108,15 @@ class QuizLayout extends StatelessWidget {
                           context.read<QuizCubit>().changeDescription(value);
                         }),
                     bigSizedBoxHeight,
-                    Text(LocaleKeys.category.tr(),
-                        style: Theme.of(context).textTheme.bodySmall),
+                    Row(
+                      children: [
+                        midSizedBoxWidth,
+                        Text(LocaleKeys.category.tr(),
+                            style: Theme.of(context).textTheme.bodySmall),
+                      ],
+                    ),
                     bigSizedBoxHeight,
-                    Container(
+                    SizedBox(
                       height: height * 0.07,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
@@ -103,15 +124,27 @@ class QuizLayout extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return Row(
                             children: [
-                              CustomButton(
-                                text: getCategories(context)[index].name,
-                                onPressed: () {
-                                    context.read<QuizCubit>().changeCategory(getCategories(context)[index]);
-                                },
-                                gradient: LinearGradient(
-                                  colors:
-                                      getCategories(context)[index].gradient,
-                                ),
+                              BlocBuilder<QuizCubit, QuizState>(
+                                builder: (context, state) {
+                                  return CustomButton(
+                                      text: state.categories[index].name,
+                                      onPressed: () {
+                                          context.read<QuizCubit>().changeCategory(state.categories[index]);
+                                          for (int i = 0; i < state.categories.length; i++) {
+                                            if (i != index) {
+                                              state.categories[i].isSelected = false;
+                                            }
+                                            else{
+                                              state.categories[i].isSelected = true;
+                                            }
+                                          }
+                                      },
+                                      gradient: LinearGradient(
+                                        colors:
+                                            state.categories[index].isSelected ? state.categories[index].darkGradient! : state.categories[index].gradient,
+                                      ),
+                                  );
+                                }
                               ),
                               midSizedBoxWidth,
                             ],
@@ -120,12 +153,31 @@ class QuizLayout extends StatelessWidget {
                       ),
                     ),
                     bigSizedBoxHeight,
-                    midSizedBoxHeight,
+                    Row(
+                      children: [
+                        midSizedBoxWidth,
+                        TextButton(child: Text('+ ${LocaleKeys.add_category.tr()}',
+                            style: Theme.of(context).textTheme.bodySmall), onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (_) => AddCatDialog(title: LocaleKeys.add_category.tr(), categories: state.categories, onCategoryAdded: (String value){
+                                addCategory(value, context);
+                              },
+                              onCategoryDeleted: (Category category){
+                                deleteCategory(category, context);
+                                },
+                                getCategories: () => getCategories(context),
+                              ));
+                        },),
+                      ],
+                    ),
+                    bigSizedBoxHeight,
                     BlocBuilder<QuizCubit, QuizState>(
                       builder: (context, state) {
                         return CustomButton(
                             text: 'Go to questions',
                             onPressed: () {
+                              state.newQuiz!.questions = [OneChoiceQuestion.empty(options: [''])];
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -133,7 +185,8 @@ class QuizLayout extends StatelessWidget {
                                           const QuestionCreate()));
                             });
                       },
-                    ) , //TODO: Hardcoded string remove
+                    ) ,
+                    bigSizedBoxHeight,//TODO: Hardcoded string remove
                   ],
                 ),
               ),

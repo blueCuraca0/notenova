@@ -1,32 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
-import 'package:notenova/features/cards/data/models/flashcard_stack_model.dart';
 import 'package:notenova/features/cards/presentation/pages/flashcard_page.dart';
 import 'package:notenova/features/cards/presentation/pages/writing_card_page.dart';
+import '../../domain/entities/flashcard_stack.dart';
 
 class LearningModeDialog extends StatelessWidget {
   final CardStack _cardStack;
   const LearningModeDialog(this._cardStack, {super.key});
-
-  Route _createRoute(Widget page) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(0.0, 1.0);
-        const end = Offset.zero;
-        const curve = Curves.ease;
-
-        var tween =
-        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +24,15 @@ class LearningModeDialog extends StatelessWidget {
       shadowColor: Colors.white,
       actionsAlignment: MainAxisAlignment.spaceBetween,
       actions: [
-        DialogButton("Flashcards", FlashcardPage(_cardStack), color),
+        DialogButton(
+            "Flashcards",
+            FlashcardPage(
+              _cardStack,
+              (context) {
+                Navigator.of(context).pop();
+              }
+            ),
+            color),
         DialogButton("Writing", WritingCardPage(), color),
       ],
     );

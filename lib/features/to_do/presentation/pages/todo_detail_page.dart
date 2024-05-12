@@ -71,7 +71,7 @@ class TaskDialog extends StatelessWidget {
       case 'Study':
         return CustomButton(
             onPressed: () {},
-            text: 'Study',
+            text: LocaleKeys.study.tr(),
             buttonPadding:
                 const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
             gradient: LinearGradient(
@@ -80,7 +80,7 @@ class TaskDialog extends StatelessWidget {
       case 'Productive':
         return CustomButton(
             onPressed: () {},
-            text: 'Productive',
+            text: LocaleKeys.productive.tr(),
             buttonPadding:
                 const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
             gradient: LinearGradient(
@@ -89,7 +89,7 @@ class TaskDialog extends StatelessWidget {
       case 'Life':
         return CustomButton(
             onPressed: () {},
-            text: 'Life',
+            text: LocaleKeys.life.tr(),
             buttonPadding:
                 const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
             gradient: LinearGradient(

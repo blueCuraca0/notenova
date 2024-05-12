@@ -83,9 +83,19 @@ class CodegenLoader extends AssetLoader{
   "definition_on_one_side": "definition on one side",
   "term_on_another": "term on another",
   "add_category": "Add category",
-  "create_new_quiz": "Create new quiz"
+  "create_new_quiz": "Create new quiz",
+  "update_task": "Update task",
+  "update_summary": "Update summary",
+  "no_summary": "No summary yet",
+  "select_an_image_to_recognize": "Select an image to recognize text",
+  "error_occured": "Error occurred! Please, try again.",
+  "select_text_from_photo": "Select text from photo...",
+  "to_do": "To do",
+  "select_lan": "Select Language",
+  "no_image_selected": "No image selected",
+  "select_time_date": "Select date & time"
 };
-static const Map<String,dynamic> ua = {
+static const Map<String,dynamic> uk = {
   "create_task": "Створити завдання",
   "name": "Ім'я",
   "email": "Електронна пошта",
@@ -154,7 +164,17 @@ static const Map<String,dynamic> ua = {
   "definition_on_one_side": "Визначення на одному боці",
   "term_on_another": "Термін на іншому",
   "add_category": "Додати категорію",
-  "create_new_quiz": "Створити новий тест"
+  "create_new_quiz": "Створити новий тест",
+  "update_task": "Оновити завдання",
+  "update_summary": "Оновити конпект",
+  "no_summary": "Ще немає конспектів",
+  "select_an_image_to_recognize": "Виберіть зображення для розпізнавання тексту",
+  "error_occured": "Виникла помилка! Будь ласка, спробуйте ще раз.",
+  "select_text_from_photo": "Вибрати текст з фото...",
+  "to_do": "Список завдань",
+  "select_lan": "Вибрати мову",
+  "no_image_selected": "Оберіть картинку",
+  "select_time_date": "Вибрати дату & час"
 };
-static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ua": ua};
+static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "uk": uk};
 }
