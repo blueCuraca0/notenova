@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:notenova/core/utils/constants.dart';
@@ -5,6 +6,8 @@ import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/core/widgets/custom_textfield2.dart';
 import 'package:notenova/features/autorization/data/firebase_service.dart';
 import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.dart';
+
+import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -28,13 +31,13 @@ class _SignUpPageState extends State<SignUpPage> {
     });
 
     if (_name.isEmpty) {
-      errorMessage = "Field \"name\" is empty.";
+      errorMessage = LocaleKeys.field_name_is_empty.tr();
     } else if (_email.isEmpty) {
-      errorMessage = "Field \"email\" is empty.";
+      errorMessage = LocaleKeys.field_email_is_empty.tr();
     } else if (_password.isEmpty || _confirmPassword.isEmpty) {
-      errorMessage = "Field \"password\" is empty.";
+      errorMessage = LocaleKeys.field_password_is_empty.tr();
     } else if (_password != _confirmPassword) {
-      errorMessage = "Passwords are not the same.";
+      errorMessage = LocaleKeys.passwords_are_not_same.tr();
     } else {
       try {
         final credential =
@@ -47,16 +50,16 @@ class _SignUpPageState extends State<SignUpPage> {
       } on FirebaseAuthException catch (e) {
         switch (e.code) {
           case "weak-password":
-            errorMessage = "The password provided is too weak.";
+            errorMessage = LocaleKeys.weak_password.tr();
             break;
           case "email-already-in-use":
-            errorMessage = "The account already exists for that email.";
+            errorMessage = LocaleKeys.email_already_in_use.tr();
             break;
           case "invalid-email":
-            errorMessage = "Your email address appears to be malformed.";
+            errorMessage = LocaleKeys.invalid_email.tr();
             break;
           default:
-            errorMessage = "An undefined Error happened.";
+            errorMessage = LocaleKeys.undefined_error.tr();
         }
       }
     }
@@ -95,7 +98,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   alignment: Alignment.center,
                   padding: const EdgeInsets.only(top: 50),
                   child: Text(
-                    "Sign Up",
+                    LocaleKeys.sign_up.tr(),
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
@@ -110,7 +113,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         // Name TextField
                         MyCustomTextField(
                           baseColor: Theme.of(context).cardColor,
-                          hintText: "Name",
+                          hintText: LocaleKeys.name.tr(),
                           onChanged: (value) {
                             _name = value;
                           },
@@ -120,7 +123,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         // Email TextField
                         MyCustomTextField(
                           baseColor: Theme.of(context).cardColor,
-                          hintText: "Email",
+                          hintText: LocaleKeys.email.tr(),
                           onChanged: (value) {
                             _email = value;
                           },
@@ -130,7 +133,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         // Password TextField
                         MyCustomTextField(
                           baseColor: Theme.of(context).cardColor,
-                          hintText: "Password",
+                          hintText: LocaleKeys.password.tr(),
                           onChanged: (value) {
                             _password = value;
                           },
@@ -140,7 +143,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         // Confirm Password TextField
                         MyCustomTextField(
                           baseColor: Theme.of(context).cardColor,
-                          hintText: "Confirm password",
+                          hintText: LocaleKeys.confirm_password.tr(),
                           onChanged: (value) {
                             _confirmPassword = value;
                           },
@@ -152,7 +155,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                         // Sign Up Button
                         CustomButton(
-                            text: "Sign Up",
+                            text: LocaleKeys.sign_up.tr(),
                             onPressed: () {
                               _signUp();
                             }),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -6,6 +7,8 @@ import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/core/widgets/custom_textfield2.dart';
 import 'package:notenova/features/autorization/presentation/pages/sign_up_page.dart';
 import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.dart';
+
+import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -35,28 +38,28 @@ class _SignInPageState extends State<SignInPage> {
       late final String errorMessage;
 
       if (_email.isEmpty) {
-        errorMessage = "Field \"email\" is empty.";
+        errorMessage = LocaleKeys.field_email_is_empty.tr();
       } else if (_password.isEmpty) {
-        errorMessage = "Field \"password\" is empty.";
+        errorMessage = LocaleKeys.field_password_is_empty.tr();
       } else {
         switch (e.code) {
           case "invalid-credential":
-            errorMessage = "Your email address or password is wrong.";
+            errorMessage = LocaleKeys.invalid_credential.tr();
             break;
           case "invalid-email":
-            errorMessage = "Your email address appears to be malformed.";
+            errorMessage = LocaleKeys.invalid_email.tr();
             break;
           case "wrong-password":
-            errorMessage = "Your password is wrong.";
+            errorMessage = LocaleKeys.wrong_password.tr();
             break;
           case "user-not-found":
-            errorMessage = "User with this email doesn't exist.";
+            errorMessage = LocaleKeys.user_not_found.tr();
             break;
           case "user-disabled":
-            errorMessage = "User with this email has been disabled.";
+            errorMessage = LocaleKeys.user_disabled.tr();
             break;
           default:
-            errorMessage = "An undefined Error happened.";
+            errorMessage = LocaleKeys.undefined_error.tr();
         }
       }
 
@@ -111,7 +114,7 @@ class _SignInPageState extends State<SignInPage> {
                         // Email TextField
                         MyCustomTextField(
                           baseColor: Theme.of(context).cardColor,
-                          hintText: "Email",
+                          hintText: LocaleKeys.email.tr(),
                           onChanged: (value) {
                             _email = value;
                           },
@@ -121,7 +124,7 @@ class _SignInPageState extends State<SignInPage> {
                         // Password TextField
                         MyCustomTextField(
                           baseColor: Theme.of(context).cardColor,
-                          hintText: "Password",
+                          hintText: LocaleKeys.password.tr(),
                           onChanged: (value) {
                             _password = value;
                           },
@@ -133,7 +136,7 @@ class _SignInPageState extends State<SignInPage> {
 
                         // Sign In Button
                         CustomButton(
-                          text: "Sign In",
+                          text: LocaleKeys.sign_in.tr(),
                           onPressed: () {
                             _signInWithEmail();
                           }
@@ -142,7 +145,7 @@ class _SignInPageState extends State<SignInPage> {
 
                         // Sign Up Button
                         CustomButton(
-                          text: "Sign Up",
+                          text: LocaleKeys.sign_up.tr(),
                           onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(builder: (context) => const SignUpPage())

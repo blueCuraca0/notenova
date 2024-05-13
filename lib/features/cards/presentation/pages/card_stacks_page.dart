@@ -6,8 +6,6 @@ import 'package:notenova/core/widgets/custom_search_bar.dart';
 import 'package:notenova/features/cards/presentation/pages/create_card_stack_page.dart';
 import 'package:notenova/features/cards/presentation/widgets/card_stack_list.dart';
 import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.dart';
-
-import '../../../../core/style/c_colors.dart';
 import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 
 class CardStacksPage extends StatefulWidget {
@@ -45,7 +43,7 @@ class _CardStacksPageState extends State<CardStacksPage> {
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: CColors.accent,
+      backgroundColor: Theme.of(context).primaryColor,
       resizeToAvoidBottomInset: false,
       body: SizedBox(
         height: height,
@@ -65,11 +63,11 @@ class _CardStacksPageState extends State<CardStacksPage> {
                   children: [
                     Text(
                       LocaleKeys.cards.tr(),
-                      style: titleTextStyle,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 30),
                     ),
                     Text(
                       LocaleKeys.lets_study.tr(),
-                      style: subtitleTextStyle,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
                 ),

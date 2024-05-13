@@ -106,5 +106,20 @@
   "this_stack_is_finished": "Цей набір закінчено!",
   "your_results_are": "Ваші результати ",
   "back_to_card_stacks": "Назад до наборів",
-  "level": "рівень"
+  "level": "рівень",
+  "sorry": "Вибачте",
+  "no_access_log_in": "Ви не маєте доступу до цієї сторінки, поки не авторизуєтесь",
+  "log_in": "Увійти",
+  "field_name_is_empty": "Поле \"ім'я\" порожнє.",
+  "field_email_is_empty": "Поле \"пошта\" порожнє.",
+  "field_password_is_empty": "Поле \"пароль\" порожнє.",
+  "passwords_are_not_same": "Паролі не співпадають.",
+  "invalid_credential": "Ваша пошта або пароль неправильні.",
+  "invalid_email": "Неправильна поштова адреса.",
+  "wrong_password": "Неправильний пароль.",
+  "user_not_found": "Користувач з такою поштою не існує.",
+  "user_disabled": "Користувач з такою поштою є неактивним.",
+  "undefined_error": "Сталася наведома помилка.",
+  "weak_password": "Наданий пароль є заслабким.",
+  "email_already_in_use": "Вже існує акаунт з цією поштою."
 }

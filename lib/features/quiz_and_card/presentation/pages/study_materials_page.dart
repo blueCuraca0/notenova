@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
+import 'package:notenova/core/utils/themes.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
+import 'package:notenova/core/widgets/custom_button_2.dart';
 import 'package:notenova/features/summary/presentation/pages/summary_page.dart';
 import 'package:notenova/features/quizzes/presentation/main_page/quiz_page.dart';
 import '../../../../core/utils/languages/generated/locale_keys.g.dart';
@@ -14,7 +16,6 @@ class StudyMaterialsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
 
     return Scaffold(
@@ -35,8 +36,9 @@ class StudyMaterialsPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomButton(
+                    CustomButton2(
                       text: LocaleKeys.cards.tr(),
+                      textColor: Theme.of(context).textTheme.bodyMedium?.color,
                       color: Theme.of(context).cardColor,
                       buttonPadding: buttonPadding,
                       width: width / 2 - 40,
@@ -47,9 +49,9 @@ class StudyMaterialsPage extends StatelessWidget {
                           return const CardStacksPage();
                         }));
                       },),
-                  //  Q I Z Z E S
-                    CustomButton(
+                    CustomButton2(
                       text: LocaleKeys.quizzes.tr(),
+                      textColor: Theme.of(context).textTheme.bodyMedium?.color,
                       color: Theme.of(context).cardColor,
                       buttonPadding: buttonPadding,
                       width: width / 2 - 40,
@@ -65,9 +67,9 @@ class StudyMaterialsPage extends StatelessWidget {
 
                 bigSizedBoxHeight,
 
-                // S U M M A R Y
-                CustomButton(
+                CustomButton2(
                   text: LocaleKeys.summaries.tr(),
+                  textColor: Theme.of(context).textTheme.bodyMedium?.color,
                   color: Theme.of(context).cardColor,
                   buttonPadding: buttonPadding,
                   height: bottomNavBarHeight * 2,
