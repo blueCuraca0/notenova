@@ -5,6 +5,7 @@ import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
+import 'package:notenova/features/autorization/presentation/pages/authoriazation_page.dart';
 
 class SettingsFieldsWidget extends StatefulWidget {
   const SettingsFieldsWidget({super.key});
@@ -118,6 +119,9 @@ class _SettingsFieldsWidgetState extends State<SettingsFieldsWidget>
 
   void _logOut(BuildContext context) {
     FirebaseAuth.instance.signOut();
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const AuthorizationPage())
+    );
     setState(() {});
   }
 
