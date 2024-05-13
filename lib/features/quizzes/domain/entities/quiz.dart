@@ -2,6 +2,7 @@ import 'question.dart';
 import 'category.dart';
 
 class Quiz{
+  String id;
   String image;
   String title;
   Category? category;
@@ -11,15 +12,29 @@ class Quiz{
   Quiz({
     required this.image,
     required this.title,
-    required this.category,
+    this.category,
     required this.description,
+    required this.questions,
+    required this.id,
   });
 
   Quiz.empty({
-    this.image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZe88Zxjf5pQPODgsrRX44zcxVOCqulUWrXwOtkM-evQ&s',//TODO: I have here default image
+    this.image='https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg',//TODO: I have here default image
     this.title= 'Unknown',
     this.category,
     this.description = 'Unknown',
     this.questions = const [],
+    this.id = '',
   });
+
+  Quiz copyWith(){
+    return Quiz(
+      id: id,
+      image: image,
+      title: title,
+      category: category,
+      description: description,
+      questions: questions,
+    );
+  }
 }

@@ -8,17 +8,22 @@ import 'package:notenova/features/quizzes/presentation/state_management/quiz_cub
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:notenova/features/quizzes/presentation/creating_quizzes/create_quiz_layout.dart';
+import 'package:notenova/features/quizzes/presentation/state_management/quiz_sort_cubit.dart';
+import 'package:notenova/features/quizzes/presentation/state_management/quiz_sort_states.dart';
 import 'package:notenova/features/quizzes/presentation/state_management/quiz_states.dart';
-import 'package:notenova/core/widgets/custom_search_bar.dart';
+//import 'package:notenova/core/widgets/custom_search_bar.dart';
 import 'package:notenova/features/quizzes/presentation/button_back.dart';
 import 'package:notenova/features/quizzes/domain/entities/category.dart';
+import 'package:notenova/core/widgets/custom_button_2.dart';
+
+import '../../domain/entities/quiz.dart';
 
 //TODO: create sorting by category
-//TODO: firebase
+
 
 class QuizPage extends StatelessWidget {
   final expandedHeight = 200.0;
-  Category all = Category(name: 'All', gradient: CColors.greenGradientColor);
+  Category all = Category(name: 'All', gradient: CColors.greenGradientColor, darkGradient: CColors.darkGreenGradientColor, id: '0');
   Category? currentCategory;
 
   QuizPage({super.key});
@@ -32,7 +37,9 @@ class QuizPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     length = context.read<QuizCubit>().quizzes.length;
-    currentCategory = all;
+    context.read<QuizCubit>().loadQuizzes(Quiz.empty()).then((value) => context.read<QuizSortCubit>().sortByCategory(all, context.read<QuizCubit>().quizzes));
+    //context.read<QuizSortCubit>().sortByCategory(all, context.read<QuizCubit>().quizzes);
+
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       resizeToAvoidBottomInset: false,
@@ -46,7 +53,7 @@ class QuizPage extends StatelessWidget {
                 automaticallyImplyLeading: false,
                 expandedHeight: MediaQuery.of(context).size.height * 0.2,
                 floating: true,
-                pinned: false,
+                pinned: true,
                 backgroundColor: Theme.of(context).primaryColor,
                 flexibleSpace: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
@@ -71,72 +78,100 @@ class QuizPage extends StatelessWidget {
                 ),
               ),
               SliverToBoxAdapter(
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.8,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColorLight,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        CustomSearchBar(
-                          baseColor: Theme.of(context).cardColor,
-                        ),
-                        bigSizedBoxHeight, //TODO: Hardcoded string
-                        Row(
+                child: BlocBuilder<QuizSortCubit, QuizSortState>(
+                  builder: (context, stateSort) {
+                    return Container(
+                      height: stateSort.quizzesSort.length >1  ? null : MediaQuery.of(context).size.height * 0.8,
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColorLight,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Center(
+                        child: Column(
                           children: [
-                            CustomButton(
-                                text: all.name,
-                                onPressed: () {
-                                },
-                                gradient: LinearGradient(
-                                  colors: CColors.greenGradientColor,
-                                )),
-                            midSizedBoxWidth,
-                            BlocBuilder<QuizCubit, QuizState>(
-                                builder: (context, state) {
-                              return SizedBox(
-                                height: 60,
-                                width: MediaQuery.of(context).size.width * 0.7,
-                                child: ListView.builder(
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Row(
-                                      children: [
-                                        CustomButton(
-                                          text: state.categories[index].name,
-                                          onPressed: () {},
-                                          gradient: LinearGradient(
-                                            colors: state.categories[index].gradient,),),
-                                        midSizedBoxWidth,
-                                      ],
-                                    );
-                                  },
-                                  itemCount: state.categories.length,
-                                  scrollDirection: Axis.horizontal,
+                            /*CustomSearchBar(
+                              baseColor: Theme.of(context).cardColor,
+                              onChanged: (value) {
+                                context.read<QuizSortCubit>().sortBySearch(value, context.read<QuizCubit>().quizzes);
+                              }
+                            ),*/ //implement if I have time
+                            bigSizedBoxHeight,
+                            Row(
+                                  children: [
+                                    CustomButton(
+                                        text: all.name,
+                                        onPressed: () {
+                                          context.read<QuizSortCubit>().sortByCategory(all, context.read<QuizCubit>().quizzes);
+                                        },
+                                        gradient: LinearGradient(
+                                          colors: all == stateSort.category ? all.darkGradient!: all.gradient,
+                                        )),
+                                    midSizedBoxWidth,
+                                    BlocBuilder<QuizCubit, QuizState>(
+                                        builder: (context, state) {
+                                      return SizedBox(
+                                        height: 60,
+                                        width: MediaQuery.of(context).size.width * 0.7,
+                                        child: ListView.builder(
+                                          itemBuilder:
+                                              (BuildContext context, int index) {
+                                            return Row(
+                                              children: [
+                                                CustomButton(
+                                                  text: state.categories[index].name,
+                                                  onPressed: () {
+                                                    context.read<QuizSortCubit>().sortByCategory(state.categories[index], state.quizzes);
+                                                  },
+                                                  gradient: LinearGradient(
+                                                    colors: state.categories[index] == stateSort.category ? state.categories[index].darkGradient!: state.categories[index].gradient,),),
+                                                midSizedBoxWidth,
+                                              ],
+                                            );
+                                          },
+                                          itemCount: state.categories.length,
+                                          scrollDirection: Axis.horizontal,
+                                        ),
+                                      );
+                                    }),
+                                  ],
                                 ),
-                              );
-                            }),
+                            bigSizedBoxHeight,
+                            BlocBuilder<QuizCubit,QuizState>(
+                              builder: (context, state) {
+                                if (state is QuizzesLoading){
+                                  return Center(
+                                    child: CircularProgressIndicator(color: Theme.of(context).primaryColorDark),
+                                  );}
+                                else {
+                                return Column(
+                                  children: [
+                                    BlocBuilder<QuizSortCubit, QuizSortState>(
+                                      builder: (context, stateSort) {
+                                        return Column(
+                                          children:  List<Widget>.generate(stateSort.quizzesSort.length,
+                                            (int index) {
+                                              return QuizCard(
+                                                    quiz: stateSort.quizzesSort[index],
+                                                  );
+                                                },
+                                              ),
+                                        );
+                                      }
+                                    ),
+                                    const SizedBox(
+                                      height: 100,),
+                                  ],
+                                );
+                                }
+
+                              }
+                            ),
                           ],
                         ),
-                        Column(
-                          children: List<Widget>.generate(length,
-                            (int index) {
-                              return BlocBuilder<QuizCubit, QuizState>(
-                                builder: (context, state) {
-                                  return QuizCard(
-                                    quiz: state.quizzes[index],
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                      ),
+                    );
+                  }
                 ),
               ),
             ],
@@ -144,7 +179,8 @@ class QuizPage extends StatelessWidget {
           Positioned(
             left: largePadding.left,
             bottom: 100,
-            child: CustomButton(
+            child: CustomButton2(
+              textColor: CColors.white,
               color: CColors.darkGreen,
               height: 70,
               width: MediaQuery.of(context).size.width -

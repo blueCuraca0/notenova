@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/utils/themes.dart';
+import 'package:notenova/darkTheme_cubit/darkTheme_states.dart';
 import 'package:notenova/features/profile/data/firebase_service_fav.dart';
+import 'package:notenova/features/quizzes/data/firebase_quizzes.dart';
+import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
+import 'package:notenova/features/quizzes/presentation/state_management/quiz_sort_cubit.dart';
 import 'package:notenova/features/to_do/data/services/notify_service.dart';
 import 'core/utils/languages/generated/codegen_loader.g.dart';
 import 'firebase_options.dart';
@@ -13,6 +17,8 @@ import 'features/autorization/presentation/pages/authoriazation_page.dart';
 import 'core/utils/c_routes.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:notenova/features/profile/presentation/cubits/fav_cubit/fav_cubit.dart';
+import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
+import 'package:notenova/darkTheme_cubit/darkTheme_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +35,9 @@ Future<void> main() async {
       path: 'assets/translations',
       assetLoader: const CodegenLoader(),
       fallbackLocale: const Locale('en'),
-      child: const MyApp()));
+      child: BlocProvider<DarkCubit>(
+        create: (context) => DarkCubit(),
+          child: const MyApp())));
 }
 
 class MyApp extends StatelessWidget {
@@ -42,24 +50,34 @@ class MyApp extends StatelessWidget {
       statusBarBrightness: Brightness.light,
       statusBarIconBrightness: Brightness.dark,
     ));
-    return MaterialApp(
-      title: 'NoteNova',
-      theme: lightTheme,
-      locale: context.locale,
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      initialRoute: CRoutes.routeMainPage,
-      routes: {
-        CRoutes.routeAuthorizationPage: (context) => const AuthorizationPage(),
-        CRoutes.routeMainPage: (context) => MultiBlocProvider(
-              providers: [
-                BlocProvider<FavCubit>(
-                  create: (context) => FavCubit(FavTipsFirebaseService()),
+    return BlocBuilder<DarkCubit, DarkState>(
+      builder: (context, state) {
+        return MaterialApp(
+          title: 'NoteNova',
+          theme: state.darkTheme? darkTheme : lightTheme,
+          locale: context.locale,
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          initialRoute: CRoutes.routeMainPage,
+          routes: {
+            CRoutes.routeAuthorizationPage: (context) => const AuthorizationPage(),
+            CRoutes.routeMainPage: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider<FavCubit>(
+                      create: (context) => FavCubit(FavTipsFirebaseService()),
+                    ),
+                    BlocProvider<QuizCubit>(
+                      create: (context) => QuizCubit(QuizFirebaseService()),
+                    ),
+                    BlocProvider<QuizSortCubit>(
+                      create: (context) => QuizSortCubit(),
+                    ),
+                  ],
+                  child: MainPage(),
                 ),
-              ],
-              child: MainPage(),
-            ),
-      },
+          },
+        );
+      }
     );
   }
 }

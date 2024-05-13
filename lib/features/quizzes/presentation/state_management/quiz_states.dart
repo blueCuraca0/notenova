@@ -14,10 +14,16 @@ abstract class QuizState {
 class QuizInitialState extends QuizState {
   QuizInitialState()
       : super(quizzes: [], categories: [
-          Category(name: 'Work', gradient: CColors.pinkGradientColor, darkGradient: CColors.darkPinkGradientColor),
-          Category(name: 'Study', gradient: CColors.blueGradientColor, darkGradient: CColors.darkBlueGradientColor),
-          Category(name: 'Fun', gradient: CColors.greenGradientColor, darkGradient: CColors.darkGreenGradientColor),
+
         ]);
+}
+
+class QuizzesLoading extends QuizState {
+  QuizzesLoading(): super(quizzes: [], categories: []);
+}
+
+class QuizzesLoaded extends QuizState {
+  QuizzesLoaded({required super.quizzes, required super.categories});
 }
 
 class QuizChanged extends QuizState {

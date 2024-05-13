@@ -5,6 +5,7 @@ import 'package:notenova/features/tips/domain/tips.dart';
 import 'package:notenova/features/quizzes/presentation/button_back.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/features/profile/presentation/cubits/fav_cubit/fav_cubit.dart';
+import 'package:notenova/core/widgets/custom_button_2.dart';
 
 class TipPage extends StatefulWidget {
   final Tip tip;
@@ -86,9 +87,10 @@ class _TipPageState extends State<TipPage> {
                                   .copyWith(fontWeight: FontWeight.bold),
                             ),
                             bigSizedBoxHeight,
-                            CustomButton(
+                            CustomButton2(
                               color: Theme.of(context).primaryColor,
-                              text: widget.text, //TODO: hardcoded string
+                              textColor: Theme.of(context).textTheme.bodyMedium!.color,
+                              text: widget.text,
                               onPressed: () {
                                 setState(() {
                                   if (widget.text == 'Like') {
