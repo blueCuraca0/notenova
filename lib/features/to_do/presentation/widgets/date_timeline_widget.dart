@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/to_do/domain/entities/task_model.dart';
 

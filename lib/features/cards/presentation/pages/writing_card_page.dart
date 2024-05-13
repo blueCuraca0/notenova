@@ -1,9 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/style/c_colors.dart';
-import '../../../../core/utils/constants.dart';
 import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 import '../../../../core/widgets/congratulations_dialog.dart';
 import '../../../../core/widgets/custom_app_bar.dart';

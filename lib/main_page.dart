@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
 
 import 'core/utils/c_routes.dart';
 import 'core/widgets/bottom_nav_bar.dart';
@@ -7,7 +6,6 @@ import 'features/profile/presentation/pages/user_profile_page.dart';
 import 'features/quiz_and_card/presentation/pages/study_materials_page.dart';
 import 'features/tips/presentation/pages/homepage.dart';
 import 'features/to_do/presentation/pages/todo_page.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainPage extends StatelessWidget {
   final _navigatorKey = GlobalKey<NavigatorState>();

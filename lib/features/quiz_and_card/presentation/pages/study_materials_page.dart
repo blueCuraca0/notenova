@@ -6,8 +6,6 @@ import 'package:notenova/features/summary/presentation/pages/summary_page.dart';
 import 'package:notenova/features/quizzes/presentation/main_page/quiz_page.dart';
 import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 import '../../../cards/presentation/pages/card_stacks_page.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
 
 
 

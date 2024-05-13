@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
