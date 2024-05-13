@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/profile/presentation/cubits/user_cubit/user_cubit.dart';
-import 'package:notenova/features/profile/presentation/widgets/settings_buttons.dart';
+import 'package:notenova/features/profile/presentation/widgets/settings.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/features/profile/presentation/cubits/fav_cubit/fav_cubit.dart';
@@ -43,8 +43,26 @@ class UserProfilePage extends StatelessWidget {
           const SliverToBoxAdapter(
             child: bigSizedBoxHeight,
           ),
-          const SliverToBoxAdapter(
-            child: BackgroundWidget(),
+          SliverToBoxAdapter(
+            child: Container(
+              padding: const EdgeInsets.only(top: 30),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColorLight,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(40),
+                  topRight: Radius.circular(40),
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  LocaleKeys.favorite_tips_of_the_day.tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
           ),
           BlocBuilder<FavCubit, FavState>(
             builder: (context, state) {
@@ -115,35 +133,6 @@ class UserProfilePage extends StatelessWidget {
   }
 }
 
-class BackgroundWidget extends StatelessWidget {
-  const BackgroundWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(top: 30),
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColorLight,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(40),
-          topRight: Radius.circular(40),
-        ),
-      ),
-      child: Center(
-        child: Text(
-          LocaleKeys.favorite_tips_of_the_day.tr(),
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium!
-              .copyWith(fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
-  }
-}
-
 class CustomSliverAppBarWidget extends StatefulWidget {
   const CustomSliverAppBarWidget({
     super.key,
@@ -158,20 +147,21 @@ class CustomSliverAppBarWidgetState extends State<CustomSliverAppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: MediaQuery.of(context).size.height * 0.15,
-      floating: true,
-      pinned: false,
-      automaticallyImplyLeading: false,
-      backgroundColor: Theme.of(context).primaryColor,
-      surfaceTintColor: Theme.of(context).primaryColor,
-      flexibleSpace: FlexibleSpaceBar(
-        titlePadding: EdgeInsets.zero,
-        title: BlocProvider(
-          create: (context) =>
-              UserDataCubit(FirebaseFirestore.instance, FirebaseAuth.instance),
-          child: const UserInformationWidget(),
-        ),
-      ),
-    );
+        expandedHeight: MediaQuery.of(context).size.height * 0.23,
+        pinned: false,
+        automaticallyImplyLeading: false,
+        backgroundColor: Theme.of(context).primaryColor,
+        surfaceTintColor: Theme.of(context).primaryColor,
+        flexibleSpace: FlexibleSpaceBar(
+          title: Padding(
+            padding: const EdgeInsets.only(top: 40.0),
+            child: BlocProvider(
+              create: (context) => UserDataCubit(
+                  FirebaseFirestore.instance, FirebaseAuth.instance),
+              child: const UserInformationWidget(),
+            ),
+          ),
+          titlePadding: EdgeInsets.zero,
+        ));
   }
 }

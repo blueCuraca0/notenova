@@ -26,10 +26,15 @@ class _TaskCardState extends State<TaskCard> {
 
   @override
   Widget build(BuildContext context) {
+    Locale locale = context.locale;
+    String monthFormat =
+        locale.languageCode == 'uk' ? 'dd-MMMM, HH:mm' : 'dd-MMMM, HH:mm';
+    DateFormat formatter = DateFormat(monthFormat, locale.languageCode);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8.0),
       child: SizedBox(
-        height: 140,
+        height: 170,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30.0),
@@ -65,6 +70,7 @@ class _TaskCardState extends State<TaskCard> {
                       Text(
                         widget.task.name,
                         maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       smallSizedBoxWidth,
@@ -82,9 +88,7 @@ class _TaskCardState extends State<TaskCard> {
                             color: CColors.text,
                           ),
                           smallSizedBoxWidth,
-                          Text(
-                              DateFormat('dd-MMMM, HH:mm')
-                                  .format(widget.task.finalDate),
+                          Text(formatter.format(widget.task.finalDate),
                               style: Theme.of(context).textTheme.bodyMedium),
                         ],
                       )

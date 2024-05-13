@@ -21,7 +21,6 @@ class _SignUpPageState extends State<SignUpPage> {
   String _errorMessage = '';
 
   void _signUp() async {
-
     String errorMessage = '';
 
     setState(() {
@@ -38,15 +37,12 @@ class _SignUpPageState extends State<SignUpPage> {
       errorMessage = "Passwords are not the same.";
     } else {
       try {
-        final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        final credential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _email,
           password: _password,
         );
-        FirebaseServiceAuth.addUser(
-            credential.user!.uid,
-            _name,
-            ''
-        );
+        FirebaseServiceAuth.addUser(credential.user!.uid, _name, '');
         Navigator.of(context).pop();
       } on FirebaseAuthException catch (e) {
         switch (e.code) {
@@ -68,19 +64,19 @@ class _SignUpPageState extends State<SignUpPage> {
     setState(() {
       _errorMessage = errorMessage;
     });
-
   }
 
   Widget _getErrorText() {
     return _errorMessage.isEmpty
         ? const SizedBox()
         : Text(
-      _errorMessage,
-      style: Theme.of(context).textTheme.bodySmall
-          ?.copyWith(color: Theme.of(context).colorScheme.error),
-    );
+            _errorMessage,
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall
+                ?.copyWith(color: Theme.of(context).colorScheme.error),
+          );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -159,13 +155,11 @@ class _SignUpPageState extends State<SignUpPage> {
                             text: "Sign Up",
                             onPressed: () {
                               _signUp();
-                            }
-                        ),
+                            }),
                         bigSizedBoxHeight,
                       ],
                     ),
-                  )
-              )
+                  ))
             ],
           ),
         ),

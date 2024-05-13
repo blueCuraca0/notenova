@@ -83,7 +83,10 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
                   widget.isEdit
                       ? LocaleKeys.update_summary.tr()
                       : LocaleKeys.create_summary.tr(),
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(fontSize: 20),
                 ),
               ],
             ),
@@ -103,7 +106,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
             controller: _descriptionController,
             gradientColor: const Color(0xffCCD9E4),
             width: 400,
-            height: 250,
+            height: 220,
             title: LocaleKeys.description.tr(),
             baseColor: Theme.of(context).cardColor,
           ),
@@ -123,11 +126,10 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
               LocaleKeys.select_image_from_photo.tr(),
             ),
           ),
-          midSizedBoxHeight,
           widget.isEdit ? const Text('') : selectPhotoForSummary(),
           midSizedBoxHeight,
           buttonCategorySummary(),
-          bigSizedBoxHeight,
+          midSizedBoxHeight,
           CustomButton(
             onPressed: () {
               if (widget.isEdit) {

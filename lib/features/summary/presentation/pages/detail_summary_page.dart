@@ -30,9 +30,13 @@ class DetailSummaryPage extends StatelessWidget {
               child: Stack(
                 children: [
                   summary.photoUrl.isNotEmpty
-                      ? OctoImage(
-                          image: NetworkImage(summary.photoUrl),
-                          fit: BoxFit.cover,
+                      ? FractionallySizedBox(
+                          widthFactor: 1.0,
+                          child: OctoImage(
+                            image: NetworkImage(summary.photoUrl),
+                            fit: BoxFit.fitWidth,
+                            alignment: Alignment.center,
+                          ),
                         )
                       : Container(
                           height: 350,
