@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:notenova/core/utils/themes.dart';
+
+import '../style/c_colors.dart';
 
 double searchBarHeight = 60;
 
@@ -32,14 +35,14 @@ class CustomSearchBar extends StatelessWidget {
 }
 
 class ShadedBox extends StatelessWidget {
-  final Color gradientColor;
+  Color gradientColor;
   final Color baseColor;
   final double? height;
   final Function? onChanged;
   final Function? onSubmitted;
 
 
-  const ShadedBox({super.key,
+  ShadedBox({super.key,
     required this.baseColor,
     this.height,
     this.onChanged,
@@ -49,7 +52,6 @@ class ShadedBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return SizedBox(
       height: 60,
       child: Stack(
