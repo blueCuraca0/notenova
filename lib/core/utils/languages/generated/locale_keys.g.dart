@@ -124,5 +124,6 @@ abstract class  LocaleKeys {
   static const undefined_error = 'undefined_error';
   static const weak_password = 'weak_password';
   static const email_already_in_use = 'email_already_in_use';
+  static const go_to_qes = 'go_to_qes';
 
 }

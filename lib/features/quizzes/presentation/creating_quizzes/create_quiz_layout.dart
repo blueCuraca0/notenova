@@ -183,7 +183,7 @@ class QuizLayout extends StatelessWidget {
                     BlocBuilder<QuizCubit, QuizState>(
                       builder: (context, state) {
                         return CustomButton(
-                            text: 'Go to questions', //TODO: hardcode
+                            text: LocaleKeys.go_to_qes.tr(),
                             onPressed: () {
                               state.newQuiz!.questions = [OneChoiceQuestion.empty(options: [''])];
                               Navigator.push(

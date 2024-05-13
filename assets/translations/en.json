@@ -124,5 +124,6 @@
   "user_disabled": "User with this email has been disabled.",
   "undefined_error": "An undefined error happened.",
   "weak_password": "The password provided is too weak.",
-  "email_already_in_use": "The account already exists for that email."
+  "email_already_in_use": "The account already exists for that email.",
+  "go_to_qes": "Go to questions"
 }
