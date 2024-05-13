@@ -8,9 +8,9 @@ import '../../data/models/flashcard_stack_model.dart';
 import '../../domain/entities/flashcard_stack.dart';
 
 class CardStackList extends StatelessWidget {
-  String? searchInput;
+  String searchInput = '';
 
-  CardStackList({super.key});
+  CardStackList({this.searchInput = '', super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +45,11 @@ class CardStackList extends StatelessWidget {
               CardStack cardStack = CardStackModel.cardStackFromJson(data);
 
               if (data['uid'] != FirebaseAuth.instance.currentUser?.uid) {
+                return const SizedBox();
+              }
+
+              if (!data['name'].toString().startsWith(searchInput)) {
+                print("${data['name']} DOES START WITH $searchInput");
                 return const SizedBox();
               }
 

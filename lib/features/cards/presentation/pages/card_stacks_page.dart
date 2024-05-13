@@ -8,8 +8,15 @@ import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.da
 
 import '../../../../core/style/c_colors.dart';
 
-class CardStacksPage extends StatelessWidget {
+class CardStacksPage extends StatefulWidget {
   const CardStacksPage({super.key});
+
+  @override
+  State<CardStacksPage> createState() => _CardStacksPageState();
+}
+
+class _CardStacksPageState extends State<CardStacksPage> {
+  String _searchInput = '';
 
   Route _createRoute(Widget page) {
     return PageRouteBuilder(
@@ -83,7 +90,9 @@ class CardStacksPage extends StatelessWidget {
                         CustomSearchBar(
                           baseColor: Theme.of(context).cardColor,
                           onChanged: (value) {
-
+                            setState(() {
+                              _searchInput = value;
+                            });
                           },
                         ),
                         bigSizedBoxHeight,
@@ -98,7 +107,7 @@ class CardStacksPage extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    child: CardStackList(),
+                    child: CardStackList(searchInput: _searchInput),
                   )
                 ],
               ),

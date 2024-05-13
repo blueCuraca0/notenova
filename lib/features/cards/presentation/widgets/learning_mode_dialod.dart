@@ -32,7 +32,16 @@ class LearningModeDialog extends StatelessWidget {
               }
             ),
             color),
-        DialogButton("Writing", const WritingCardPage(), color),
+        DialogButton(
+            "Writing",
+            WritingCardPage(
+              _cardStack,
+              (context) {
+                Navigator.of(context).pop();
+              }
+            ),
+            color
+        ),
       ],
     );
   }
