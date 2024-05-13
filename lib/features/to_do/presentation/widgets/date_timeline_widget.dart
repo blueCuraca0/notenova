@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:notenova/core/utils/constants.dart';
@@ -30,6 +31,15 @@ class _TimelineDataPickerState extends State<TimelineDataPicker> {
 
   @override
   Widget build(BuildContext context) {
+    Locale locale = context.locale;
+
+    String weekdayFormat = 'EEEE';
+    if (locale.languageCode == 'uk') {
+      weekdayFormat = 'EEEE';
+    } else {
+      weekdayFormat = 'EEEE';
+    }
+
     // Group tasks by date
     final Map<DateTime, List<Task>> tasksByDate = widget.tasks.fold(
       {},
@@ -67,7 +77,7 @@ class _TimelineDataPickerState extends State<TimelineDataPicker> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
                 child: Container(
-                  width: 115.0,
+                  width: 120.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30.0),
                     color: isSelected
@@ -91,8 +101,9 @@ class _TimelineDataPickerState extends State<TimelineDataPicker> {
                         ),
                         smallSizedBoxHeight,
                         Text(
-                          DateFormat('EEEE').format(date),
-                          style: Theme.of(context).textTheme.bodyMedium,
+                          DateFormat(weekdayFormat, locale.languageCode)
+                              .format(date),
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
                     ),

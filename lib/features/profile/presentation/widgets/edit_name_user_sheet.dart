@@ -69,7 +69,7 @@ class EditUserNameWidgetState extends State<EditUserNameWidget> {
               widget.userDataCubit.updateUserName(user!, _nameController.text);
               Navigator.pop(context);
             },
-            text: 'Update name',
+            text: LocaleKeys.update_name.tr(),
             buttonPadding:
                 const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
           ),

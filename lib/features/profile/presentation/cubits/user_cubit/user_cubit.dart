@@ -32,6 +32,7 @@ class UserDataCubit extends Cubit<UserState> {
     await _firestore.collection('users').doc(user.uid).update({
       'avatar': avatar,
     });
+    getUserData();
   }
 
   Future updateUserName(
@@ -42,21 +43,5 @@ class UserDataCubit extends Cubit<UserState> {
       'name': name,
     });
     getUserData();
-  }
-
-  Future<void> getAvatarUser() async {
-    final user = _auth.currentUser;
-    final snapshot = await _firestore.collection('users').doc(user?.uid).get();
-    if (snapshot.exists) {
-      final userData = snapshot.data();
-      final avatar = userData?['avatar'];
-      if (avatar != null) {
-        print('User avatar: $avatar');
-      } else {
-        emit(UserError('User avatar not found'));
-      }
-    } else {
-      emit(UserError('User data not found'));
-    }
   }
 }
