@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/profile/presentation/cubits/user_cubit/user_cubit.dart';
-import 'package:notenova/features/profile/presentation/widgets/settings_buttons.dart';
+import 'package:notenova/features/profile/presentation/widgets/settings.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/features/profile/presentation/cubits/fav_cubit/fav_cubit.dart';

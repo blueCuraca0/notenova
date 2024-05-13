@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/features/profile/presentation/widgets/custom_appbar.dart';
-import 'package:notenova/features/profile/presentation/widgets/settings_fields.dart';
+import 'package:notenova/features/profile/presentation/widgets/settings_buttons.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
