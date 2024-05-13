@@ -52,6 +52,7 @@ dependencies:
   google_sign_in: ^6.2.1
 
   http: any
+  shared_preferences: ^2.2.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

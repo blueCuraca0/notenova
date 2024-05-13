@@ -33,7 +33,7 @@ ThemeData darkTheme = ThemeData(
   shadowColor: Colors.black,
   primaryColorDark: CColors.veryDark,
   primaryColorLight: CColors.darkPrimarySoft,
-  cardColor: CColors.darkPrimary,
+  cardColor: const Color(0xff495F87),
   textTheme: TextTheme(
     bodyLarge: GoogleFonts.ubuntu(
       fontSize: largeTextSize,

@@ -39,7 +39,7 @@ class QuestionBlock extends StatelessWidget {
                   baseColor: Theme.of(context).cardColor,
                   hintText: LocaleKeys.question.tr(),
                   onChanged: (value) {
-                    state.newQuiz!.questions[index].question = value;
+                    context.read<QuizCubit>().updateQuestion(index, value);
                   },
                 ),
                 midSizedBoxHeight,

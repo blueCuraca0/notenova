@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
-import 'package:notenova/core/widgets/custom_button.dart';
+import 'package:notenova/core/widgets/custom_button_2.dart';
 import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
 import 'package:notenova/features/quizzes/presentation/taking_quizzes/take_quiz.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
 
 
 class QuizCard extends StatelessWidget {
@@ -16,18 +19,21 @@ class QuizCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
+      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
       child: Column(
         children: [
           midSizedBoxHeight,
           GestureDetector(
+            onLongPress: (){
+              context.read<QuizCubit>().deleteQuiz(quiz);
+            },
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                  return TakeQuizWindow(quiz: quiz);
               }));
             },
             child: Container(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 30),
+              padding: const EdgeInsets.only(left: 10, right: 10, top: 30, bottom: 30),
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
                 boxShadow: [
@@ -65,13 +71,15 @@ class QuizCard extends StatelessWidget {
                         ],
                       ),
                       midSizedBoxHeight,
-                      CustomButton(
-                        text: quiz.category==null ? "Unknown": quiz.category!.name,
-                        onPressed: () {},
-                        gradient: LinearGradient(
-                          colors: quiz.category==null? CColors.pinkGradientColor: quiz.category!.gradient,
+                      CustomButton2(
+                          textColor: CColors.white,
+                          text: quiz.category==null ? "Unknown": quiz.category!.name,
+                          onPressed: () {},
+                          gradient: LinearGradient(
+                            colors: quiz.category==null? CColors.pinkGradientColor: quiz.category!.gradient,
+                          ),
                         ),
-                      ),
+
                     ],
                   ),
                 ],

@@ -33,6 +33,7 @@ class QuizLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    context.read<QuizCubit>().categories[0].isSelected = true;
 
     return BlocBuilder<QuizCubit, QuizState>(
       builder: (context, state) => Scaffold(
@@ -67,7 +68,7 @@ class QuizLayout extends StatelessWidget {
                             child: Image.network(
                               height: height * 0.2,
                               width: width * 0.3,
-                              state.newQuiz!.image,
+                              state.newQuiz== null ? 'https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg' : state.newQuiz!.image,
                             fit: BoxFit.cover,),
                           ),
 
@@ -111,9 +112,23 @@ class QuizLayout extends StatelessWidget {
                         midSizedBoxWidth,
                         Text(LocaleKeys.category.tr(),
                             style: Theme.of(context).textTheme.bodySmall),
+                        spacer,
+                        TextButton(child: Text('+ ${LocaleKeys.add_category.tr()}',
+                            style: Theme.of(context).textTheme.bodySmall), onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (_) => AddCatDialog(title: LocaleKeys.add_category.tr(), categories: state.categories, onCategoryAdded: (String value){
+                                addCategory(value, context);
+                              },
+                                onCategoryDeleted: (Category category){
+                                  deleteCategory(category, context);
+                                },
+                                getCategories: () => getCategories(context),
+                              ));
+                        },),
                       ],
                     ),
-                    bigSizedBoxHeight,
+                    midSizedBoxHeight,
                     SizedBox(
                       height: height * 0.07,
                       child: ListView.builder(
@@ -151,29 +166,10 @@ class QuizLayout extends StatelessWidget {
                       ),
                     ),
                     bigSizedBoxHeight,
-                    Row(
-                      children: [
-                        midSizedBoxWidth,
-                        TextButton(child: Text('+ ${LocaleKeys.add_category.tr()}',
-                            style: Theme.of(context).textTheme.bodySmall), onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (_) => AddCatDialog(title: LocaleKeys.add_category.tr(), categories: state.categories, onCategoryAdded: (String value){
-                                addCategory(value, context);
-                              },
-                              onCategoryDeleted: (Category category){
-                                deleteCategory(category, context);
-                                },
-                                getCategories: () => getCategories(context),
-                              ));
-                        },),
-                      ],
-                    ),
-                    bigSizedBoxHeight,
                     BlocBuilder<QuizCubit, QuizState>(
                       builder: (context, state) {
                         return CustomButton(
-                            text: 'Go to questions',
+                            text: 'Go to questions', //TODO: hardcode
                             onPressed: () {
                               state.newQuiz!.questions = [OneChoiceQuestion.empty(options: [''])];
                               Navigator.push(

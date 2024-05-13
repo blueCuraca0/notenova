@@ -1,10 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
+import 'package:notenova/darkTheme_cubit/darkTheme_cubit.dart';
+import 'package:notenova/darkTheme_cubit/darkTheme_states.dart';
 
 class SettingsFieldsWidget extends StatefulWidget {
   const SettingsFieldsWidget({super.key});
@@ -83,14 +86,18 @@ class _SettingsFieldsWidgetState extends State<SettingsFieldsWidget>
                         Text(LocaleKeys.dark_theme.tr(),
                             style: Theme.of(context).textTheme.bodyMedium),
                         spacer,
-                        Switch(
-                            inactiveTrackColor: Theme.of(context).primaryColor,
-                            activeTrackColor: Theme.of(context).cardColor,
-                            inactiveThumbColor:
-                                Theme.of(context).primaryColorLight,
-                            activeColor: Theme.of(context).primaryColorDark,
-                            value: isDarktheme,
-                            onChanged: (value) {}),
+                        BlocBuilder<DarkCubit,DarkState>(
+                          builder: (context, state) => Switch(
+                              inactiveTrackColor: Theme.of(context).primaryColor,
+                              activeTrackColor: Theme.of(context).cardColor,
+                              inactiveThumbColor:
+                                  Theme.of(context).primaryColorLight,
+                              activeColor: Theme.of(context).primaryColorDark,
+                              value: state.darkTheme,
+                              onChanged: (value) {
+                                context.read<DarkCubit>().changeTheme();
+                              }),
+                        ),
                       ],
                     ),
                     midSizedBoxHeight,

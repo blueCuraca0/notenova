@@ -5,6 +5,7 @@ class Category{
   final List<Color> gradient;
   final List<Color>? darkGradient;
   bool isSelected = false;
+  final String id;
 
-  Category({required this.name, required this.gradient, this.darkGradient, this.isSelected = false});
+  Category({required this.name, required this.gradient, this.darkGradient, this.isSelected = false, required this.id});
 }

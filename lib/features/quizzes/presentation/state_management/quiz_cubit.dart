@@ -5,16 +5,51 @@ import 'package:notenova/features/quizzes/domain/entities/category.dart';
 import 'package:notenova/features/quizzes/domain/entities/question.dart';
 import 'dart:math';
 import 'package:notenova/core/style/c_colors.dart';
+import 'package:notenova/features/quizzes/data/firebase_quizzes.dart';
+import 'package:flutter/material.dart';
 
 class QuizCubit extends Cubit<QuizState> {
-  QuizCubit() : super(QuizInitialState());
+  final QuizFirebaseService _quizFirebaseService;
+  QuizCubit(this._quizFirebaseService) : super(QuizInitialState());
 
   List<Quiz> get quizzes => state.quizzes;
 
-  void addQuiz(Quiz quiz) {
-    final List<Quiz> quizzes = state.quizzes;
-    quizzes.add(quiz);
-    emit(QuizAdded(quizzes: quizzes, categories: state.categories));
+  Future<void> loadQuizzes(Quiz current) async{
+    if (state.newQuiz != null && state is QuizChanged){
+      return;
+    }
+    emit (QuizzesLoading());
+    try {
+      final categories = await _quizFirebaseService.getCategories().first;
+      final quizzes = await _quizFirebaseService.getQuizzes().first;
+      for (var quiz in quizzes){
+        bool categoryExist = false;
+        for (var cat in categories){
+          if (cat.name == quiz.category!.name){
+            quiz.category = cat;
+            categoryExist = true;
+          }
+          if (!categoryExist){
+            quiz.category = Category(name: 'Unknown', gradient: CColors.greenGradientColor, id: '0');
+          }
+        }
+      }
+      emit(QuizzesLoaded(quizzes: quizzes, categories: categories));
+    } catch (e) {
+      emit(QuizzesLoaded(quizzes: [], categories: []));
+    }
+  }
+
+
+  void addQuiz(Quiz quiz) async {
+    await _quizFirebaseService.addQuiz(quiz);
+    loadQuizzes(Quiz.empty());
+    emit(QuizAdded(quizzes: state.quizzes, categories: state.categories));
+  }
+
+  void deleteQuiz(Quiz quiz) async {
+    await _quizFirebaseService.deleteQuiz(quiz);
+    loadQuizzes(quiz);
   }
 
   void createQuiz(){
@@ -69,6 +104,16 @@ class QuizCubit extends Cubit<QuizState> {
     else{
       emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty(id: '${DateTime.now().millisecondsSinceEpoch}')));
     }
+  }
+
+  void updateQuestion(int index, String value) {
+    if (state is! QuizChanged){
+      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty(id: '${DateTime.now().millisecondsSinceEpoch}')));
+    }
+    else{
+    final updatedQuiz = state.newQuiz!.copyWith();
+    updatedQuiz.questions[index].question = value;
+    emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: updatedQuiz));}
   }
 
   void addOption(int index){
@@ -201,27 +246,39 @@ class QuizCubit extends Cubit<QuizState> {
   //working with categories
   List<Category> get categories => state.categories;
 
-  void addCategory(String name){
-    final List<Category> categories = state.categories;
+  void addCategory(String name) async{
     var randNum = Random().nextInt(3);
+    List<Color> gradient = [];
+    List<Color> darkGradient = [];
     switch (randNum){
       case 0:
-        categories.add(Category(name: name, gradient: CColors.pinkGradientColor, darkGradient: CColors.darkPinkGradientColor));
+        gradient = CColors.pinkGradientColor;
+        darkGradient = CColors.darkPinkGradientColor;
         break;
       case 1:
-        categories.add(Category(name: name, gradient: CColors.blueGradientColor, darkGradient: CColors.darkBlueGradientColor));
+        gradient = CColors.blueGradientColor;
+        darkGradient = CColors.darkBlueGradientColor;
         break;
       case 2:
-        categories.add(Category(name: name, gradient: CColors.greenGradientColor, darkGradient: CColors.darkGreenGradientColor));
+        gradient = CColors.greenGradientColor;
+        darkGradient = CColors.darkGreenGradientColor;
         break;
     }
-    emit(QuizChanged(quizzes: state.quizzes, categories: categories, newQuiz: state.newQuiz));
+    await _quizFirebaseService.addCategory(name, gradient);
+    loadCategories();
+    //emit(QuizChanged(quizzes: state.quizzes, categories: categories, newQuiz: state.newQuiz));
   }
 
-  void deleteCategory(Category category){
-    final List<Category> categories = state.categories;
+  void loadCategories() async{
+    final cat = await _quizFirebaseService.getCategories().first;
+    emit(QuizChanged(quizzes: state.quizzes, categories: cat, newQuiz: state.newQuiz));
+  }
+  void deleteCategory(Category category) async{
+    /*final List<Category> categories = state.categories;
     categories.remove(category);
-    emit(QuizChanged(quizzes: state.quizzes, categories: categories, newQuiz: state.newQuiz));
+    emit(QuizChanged(quizzes: state.quizzes, categories: categories, newQuiz: state.newQuiz));*/
+    await _quizFirebaseService.deleteCategory(category);
+    loadCategories();
   }
 
   //quizzes filter

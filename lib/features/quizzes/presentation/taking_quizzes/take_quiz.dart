@@ -8,6 +8,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:notenova/features/quizzes/presentation/taking_quizzes/take_question.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
+import 'package:notenova/core/widgets/custom_button_2.dart';
 
 class TakeQuizWindow extends StatelessWidget {
   Quiz quiz;
@@ -17,7 +18,7 @@ class TakeQuizWindow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: CColors.accent,
+        backgroundColor: Theme.of(context).primaryColor,
         body: Center(
           child: Container(
             width: MediaQuery.of(context).size.width * 0.8,
@@ -46,14 +47,21 @@ class TakeQuizWindow extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Expanded(
-                        child: Image.network(quiz.image,
-                        ),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.network(quiz.image,
+                              height: MediaQuery.of(context).size.height * 0.2,
+                              width: MediaQuery.of(context).size.width * 0.2,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                       ),
-                      midSizedBoxWidth,
+                      bigSizedBoxWidth,
                        Expanded(
                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              spacer,
                               Text(
                                   quiz.title,
                                   style: Theme.of(context).textTheme.bodyMedium,
@@ -65,27 +73,32 @@ class TakeQuizWindow extends StatelessWidget {
                                            text: quiz.category==null?'Unknown':quiz.category!.name,
                                             onPressed: () {},
                                            gradient: LinearGradient(
-                                             colors: CColors.pinkGradientColor,
+                                             colors: quiz.category== null ? CColors.pinkGradientColor: quiz.category!.gradient,
                                            ),
                                  ),
                             ),
+                              spacer,
                             ],
                                              ),
                        ),
                     ],
                   ),
                 ),
+                midSizedBoxHeight,
                 Expanded(
                   flex: 2,
-                  child: Text(
-                      quiz.description,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
+                  child: ListView(
+                    children:[ Text(
+                        quiz.description,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),],
+                  ),
                 ),
                   Expanded(
                     flex: 1,
-                    child: CustomButton(
+                    child: CustomButton2(
                       text: LocaleKeys.take_quiz.tr(),
+                      textColor: Theme.of(context).textTheme.bodySmall!.color,
                       onPressed: () {
                         context.read<QuizCubit>().startQuiz(context.read<QuizCubit>().quizIndex(quiz));
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -94,6 +107,7 @@ class TakeQuizWindow extends StatelessWidget {
                       },
                     ),
                   ),
+                bigSizedBoxHeight,
                 ],
           ),
         ),

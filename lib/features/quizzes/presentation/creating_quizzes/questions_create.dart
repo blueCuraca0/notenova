@@ -11,6 +11,7 @@ import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
 import 'package:notenova/features/quizzes/presentation/creating_quizzes/widgets/single_question_block.dart';
 
 import '../../../autorization/data/firebase_service.dart';
+import 'package:notenova/features/quizzes/presentation/button_back.dart';
 
 
 class QuestionCreate extends StatelessWidget {
@@ -29,6 +30,8 @@ class QuestionCreate extends StatelessWidget {
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
+                leading: const ButtonBack(),
+                leadingWidth: 100,
                 backgroundColor: Theme.of(context).cardColor,
                 expandedHeight: MediaQuery.of(context).size.height*0.15,
                 pinned: true,

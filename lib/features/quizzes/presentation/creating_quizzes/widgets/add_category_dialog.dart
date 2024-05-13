@@ -39,6 +39,7 @@ class _AddCatDialogState extends State<AddCatDialog> {
               children: List<Widget>.generate(widget.categories.length, (index) => DialogButton(category: widget.categories[index], onCategoryDeleted: (value){
                 widget.onCategoryDeleted(value);
                 setState(() {
+                  widget.categories = widget.getCategories();
                 });
               })),
             ),
@@ -49,7 +50,7 @@ class _AddCatDialogState extends State<AddCatDialog> {
                     context: context,
                     builder: (context) => AddCatDialog2(title: LocaleKeys.add_category.tr(), onCategoryAdded: widget.onCategoryAdded),
                   );
-                  setState(() {
+                  setState (() {
                     widget.categories = widget.getCategories();
                   });
                 }, child: Text('+ ${LocaleKeys.add_category.tr()}',
