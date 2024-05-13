@@ -14,6 +14,8 @@ import 'package:notenova/features/quizzes/presentation/state_management/quiz_sta
 import 'package:notenova/features/quizzes/presentation/creating_quizzes/questions_create.dart';
 import 'package:notenova/features/quizzes/presentation/button_back.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 
 class QuizLayout extends StatelessWidget {
@@ -35,10 +37,17 @@ class QuizLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    if (!context.read<QuizCubit>().categories.isEmpty) {
+    bool selectedExist = false;
+    for (int i = 0; i < context.read<QuizCubit>().categories.length; i++) {
+      if (context.read<QuizCubit>().categories[i].isSelected == true) {
+        selectedExist = true;
+      }
+    }
+    if (!context.read<QuizCubit>().categories.isEmpty && !selectedExist) {
       context.read<QuizCubit>().categories[0].isSelected = true;
       context.read<QuizCubit>().changeCategory(context.read<QuizCubit>().categories[0]);
     }
+
     return BlocBuilder<QuizCubit, QuizState>(
       builder: (context, state) => Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
@@ -69,13 +78,10 @@ class QuizLayout extends StatelessWidget {
                       children: [
                         ClipRRect(
                             borderRadius: BorderRadius.circular(30),
-                            child: (state.newQuiz== null || state.newQuiz!.image == 'https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg')? Image.network(
+                            child: Image.network(
                               height: height * 0.2,
                               width: width * 0.3,
-                              'https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg',
-                            fit: BoxFit.cover,): Image.file(File(state.newQuiz!.image!),
-                              height: height * 0.2,
-                              width: width * 0.3,
+                              state.newQuiz== null? 'https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg': state.newQuiz!.image,
                             fit: BoxFit.cover,),
                           ),
 
@@ -97,8 +103,16 @@ class QuizLayout extends StatelessWidget {
                             TextButton(onPressed: () async{
                               final image =
                                   await ImagePicker().pickImage(source: ImageSource.gallery);
+                              var user = FirebaseAuth.instance.currentUser;
                               if (image != null && state.newQuiz != null){
-                                context.read<QuizCubit>().changeImage(image.path);
+                                var userPhotoUrl = '';
+                                  var storageRef = FirebaseStorage.instance
+                                      .ref()
+                                      .child('quizzes/${user!.uid}/quiz.jpg');
+                                  var uploadTask = storageRef.putFile(File(image!.path));
+                                  var downloadUrl = await (await uploadTask).ref.getDownloadURL();
+                                  userPhotoUrl = downloadUrl.toString();
+                                context.read<QuizCubit>().changeImage(userPhotoUrl);
                               }
                             },
                                 child: Text(
@@ -106,7 +120,7 @@ class QuizLayout extends StatelessWidget {
                               style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                 decoration: TextDecoration.underline,
                               ),
-                            )), //TODO: images from gallery
+                            )),
                           ],
                         ),
                       ],

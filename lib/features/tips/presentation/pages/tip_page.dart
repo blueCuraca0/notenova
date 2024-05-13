@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/utils/constants.dart';
@@ -75,33 +76,38 @@ class _TipPageState extends State<TipPage> {
                         ),
                       ),
                       bigSizedBoxWidth,
-                      Expanded(
-                        child: Column(
+                       Column(
                           children: [
-                            Text(
-                              widget.tip.title,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(fontWeight: FontWeight.bold),
-                            ),
+                             SizedBox(
+                               width: MediaQuery.of(context).size.width * 0.35,
+                               child: Text(
+                                  widget.tip.title,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(fontWeight: FontWeight.bold),
+                                ),
+                             ),
+
                             bigSizedBoxHeight,
-                            CustomButton2(
-                              color: Theme.of(context).primaryColor,
-                              textColor: Theme.of(context).textTheme.bodyMedium!.color,
-                              text: widget.text,
-                              onPressed: () {
-                                setState(() {
-                                  if (widget.text == 'Like') {
-                                    widget.text = 'Liked';
-                                    addToFavs(context);
-                                  }
-                                });
-                              },
-                            ),
+                             SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.35,
+                               child: CustomButton2(
+                                  color: Theme.of(context).primaryColor,
+                                  textColor: Theme.of(context).textTheme.bodyMedium!.color,
+                                  text: widget.text,
+                                  onPressed: () {
+                                    setState(() {
+                                      if (widget.text == 'Like') {
+                                        widget.text = 'Liked';
+                                        addToFavs(context);
+                                      }
+                                    });
+                                  },
+                                ),
+                             ),
                           ],
                         ),
-                      ),
                     ],
                   ),
                   bigSizedBoxHeight,

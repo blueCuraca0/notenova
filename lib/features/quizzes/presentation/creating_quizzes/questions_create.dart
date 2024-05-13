@@ -74,7 +74,7 @@ class QuestionCreate extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
-                            child: const Icon(Icons.add),
+                            child: Icon(Icons.add, color: Theme.of(context).textTheme.bodySmall!.color,),
                           ),
                         ],
                       ),

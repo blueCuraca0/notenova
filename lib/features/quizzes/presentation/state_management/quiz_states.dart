@@ -41,7 +41,4 @@ class QuizDeleted extends QuizState {
   QuizDeleted({required super.quizzes, required super.categories});
 }
 
-class QuizLoadedSorted extends QuizState {
-  QuizLoadedSorted({required super.quizzes, required super.categories});
-}
 
