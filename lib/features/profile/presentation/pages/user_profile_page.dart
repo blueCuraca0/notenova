@@ -13,12 +13,16 @@ import 'package:notenova/features/profile/presentation/cubits/fav_cubit/fav_stat
 import 'package:notenova/features/profile/presentation/widgets/tip_box_profile.dart';
 import 'package:notenova/features/profile/presentation/widgets/user_information.dart';
 
+import '../widgets/progress_bar.dart';
+
 class UserProfilePage extends StatelessWidget {
   const UserProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     context.read<FavCubit>().loadFavs();
+    double availableWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: CColors.accent,
       body: CustomScrollView(
@@ -27,8 +31,14 @@ class UserProfilePage extends StatelessWidget {
           const SliverToBoxAdapter(
             child: smallSizedBoxHeight,
           ),
-          const SliverToBoxAdapter(
-            child: SettingsButton(),
+          SliverToBoxAdapter(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SettingsButton(),
+                ProgressBar(availableWidth),
+              ],
+            ),
           ),
           const SliverToBoxAdapter(
             child: bigSizedBoxHeight,
