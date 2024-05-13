@@ -95,17 +95,10 @@ class _SignInPageState extends State<SignInPage> {
                 height: height / 5 * 2,
                 padding: const EdgeInsets.only(top: 50),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 30),
-                  child: Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)
-                    ),
-                    child: Image.asset(
-                      'assets/images/logo.jpg',
-                      fit: BoxFit.contain,
-                    ),
+                  padding: const EdgeInsets.symmetric(vertical: 50),
+                  child: Image.asset(
+                    'assets/images/logo_text.png',
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
