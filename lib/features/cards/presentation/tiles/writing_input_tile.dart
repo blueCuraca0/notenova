@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 
 import '../../../../core/style/c_colors.dart';
+import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 
 class WritingInputTile extends StatefulWidget {
   final String _term;
@@ -76,7 +78,7 @@ class _WritingInputTileState extends State<WritingInputTile> {
                   color: Colors.transparent,
                 ),
                 suffixIcon: suffixButton,
-                hintText: 'term...',
+                hintText: "${LocaleKeys.term.tr()}...",
                 hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
                 border: InputBorder.none
               ),

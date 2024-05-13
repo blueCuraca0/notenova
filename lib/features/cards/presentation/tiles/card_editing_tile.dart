@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/cards/domain/entities/flashcard.dart';
+
+import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 
 class CardEditingTile extends StatelessWidget {
   final List<Flashcard> _cardList;
@@ -21,13 +24,13 @@ class CardEditingTile extends StatelessWidget {
         ),
         child: Column(
           children: [
-            SimpleTextField(55, 'Term', (value) {
+            SimpleTextField(55, LocaleKeys.term.tr(), (value) {
               _cardList[_id].term = value;
             }),
 
             midSizedBoxHeight,
 
-            SimpleTextField(100, 'Definition', (value) {
+            SimpleTextField(100, LocaleKeys.definition.tr(), (value) {
               _cardList[_id].definition = value;
             }),
           ],

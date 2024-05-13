@@ -49,7 +49,6 @@ class CardStackList extends StatelessWidget {
               }
 
               if (!data['name'].toString().startsWith(searchInput)) {
-                print("${data['name']} DOES START WITH $searchInput");
                 return const SizedBox();
               }
 

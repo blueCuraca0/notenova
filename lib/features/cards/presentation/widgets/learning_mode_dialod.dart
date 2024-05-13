@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/cards/presentation/pages/flashcard_page.dart';
 import 'package:notenova/features/cards/presentation/pages/writing_card_page.dart';
+import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 import '../../domain/entities/flashcard_stack.dart';
 
 class LearningModeDialog extends StatelessWidget {
@@ -13,9 +15,9 @@ class LearningModeDialog extends StatelessWidget {
     final Color color = Theme.of(context).primaryColor;
 
     return AlertDialog(
-      title: const Text("Learning Mode"),
+      title: Text(LocaleKeys.learning_mode.tr()),
       titleTextStyle: Theme.of(context).textTheme.bodyLarge,
-      content: const Text("Choose a prefered learning mode for this study session:"),
+      content: Text(LocaleKeys.learning_mode_description.tr()),
       contentTextStyle: Theme.of(context).textTheme.bodyMedium,
       alignment: Alignment.center,
       backgroundColor: color,
@@ -24,7 +26,7 @@ class LearningModeDialog extends StatelessWidget {
       actionsAlignment: MainAxisAlignment.spaceBetween,
       actions: [
         DialogButton(
-            "Flashcards",
+            LocaleKeys.flashcards.tr(),
             FlashcardPage(
               _cardStack,
               (context) {
@@ -33,7 +35,7 @@ class LearningModeDialog extends StatelessWidget {
             ),
             color),
         DialogButton(
-            "Writing",
+            LocaleKeys.writing.tr(),
             WritingCardPage(
               _cardStack,
               (context) {
