@@ -22,7 +22,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void _signUp() async {
 
-    late final String errorMessage;
+    String errorMessage = '';
 
     setState(() {
       _errorMessage = '';
