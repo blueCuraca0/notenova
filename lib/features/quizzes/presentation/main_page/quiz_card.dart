@@ -3,9 +3,12 @@ import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_button_2.dart';
 import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
+import 'package:notenova/features/quizzes/presentation/state_management/quiz_sort_cubit.dart';
 import 'package:notenova/features/quizzes/presentation/taking_quizzes/take_quiz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
+import 'dart:io';
+import 'package:notenova/features/quizzes/domain/entities/category.dart';
 
 class QuizCard extends StatelessWidget {
   Quiz quiz;
@@ -20,8 +23,8 @@ class QuizCard extends StatelessWidget {
         children: [
           midSizedBoxHeight,
           GestureDetector(
-            onLongPress: () {
-              context.read<QuizCubit>().deleteQuiz(quiz);
+            onLongPress: (){
+            context.read<QuizCubit>().deleteQuiz(quiz);
             },
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -46,13 +49,16 @@ class QuizCard extends StatelessWidget {
                 children: [
                   midSizedBoxWidth,
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.network(
+                      borderRadius: BorderRadius.circular(20),
+                    child: quiz.image == 'https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg'? Image.network(
                       quiz.image,
                       height: MediaQuery.of(context).size.height * 0.11,
                       width: MediaQuery.of(context).size.width * 0.26,
                       fit: BoxFit.cover,
-                    ),
+                    ): Image.file(File(quiz.image!),
+                      height: MediaQuery.of(context).size.height * 0.11,
+                      width: MediaQuery.of(context).size.width * 0.26,
+                      fit: BoxFit.cover,),
                   ),
                   bigSizedBoxWidth,
                   Column(

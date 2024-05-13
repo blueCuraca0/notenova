@@ -29,9 +29,9 @@ class QuizCubit extends Cubit<QuizState> {
             quiz.category = cat;
             categoryExist = true;
           }
-          if (!categoryExist){
-            quiz.category = Category(name: 'Unknown', gradient: CColors.greenGradientColor, id: '0');
-          }
+        }
+        if (!categoryExist){
+          quiz.category = Category(name: 'Unknown', gradient: CColors.greenGradientColor, id: '0');
         }
       }
       emit(QuizzesLoaded(quizzes: quizzes, categories: categories));
@@ -41,15 +41,28 @@ class QuizCubit extends Cubit<QuizState> {
   }
 
 
-  void addQuiz(Quiz quiz) async {
+  Future<void> addQuiz(Quiz quiz) async {
     await _quizFirebaseService.addQuiz(quiz);
-    loadQuizzes(Quiz.empty());
     emit(QuizAdded(quizzes: state.quizzes, categories: state.categories));
   }
 
   void deleteQuiz(Quiz quiz) async {
     await _quizFirebaseService.deleteQuiz(quiz);
-    loadQuizzes(quiz);
+    emit(QuizDeleted(quizzes: state.quizzes, categories: state.categories));
+  }
+
+  void sortedQuizzes(){
+    emit(QuizLoadedSorted(quizzes: state.quizzes, categories: state.categories));
+  }
+
+  void changeImage(String path){
+    if (state is QuizChanged){
+      state.newQuiz!.image = path;
+      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: state.newQuiz!));
+    }
+    else{
+      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty(id: '${DateTime.now().millisecondsSinceEpoch}')));
+    }
   }
 
   void createQuiz(){

@@ -5,7 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:notenova/core/widgets/custom_textfield2.dart';
 import 'package:notenova/features/quizzes/domain/entities/question.dart';
 import 'package:notenova/features/quizzes/presentation/creating_quizzes/widgets/add_category_dialog.dart';
-
+import 'dart:io';
 import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
@@ -13,6 +13,8 @@ import 'package:notenova/features/quizzes/domain/entities/category.dart';
 import 'package:notenova/features/quizzes/presentation/state_management/quiz_states.dart';
 import 'package:notenova/features/quizzes/presentation/creating_quizzes/questions_create.dart';
 import 'package:notenova/features/quizzes/presentation/button_back.dart';
+import 'package:image_picker/image_picker.dart';
+
 
 class QuizLayout extends StatelessWidget {
   const QuizLayout({super.key});
@@ -33,8 +35,10 @@ class QuizLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    context.read<QuizCubit>().categories[0].isSelected = true;
-
+    if (!context.read<QuizCubit>().categories.isEmpty) {
+      context.read<QuizCubit>().categories[0].isSelected = true;
+      context.read<QuizCubit>().changeCategory(context.read<QuizCubit>().categories[0]);
+    }
     return BlocBuilder<QuizCubit, QuizState>(
       builder: (context, state) => Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
@@ -65,10 +69,13 @@ class QuizLayout extends StatelessWidget {
                       children: [
                         ClipRRect(
                             borderRadius: BorderRadius.circular(30),
-                            child: Image.network(
+                            child: (state.newQuiz== null || state.newQuiz!.image == 'https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg')? Image.network(
                               height: height * 0.2,
                               width: width * 0.3,
-                              state.newQuiz== null ? 'https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg' : state.newQuiz!.image,
+                              'https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg',
+                            fit: BoxFit.cover,): Image.file(File(state.newQuiz!.image!),
+                              height: height * 0.2,
+                              width: width * 0.3,
                             fit: BoxFit.cover,),
                           ),
 
@@ -87,8 +94,15 @@ class QuizLayout extends StatelessWidget {
                               },
                             ),
                             bigSizedBoxHeight,
-                            TextButton(onPressed: (){}, child: Text(
-                              LocaleKeys.change_pic.tr(), //TODO: change_pic change
+                            TextButton(onPressed: () async{
+                              final image =
+                                  await ImagePicker().pickImage(source: ImageSource.gallery);
+                              if (image != null && state.newQuiz != null){
+                                context.read<QuizCubit>().changeImage(image.path);
+                              }
+                            },
+                                child: Text(
+                              LocaleKeys.change_pic.tr(),
                               style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                 decoration: TextDecoration.underline,
                               ),

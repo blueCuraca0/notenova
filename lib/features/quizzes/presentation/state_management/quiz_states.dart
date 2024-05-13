@@ -36,3 +36,12 @@ class QuizAdded extends QuizState {
 class QuizTaken extends QuizState {
   QuizTaken({required super.quizzes, required super.categories, required super.answers});
 }
+
+class QuizDeleted extends QuizState {
+  QuizDeleted({required super.quizzes, required super.categories});
+}
+
+class QuizLoadedSorted extends QuizState {
+  QuizLoadedSorted({required super.quizzes, required super.categories});
+}
+
