@@ -99,7 +99,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
             height: 40,
             maxLines: 1,
             title: LocaleKeys.title.tr(),
-            baseColor: Theme.of(context).cardColor,
+            baseColor: CColors.white,
           ),
           smallSizedBoxHeight,
           MyCustomTextField(
@@ -108,7 +108,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
             width: 400,
             height: 220,
             title: LocaleKeys.description.tr(),
-            baseColor: Theme.of(context).cardColor,
+            baseColor: CColors.white,
           ),
           TextButton(
             onPressed: () async {
