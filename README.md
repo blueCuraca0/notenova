@@ -1,16 +1,27 @@
-# notenova
+<h1>NoteNova 🍏</h1>
 
-Final project for the Empat learning course.
+<p>NoteNova is an application for improving learning efficiency by combining various tools and boosting motivation through gamification of the learning process.<p>
 
-## Getting Started
+<h2>key features: 😊</h2>
+<ul>
+    <li>Integration of diverse learning tools.</li>
+    <li>Utilization of gamification to boost motivation.</li>
+    <li>Support for effective learning.</li>
+</ul>
 
-This project is a starting point for a Flutter application.
+<h2>Features: 🔍</h2>
+<ul>
+    <li>Text recognition from photos.</li>
+    <li>Note-taking functionality.</li>
+    <li>To-do lists with reminders.</li>
+    <li>Card creation and management.</li>
+    <li>Quiz creation.</li>
+    <li>Browsing tips and tricks.</li>
+</ul>
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<h2>Contributors: 👥</h2>
+<ul>
+    <li><a href="https://github.com/blueCuraca0">@blueCuraca0</a></li>
+    <li><a href="https://github.com/anastasiiavelma">@anastasiiavelma</a></li>
+    <li><a href="https://github.com/mariazhak">@mariazhak</a></li>
+</ul>
