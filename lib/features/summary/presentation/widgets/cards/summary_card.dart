@@ -26,7 +26,20 @@ class _SummaryCardState extends State<SummaryCard> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30.0),
             color: Theme.of(context).cardColor,
-            boxShadow: shadowCard,
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(context).primaryColor,
+                spreadRadius: 5,
+                blurRadius: 10,
+                offset: const Offset(0, 3),
+              ),
+              BoxShadow(
+                color: Theme.of(context).primaryColor,
+                spreadRadius: -2,
+                blurRadius: 7,
+                offset: Offset(0, -3),
+              ),
+            ],
           ),
           child: Padding(
             padding:

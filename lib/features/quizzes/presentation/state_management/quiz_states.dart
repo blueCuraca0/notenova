@@ -1,4 +1,3 @@
-import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
 import 'package:notenova/features/quizzes/domain/entities/category.dart';
 

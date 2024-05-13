@@ -55,10 +55,10 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 800,
+      height: 770,
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
+        color: Theme.of(context).primaryColor,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(40.0),
           topRight: Radius.circular(40.0),
@@ -99,7 +99,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
             height: 40,
             maxLines: 1,
             title: LocaleKeys.title.tr(),
-            baseColor: Theme.of(context).cardColor,
+            baseColor: CColors.white,
           ),
           smallSizedBoxHeight,
           MyCustomTextField(
@@ -108,7 +108,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
             width: 400,
             height: 220,
             title: LocaleKeys.description.tr(),
-            baseColor: Theme.of(context).cardColor,
+            baseColor: CColors.white,
           ),
           TextButton(
             onPressed: () async {

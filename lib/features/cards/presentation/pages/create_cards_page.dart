@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/features/cards/data/firebase_service.dart';
@@ -6,6 +7,7 @@ import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.da
 
 import '../../../../core/style/c_colors.dart';
 import '../../../../core/utils/constants.dart';
+import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../domain/entities/flashcard.dart';
 import '../../domain/entities/flashcard_stack.dart';
@@ -101,7 +103,7 @@ class _CreateCardsPageState extends State<CreateCardsPage> {
                         ),
                       ),
                       CustomButton(
-                        text: 'Start learning',
+                        text: LocaleKeys.start_learning.tr(),
                         onPressed: () {
                           widget.cardStack.cardsList = cardList;
                           FirebaseServiceCards.addCardStack(widget.cardStack);

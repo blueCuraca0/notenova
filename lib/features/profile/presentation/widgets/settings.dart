@@ -20,13 +20,6 @@ class _SettingsButtonState extends State<SettingsButton> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          //!! TO-DO SPACE FOR LVL
-          // CustomButton(
-          //     buttonPadding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-          //     text: "Log out",
-          //     onPressed: () {
-          //       _logOut(context);
-          //     }),
           TextButton(
             child: Text(LocaleKeys.settings.tr(),
                 style: Theme.of(context).textTheme.bodyMedium),

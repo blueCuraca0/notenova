@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
@@ -5,8 +6,7 @@ import 'package:notenova/core/widgets/custom_search_bar.dart';
 import 'package:notenova/features/cards/presentation/pages/create_card_stack_page.dart';
 import 'package:notenova/features/cards/presentation/widgets/card_stack_list.dart';
 import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.dart';
-
-import '../../../../core/style/c_colors.dart';
+import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 
 class CardStacksPage extends StatefulWidget {
   const CardStacksPage({super.key});
@@ -43,7 +43,7 @@ class _CardStacksPageState extends State<CardStacksPage> {
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: CColors.accent,
+      backgroundColor: Theme.of(context).primaryColor,
       resizeToAvoidBottomInset: false,
       body: SizedBox(
         height: height,
@@ -62,12 +62,12 @@ class _CardStacksPageState extends State<CardStacksPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Cards",
-                      style: titleTextStyle,
+                      LocaleKeys.cards.tr(),
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 30),
                     ),
                     Text(
-                      "Let's study!",
-                      style: subtitleTextStyle,
+                      LocaleKeys.lets_study.tr(),
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
                 ),
@@ -97,7 +97,7 @@ class _CardStacksPageState extends State<CardStacksPage> {
                         ),
                         bigSizedBoxHeight,
                         CustomButton(
-                          text: "Create card stack",
+                          text: LocaleKeys.create_card_stack.tr(),
                           onPressed: () {
                             Navigator.of(context).push(
                                 _createRoute(const CreateCardStackPage()));

@@ -1,12 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/features/autorization/data/firebase_service.dart';
+
+import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 
 class ProgressBar extends StatefulWidget {
   double _availableWidth = 0;
 
   ProgressBar(double availableWidth , {super.key}) {
-    _availableWidth = availableWidth / 2;
+    _availableWidth = availableWidth - 60; // horizontal padding 30
   }
 
   @override
@@ -64,9 +66,15 @@ class _ProgressBarState extends State<ProgressBar> with SingleTickerProviderStat
   }
 
   @override
+  dispose() {
+    _controller.dispose(); // you need this
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Stack(
         alignment: Alignment.centerLeft,
         children: [
@@ -97,7 +105,7 @@ class _ProgressBarState extends State<ProgressBar> with SingleTickerProviderStat
           Padding(
             padding: const EdgeInsets.only(left: 10),
             child: Text(
-              "level $_lvl",
+              "${LocaleKeys.level.tr()} $_lvl",
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
             ),
           )

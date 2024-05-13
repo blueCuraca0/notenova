@@ -94,5 +94,35 @@ abstract class  LocaleKeys {
   static const hello_user = 'hello_user';
   static const no_image_selected = 'no_image_selected';
   static const select_time_date = 'select_time_date';
+  static const summaries = 'summaries';
+  static const new_card_stack = 'new_card_stack';
+  static const create_new_card_stack = 'create_new_card_stack';
+  static const start_learning = 'start_learning';
+  static const term = 'term';
+  static const definition = 'definition';
+  static const learning_mode = 'learning_mode';
+  static const learning_mode_description = 'learning_mode_description';
+  static const flashcards = 'flashcards';
+  static const writing = 'writing';
+  static const congratulations = 'congratulations';
+  static const this_stack_is_finished = 'this_stack_is_finished';
+  static const your_results_are = 'your_results_are';
+  static const back_to_card_stacks = 'back_to_card_stacks';
+  static const level = 'level';
+  static const sorry = 'sorry';
+  static const no_access_log_in = 'no_access_log_in';
+  static const log_in = 'log_in';
+  static const field_name_is_empty = 'field_name_is_empty';
+  static const field_email_is_empty = 'field_email_is_empty';
+  static const field_password_is_empty = 'field_password_is_empty';
+  static const passwords_are_not_same = 'passwords_are_not_same';
+  static const invalid_credential = 'invalid_credential';
+  static const invalid_email = 'invalid_email';
+  static const wrong_password = 'wrong_password';
+  static const user_not_found = 'user_not_found';
+  static const user_disabled = 'user_disabled';
+  static const undefined_error = 'undefined_error';
+  static const weak_password = 'weak_password';
+  static const email_already_in_use = 'email_already_in_use';
 
 }

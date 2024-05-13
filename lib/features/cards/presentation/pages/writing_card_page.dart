@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/style/c_colors.dart';
-import '../../../../core/utils/constants.dart';
+import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 import '../../../../core/widgets/congratulations_dialog.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../autorization/data/firebase_service.dart';
@@ -45,11 +44,11 @@ class _WritingCardPageState extends State<WritingCardPage> {
           context: context,
           barrierDismissible: false,
           builder: (_) => CongratulationsDialog(
-              title: 'Congratulations 🎉',
-              content: 'This stack is finished! \nYour results are '
+              title: LocaleKeys.congratulations.tr(),
+              content: '${LocaleKeys.this_stack_is_finished.tr()}\n'
+                  '${LocaleKeys.your_results_are.tr()}'
                   '$_wellLearnedCards/${_flashcardList.length}',
-              actionText: 'Back to card stacks',
-              // goBack: widget._goBack
+              actionText: LocaleKeys.back_to_card_stacks.tr(),
               goBack: (dialogContext) {
                 Navigator.of(dialogContext).pop();
                 widget._goBack(context);

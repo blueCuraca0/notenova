@@ -2,14 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/darkTheme_cubit/darkTheme_cubit.dart';
 import 'package:notenova/darkTheme_cubit/darkTheme_states.dart';
 import 'package:notenova/features/autorization/presentation/pages/authoriazation_page.dart';
-
 
 class SettingsFieldsWidget extends StatefulWidget {
   const SettingsFieldsWidget({super.key});
@@ -50,8 +48,8 @@ class _SettingsFieldsWidgetState extends State<SettingsFieldsWidget>
         )),
         child: Container(
           constraints: const BoxConstraints(minHeight: 900),
-          decoration: const BoxDecoration(
-            color: CColors.accentSoft,
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(40.0),
               topRight: Radius.circular(40.0),
@@ -88,9 +86,10 @@ class _SettingsFieldsWidgetState extends State<SettingsFieldsWidget>
                         Text(LocaleKeys.dark_theme.tr(),
                             style: Theme.of(context).textTheme.bodyMedium),
                         spacer,
-                        BlocBuilder<DarkCubit,DarkState>(
+                        BlocBuilder<DarkCubit, DarkState>(
                           builder: (context, state) => Switch(
-                              inactiveTrackColor: Theme.of(context).primaryColor,
+                              inactiveTrackColor:
+                                  Theme.of(context).primaryColor,
                               activeTrackColor: Theme.of(context).cardColor,
                               inactiveThumbColor:
                                   Theme.of(context).primaryColorLight,
@@ -100,21 +99,17 @@ class _SettingsFieldsWidgetState extends State<SettingsFieldsWidget>
                                 context.read<DarkCubit>().changeTheme();
                               }),
                         ),
-
-                   
                       ],
                     ),
                     midSizedBoxHeight,
                     Row(
                       children: [
-
                         Text(LocaleKeys.exit.tr(),
                             style: Theme.of(context).textTheme.bodyMedium),
                         spacer,
                         CustomButton(
                             buttonPadding:
                                 const EdgeInsets.fromLTRB(30, 0, 30, 5),
-
                             text: LocaleKeys.log_out.tr(),
                             onPressed: () {
                               _logOut(context);

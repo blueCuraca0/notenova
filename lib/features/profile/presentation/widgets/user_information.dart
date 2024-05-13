@@ -88,8 +88,10 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
                                       userDataCubit: userCubit);
                                 });
                           },
-                          icon: const Icon(Icons.edit,
-                              color: CColors.text, size: 20),
+                          icon: Icon(Icons.edit,
+                              color:
+                                  Theme.of(context).textTheme.bodySmall!.color,
+                              size: 20),
                         ),
                       )
                     ],

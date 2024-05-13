@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_app_bar.dart';
@@ -7,6 +7,7 @@ import 'package:notenova/core/widgets/custom_textfield2.dart';
 import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.dart';
 
 import '../../../../core/style/c_colors.dart';
+import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 import '../../domain/entities/flashcard_stack.dart';
 import 'create_cards_page.dart';
 
@@ -68,7 +69,7 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
             height: height / 20 * 3,
             child: CustomAppBar(
               screenHeight: height,
-              title: "New Card Stack",
+              title: LocaleKeys.new_card_stack.tr(),
               onPressedBack: () {
                 Navigator.of(context).pop();
               },
@@ -85,7 +86,7 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
 
                   // TITLE
                   Text(
-                    "Title",
+                    LocaleKeys.title.tr(),
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   midSizedBoxHeight,
@@ -101,7 +102,7 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
 
                   // DESCRIPTION
                   Text(
-                    "Description",
+                    LocaleKeys.description.tr(),
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   midSizedBoxHeight,
@@ -117,17 +118,20 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
 
                   // CATEGORY
                   Text(
-                    "Category",
+                    LocaleKeys.category.tr(),
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   midSizedBoxHeight,
                   SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    clipBehavior: Clip.none,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        midSizedBoxWidth,
                         CustomButton(
-                          text: "Code",
+                          text: LocaleKeys.code.tr(),
                           onPressed: () {
                             category = "Code";
                             setState(() {
@@ -138,14 +142,14 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
                               }
                             });
                           },
-                          buttonPadding: EdgeInsets.symmetric(
-                            vertical: categoryIndex == 0 ? 10 : 7,
-                            horizontal: categoryIndex == 0 ? 30 : 25,
-                          ),
-                          gradient: LinearGradient(colors: CColors.blueGradientColor),
+                          buttonPadding: EdgeInsets.symmetric(vertical: 7, horizontal: 25,),
+                          gradient: categoryIndex == 0
+                              ? LinearGradient(colors: CColors.darkBlueGradientColor)
+                              : LinearGradient(colors: CColors.blueGradientColor),
                         ),
+                        midSizedBoxWidth,
                         CustomButton(
-                          text: "Work",
+                          text: LocaleKeys.work.tr(),
                           onPressed: () {
                             category = "Work";
                             setState(() {
@@ -156,14 +160,14 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
                               }
                             });
                           },
-                          buttonPadding: EdgeInsets.symmetric(
-                            vertical: categoryIndex == 1 ? 10 : 7,
-                            horizontal: categoryIndex == 1 ? 35 : 25,
-                          ),
-                          gradient: LinearGradient(colors: CColors.pinkGradientColor),
+                          buttonPadding: EdgeInsets.symmetric(vertical: 7, horizontal: 25,),
+                          gradient: categoryIndex == 1
+                              ? LinearGradient(colors: CColors.darkPinkGradientColor)
+                              : LinearGradient(colors: CColors.pinkGradientColor),
                         ),
+                        midSizedBoxWidth,
                         CustomButton(
-                          text: "English",
+                          text: LocaleKeys.english.tr(),
                           onPressed: () {
                             category = "English";
                             setState(() {
@@ -174,25 +178,25 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
                               }
                             });
                           },
-                          buttonPadding: EdgeInsets.symmetric(
-                            vertical: categoryIndex == 2 ? 10 : 7,
-                            horizontal: categoryIndex == 2 ? 35 : 25,
-                          ),
-                          gradient: LinearGradient(colors: CColors.greenGradientColor),
+                          buttonPadding: EdgeInsets.symmetric(vertical: 7, horizontal: 25,),
+                          gradient: categoryIndex == 2
+                              ? LinearGradient(colors: CColors.darkGreenGradientColor)
+                              : LinearGradient(colors: CColors.greenGradientColor),
                         ),
+                        midSizedBoxWidth,
                       ],
                     ),
                   ),
                   midSizedBoxHeight,
                   Text(
-                    "+ Add category",
+                    "+ ${LocaleKeys.add_category.tr()}",
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
 
                   // CREATE STACK BUTTON
                   const Expanded(child: SizedBox()),
                   CustomButton(
-                    text: "Create new card stack",
+                    text: LocaleKeys.create_new_card_stack.tr(),
                     onPressed: () async {
                       goToCreateCardsPage();
                     },

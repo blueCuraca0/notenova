@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/features/to_do/data/services/firebase_service.dart';
@@ -15,8 +14,8 @@ class ToDoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => TaskCubit(TaskFirestoreService()),
-      child: const Scaffold(
-        backgroundColor: CColors.accent,
+      child: Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
         body: CustomScrollView(
           slivers: [
             CustomAppBarWidget(),
@@ -99,7 +98,7 @@ class _CustomAppBarWidgetState extends State<CustomAppBarWidget> {
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge
-                          ?.copyWith(fontSize: 15)),
+                          ?.copyWith(fontSize: 20)),
                   const Spacer(),
                   const Padding(
                     padding: EdgeInsets.only(top: 15.0),
