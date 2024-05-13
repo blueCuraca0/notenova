@@ -15,7 +15,7 @@ class AuthorizationPage extends StatelessWidget {
           if (snapshot.hasData && snapshot.data != null) {
             return MainPage();
           }
-          return SignInPage();
+          return const SignInPage();
         },
       ),
     );

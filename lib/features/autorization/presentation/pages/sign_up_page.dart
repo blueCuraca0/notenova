@@ -3,10 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/core/widgets/custom_textfield2.dart';
+import 'package:notenova/features/autorization/data/firebase_service.dart';
 import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.dart';
 
 class SignUpPage extends StatefulWidget {
-  SignUpPage({super.key});
+  const SignUpPage({super.key});
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -21,37 +22,33 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void _signUp() async {
 
+    late final String errorMessage;
+
     setState(() {
       _errorMessage = '';
     });
 
     if (_name.isEmpty) {
-      setState(() {
-        _errorMessage = "Field \"name\" is empty.";
-      });
+      errorMessage = "Field \"name\" is empty.";
     } else if (_email.isEmpty) {
-      setState(() {
-        _errorMessage = "Field \"email\" is empty.";
-      });
+      errorMessage = "Field \"email\" is empty.";
     } else if (_password.isEmpty || _confirmPassword.isEmpty) {
-      setState(() {
-        _errorMessage = "Field \"password\" is empty.";
-      });
+      errorMessage = "Field \"password\" is empty.";
     } else if (_password != _confirmPassword) {
-      setState(() {
-        _errorMessage = "Passwords are not the same.";
-      });
+      errorMessage = "Passwords are not the same.";
     } else {
-
       try {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _email,
           password: _password,
         );
+        FirebaseServiceAuth.addUser(
+            credential.user!.uid,
+            _name,
+            ''
+        );
+        Navigator.of(context).pop();
       } on FirebaseAuthException catch (e) {
-
-        late final errorMessage;
-
         switch (e.code) {
           case "weak-password":
             errorMessage = "The password provided is too weak.";
@@ -65,14 +62,12 @@ class _SignUpPageState extends State<SignUpPage> {
           default:
             errorMessage = "An undefined Error happened.";
         }
-
-        setState(() {
-          _errorMessage = errorMessage;
-        });
-
-      } catch (e) {}
-
+      }
     }
+
+    setState(() {
+      _errorMessage = errorMessage;
+    });
 
   }
 

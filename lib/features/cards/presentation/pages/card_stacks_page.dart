@@ -8,8 +8,15 @@ import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.da
 
 import '../../../../core/style/c_colors.dart';
 
-class CardStacksPage extends StatelessWidget {
+class CardStacksPage extends StatefulWidget {
   const CardStacksPage({super.key});
+
+  @override
+  State<CardStacksPage> createState() => _CardStacksPageState();
+}
+
+class _CardStacksPageState extends State<CardStacksPage> {
+  String _searchInput = '';
 
   Route _createRoute(Widget page) {
     return PageRouteBuilder(
@@ -19,7 +26,8 @@ class CardStacksPage extends StatelessWidget {
         const end = Offset.zero;
         const curve = Curves.ease;
 
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
         return SlideTransition(
           position: animation.drive(tween),
@@ -31,7 +39,7 @@ class CardStacksPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height ;
+    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -79,21 +87,27 @@ class CardStacksPage extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        CustomSearchBar(baseColor: Theme.of(context).cardColor),
+                        CustomSearchBar(
+                          baseColor: Theme.of(context).cardColor,
+                          onChanged: (value) {
+                            setState(() {
+                              _searchInput = value;
+                            });
+                          },
+                        ),
                         bigSizedBoxHeight,
                         CustomButton(
-                            text: "Create card stack",
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                  _createRoute(const CreateCardStackPage()
-                              ));
-                            }
+                          text: "Create card stack",
+                          onPressed: () {
+                            Navigator.of(context).push(
+                                _createRoute(const CreateCardStackPage()));
+                          }
                         ),
                       ],
                     ),
                   ),
-                  const Expanded(
-                    child: CardStackList(),
+                  Expanded(
+                    child: CardStackList(searchInput: _searchInput),
                   )
                 ],
               ),

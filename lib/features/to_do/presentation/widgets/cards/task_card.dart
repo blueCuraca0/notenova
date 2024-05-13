@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notenova/features/to_do/presentation/cubits/task_cubit/task_cubit.dart';
+import 'package:notenova/features/autorization/data/firebase_service.dart';
 import '../../../../../core/style/c_colors.dart';
 import '../../../../../core/utils/constants.dart';
 import '../../../domain/entities/task_model.dart';
@@ -23,19 +22,6 @@ class _TaskCardState extends State<TaskCard> {
   void initState() {
     super.initState();
     _isChecked = widget.task.isCompleted;
-  }
-
-  List<Color> getGradientColors(String category) {
-    switch (category) {
-      case 'Study':
-        return CColors.pinkGradientColor;
-      case 'Productive':
-        return CColors.blueGradientColor;
-      case 'Life':
-        return CColors.greenGradientColor;
-      default:
-        return [Colors.grey, Colors.grey];
-    }
   }
 
   @override
@@ -105,27 +91,46 @@ class _TaskCardState extends State<TaskCard> {
                     ],
                   ),
                 ),
-                StatefulBuilder(
-                  builder: (BuildContext context, StateSetter setState) {
-                    return Checkbox(
-                      visualDensity: VisualDensity.compact,
-                      activeColor: Theme.of(context).primaryColorDark,
-                      value: _isChecked,
-                      onChanged: (value) {
-                        setState(() {
-                          _isChecked = value ?? false;
-                        });
-                        widget.onCheckboxChanged(_isChecked);
-                      },
-                      shape: const CircleBorder(),
-                    );
-                  },
-                ),
+                _checkBoxButton(),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  List<Color> getGradientColors(String category) {
+    switch (category) {
+      case 'Study':
+        return CColors.pinkGradientColor;
+      case 'Productive':
+        return CColors.blueGradientColor;
+      case 'Life':
+        return CColors.greenGradientColor;
+      default:
+        return [Colors.grey, Colors.grey];
+    }
+  }
+
+  Widget _checkBoxButton() {
+    return StatefulBuilder(
+      builder: (BuildContext context, StateSetter setState) {
+        return Checkbox(
+          visualDensity: VisualDensity.compact,
+          activeColor: Theme.of(context).primaryColorDark,
+          value: _isChecked,
+          onChanged: (value) {
+            setState(() {
+              _isChecked = value ?? false;
+              FirebaseServiceAuth.updateUserXP(
+                  (value ?? false) ? standardXP : (-standardXP));
+            });
+            widget.onCheckboxChanged(_isChecked);
+          },
+          shape: const CircleBorder(),
+        );
+      },
     );
   }
 }

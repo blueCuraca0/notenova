@@ -6,9 +6,7 @@ import 'package:notenova/features/cards/presentation/widgets/light_rounded_bg.da
 
 import '../../../../core/style/c_colors.dart';
 import '../../../../core/utils/constants.dart';
-import '../../../../core/widgets/bottom_nav_bar.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
-import '../../../../main.dart';
 import '../../domain/entities/flashcard.dart';
 import '../../domain/entities/flashcard_stack.dart';
 import '../tiles/card_editing_tile.dart';
@@ -106,7 +104,7 @@ class _CreateCardsPageState extends State<CreateCardsPage> {
                         text: 'Start learning',
                         onPressed: () {
                           widget.cardStack.cardsList = cardList;
-                          FirebaseService.addCardStack(widget.cardStack);
+                          FirebaseServiceCards.addCardStack(widget.cardStack);
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => FlashcardPage(

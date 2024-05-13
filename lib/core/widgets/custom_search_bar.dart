@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:notenova/core/utils/constants.dart';
 
 double searchBarHeight = 60;
 

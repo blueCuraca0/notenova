@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/cards/domain/entities/flashcard.dart';
-import '../../../../core/style/c_colors.dart';
 
 class FlashcardTile extends StatefulWidget {
   final Flashcard flashcard;
@@ -102,13 +101,16 @@ class _FlashcardTileState extends State<FlashcardTile> with SingleTickerProvider
                   color: Theme.of(context).cardColor,
                   // color: CColors.darkGreen,
                 ),
-
                 child: Transform(
                   transform: Matrix4.identity()..scale(scaleX, 1.0, 1.0),
                   alignment: Alignment.center,
-                  child: Text(
-                    isTermUp ? widget.flashcard.term : widget.flashcard.definition,
-                    style: Theme.of(context).textTheme.bodyMedium,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Text(
+                      isTermUp ? widget.flashcard.term : widget.flashcard.definition,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ),

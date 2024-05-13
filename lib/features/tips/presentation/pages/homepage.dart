@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget{
 
 
 class _HomePageInside extends StatelessWidget{
-  const _HomePageInside({super.key});
+  const _HomePageInside();
 
   @override
   Widget build(BuildContext context) {

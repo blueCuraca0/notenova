@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:notenova/features/tips/domain/tips.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notenova/features/profile/presentation/state_management/fav_cubit.dart';
+import 'package:notenova/features/profile/presentation/cubits/fav_cubit/fav_cubit.dart';
 import 'package:notenova/features/profile/presentation/pages/tip_page_profile.dart';
 
 class TipsBoxProfile extends StatelessWidget {
@@ -24,7 +24,8 @@ class TipsBoxProfile extends StatelessWidget {
       },
       child: Container(
         height: MediaQuery.of(context).size.height * 0.22,
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 30),
+        padding:
+            const EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 30),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           boxShadow: [
@@ -60,7 +61,6 @@ class TipsBoxProfile extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   midSizedBoxHeight,
-
                   Text(
                     tip.title,
                     style: Theme.of(context).textTheme.bodyMedium,
@@ -77,7 +77,10 @@ class TipsBoxProfile extends StatelessWidget {
                   onPressed: () {
                     deleteFav(context);
                   },
-                  icon: Icon(Icons.favorite, color: Theme.of(context).primaryColorDark,),
+                  icon: Icon(
+                    Icons.favorite,
+                    color: Theme.of(context).primaryColorDark,
+                  ),
                 ),
                 const Spacer(flex: 3),
               ],

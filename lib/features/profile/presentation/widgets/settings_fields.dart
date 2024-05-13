@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
+import 'package:notenova/core/widgets/custom_button.dart';
 
 class SettingsFieldsWidget extends StatefulWidget {
   const SettingsFieldsWidget({super.key});
@@ -90,6 +92,21 @@ class _SettingsFieldsWidgetState extends State<SettingsFieldsWidget>
                             value: isDarktheme,
                             onChanged: (value) {}),
                       ],
+                    ),
+                    midSizedBoxHeight,
+                    Row(
+                      children: [
+                        Text('Exit',
+                            style: Theme.of(context).textTheme.bodyMedium),
+                        spacer,
+                        CustomButton(
+                            buttonPadding:
+                                const EdgeInsets.fromLTRB(30, 0, 30, 5),
+                            text: "Log out",
+                            onPressed: () {
+                              _logOut(context);
+                            }),
+                      ],
                     )
                   ],
                 ),
@@ -97,6 +114,11 @@ class _SettingsFieldsWidgetState extends State<SettingsFieldsWidget>
             ),
           ),
         ));
+  }
+
+  void _logOut(BuildContext context) {
+    FirebaseAuth.instance.signOut();
+    setState(() {});
   }
 
   Future<String?> _showLanguageDialog(BuildContext context) async {
