@@ -63,6 +63,7 @@ class TipsBoxProfile extends StatelessWidget {
                   midSizedBoxHeight,
                   Text(
                     tip.title,
+                    maxLines: 1,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   spacer,
