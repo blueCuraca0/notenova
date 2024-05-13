@@ -28,7 +28,7 @@ class _SummaryCardState extends State<SummaryCard> {
             color: Theme.of(context).cardColor,
             boxShadow: [
               BoxShadow(
-                color: Theme.of(context).shadowColor,
+                color: Theme.of(context).primaryColor,
                 spreadRadius: 5,
                 blurRadius: 10,
                 offset: const Offset(0, 3),
