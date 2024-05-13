@@ -17,8 +17,8 @@ import 'package:notenova/features/quizzes/presentation/button_back.dart';
 class QuestionCreate extends StatelessWidget {
   const QuestionCreate({super.key});
 
-  void addNewQuiz(BuildContext context, Quiz quiz) {
-    context.read<QuizCubit>().addQuiz(quiz);
+  Future<void> addNewQuiz(BuildContext context, Quiz quiz) async{
+    await context.read<QuizCubit>().addQuiz(quiz);
   }
 
   @override
@@ -36,7 +36,7 @@ class QuestionCreate extends StatelessWidget {
                 expandedHeight: MediaQuery.of(context).size.height*0.15,
                 pinned: true,
                 flexibleSpace: FlexibleSpaceBar(
-                  background: Image.network(state.newQuiz!.image,
+                  background: Image.network('https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg',
                   fit: BoxFit.cover,),
                 ),
               ),
@@ -57,9 +57,9 @@ class QuestionCreate extends StatelessWidget {
                           FloatingActionButton(onPressed: () {
                             showDialog(
                                 context: context,
-                                builder: (_) => QuestionDialog(title: "Choose the type of question:",
-                                  button1: "Single",
-                                  button2: "Multiple",//TODO: hardcoded strings
+                                builder: (_) => QuestionDialog(title: LocaleKeys.choose_the_type_of_ques.tr(),
+                                  button1: LocaleKeys.single.tr(),
+                                  button2: LocaleKeys.multiple.tr(),
                                   button1Action: (){
                                     context.read<QuizCubit>().singleQuestionCreate();
                                   },
@@ -97,8 +97,8 @@ class QuestionCreate extends StatelessWidget {
                   child:
                   Padding(
                     padding: lPadding,
-                    child: CustomButton(text: LocaleKeys.create_new_quiz.tr(), onPressed: (){
-                      addNewQuiz(context, state.newQuiz!);
+                    child: CustomButton(text: LocaleKeys.create_new_quiz.tr(), onPressed: ()async {
+                      await addNewQuiz(context, state.newQuiz!);
                       FirebaseServiceAuth.updateUserXP(standardXP);
                       Navigator.pop(context);
                       Navigator.pop(context);

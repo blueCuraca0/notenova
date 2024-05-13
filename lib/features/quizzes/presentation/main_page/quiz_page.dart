@@ -37,8 +37,7 @@ class QuizPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     length = context.read<QuizCubit>().quizzes.length;
-    context.read<QuizCubit>().loadQuizzes(Quiz.empty()).then((value) => context.read<QuizSortCubit>().sortByCategory(all, context.read<QuizCubit>().quizzes));
-    //context.read<QuizSortCubit>().sortByCategory(all, context.read<QuizCubit>().quizzes);
+    context.read<QuizSortCubit>().sortByCategory(all, context.read<QuizCubit>().quizzes);
 
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
@@ -90,12 +89,6 @@ class QuizPage extends StatelessWidget {
                       child: Center(
                         child: Column(
                           children: [
-                            /*CustomSearchBar(
-                              baseColor: Theme.of(context).cardColor,
-                              onChanged: (value) {
-                                context.read<QuizSortCubit>().sortBySearch(value, context.read<QuizCubit>().quizzes);
-                              }
-                            ),*/ //implement if I have time
                             bigSizedBoxHeight,
                             Row(
                                   children: [
@@ -122,6 +115,7 @@ class QuizPage extends StatelessWidget {
                                                   text: state.categories[index].name,
                                                   onPressed: () {
                                                     context.read<QuizSortCubit>().sortByCategory(state.categories[index], state.quizzes);
+                                                    context.read<QuizCubit>().sortedQuizzes();
                                                   },
                                                   gradient: LinearGradient(
                                                     colors: state.categories[index] == stateSort.category ? state.categories[index].darkGradient!: state.categories[index].gradient,),),
@@ -139,15 +133,25 @@ class QuizPage extends StatelessWidget {
                             bigSizedBoxHeight,
                             BlocBuilder<QuizCubit,QuizState>(
                               builder: (context, state) {
+                                if (state is QuizAdded  || state is QuizDeleted){
+                                context.read<QuizCubit>().loadQuizzes(Quiz.empty());
+                                }
                                 if (state is QuizzesLoading){
-                                  return Center(
-                                    child: CircularProgressIndicator(color: Theme.of(context).primaryColorDark),
+                                  return Container(
+                                    height: MediaQuery.of(context).size.height * 0.8,
+                                    child: Center(
+                                      child: CircularProgressIndicator(color: Theme.of(context).primaryColorDark),
+                                    ),
                                   );}
                                 else {
                                 return Column(
                                   children: [
                                     BlocBuilder<QuizSortCubit, QuizSortState>(
                                       builder: (context, stateSort) {
+                                        if (state is QuizAdded || state is QuizDeleted || state is QuizzesLoaded){
+                                          context.read<QuizSortCubit>().sortByCategory(stateSort.category, state.quizzes);
+                                          context.read<QuizCubit>().sortedQuizzes();
+                                        }
                                         return Column(
                                           children:  List<Widget>.generate(stateSort.quizzesSort.length,
                                             (int index) {
@@ -187,9 +191,9 @@ class QuizPage extends StatelessWidget {
                   largePadding.left -
                   largePadding.right,
               text: LocaleKeys.create_new_quiz.tr(),
-              onPressed: () {
+              onPressed: () async {
                 createNewQuiz(context);
-                Navigator.push(
+                await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const QuizLayout(),

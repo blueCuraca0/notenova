@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
@@ -56,15 +57,15 @@ class _HomePageInside extends StatelessWidget{
                               midSizedBoxHeight,
                               Text(LocaleKeys.hello.tr(),
                                   style: Theme.of(context).textTheme.bodyLarge),
-                              Text(LocaleKeys.lets_study.tr(), //TODO: make ! mark
+                              Text(LocaleKeys.lets_study.tr(),
                                   style: Theme.of(context).textTheme.bodySmall),
                               midSizedBoxHeight,
                             ],
                           ),
                           spacer,
-                          const CircleAvatar(
+                          CircleAvatar(
                             radius: 30,
-                            backgroundImage: NetworkImage('https://secure.gravatar.com/avatar/7381b9e7e146bf03b5ef62ce417b53a2.jpg?s=192&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0024-192.png'),
+                            backgroundImage: AssetImage('assets/images/logo.png'),
                           ),
                           midSizedBoxWidth,
                         ],

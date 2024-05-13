@@ -48,7 +48,7 @@ class CheckAnswers extends StatelessWidget {
             expandedHeight: MediaQuery.of(context).size.height*0.15,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.network(getQuiz(context, indexQuiz).image,
+              background: Image.network('https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg',
                 fit: BoxFit.cover,),
             ),
           ),
@@ -58,7 +58,7 @@ class CheckAnswers extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
               ),
-                   child:   Text('Your results: ${getScore(context, indexQuiz)}', //TODO: hardcoded string
+                   child:   Text('${LocaleKeys.your_results.tr()} ${getScore(context, indexQuiz)}', //TODO: hardcoded string
                           style: Theme.of(context).textTheme.bodyLarge),
               ),
             ),
