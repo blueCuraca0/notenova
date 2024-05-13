@@ -17,11 +17,23 @@ import 'package:notenova/features/quizzes/domain/entities/category.dart';
 //TODO: firebase
 
 class QuizPage extends StatelessWidget {
+  const QuizPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => QuizCubit(),
+      child: _QuizPage(),
+    );
+  }
+}
+
+class _QuizPage extends StatelessWidget {
   final expandedHeight = 200.0;
   Category all = Category(name: 'All', gradient: CColors.greenGradientColor);
   Category? currentCategory;
 
-  QuizPage({super.key});
+  _QuizPage({super.key});
 
   int length = 0;
 
@@ -84,7 +96,7 @@ class QuizPage extends StatelessWidget {
                         CustomSearchBar(
                           baseColor: Theme.of(context).cardColor,
                         ),
-                        bigSizedBoxHeight, //TODO: Hardcoded string
+                        bigSizedBoxHeight,
                         Row(
                           children: [
                             CustomButton(

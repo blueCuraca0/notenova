@@ -18,7 +18,7 @@ class QuizCubit extends Cubit<QuizState> {
   }
 
   void createQuiz(){
-    emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty()));
+    emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty(id: '${DateTime.now().millisecondsSinceEpoch}')));
   }
 
   void changeTitle(String title){
@@ -27,7 +27,7 @@ class QuizCubit extends Cubit<QuizState> {
       emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: state.newQuiz!));
     }
     else{
-      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty()));
+      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty(id: '${DateTime.now().millisecondsSinceEpoch}')));
     }
   }
 
@@ -37,7 +37,7 @@ class QuizCubit extends Cubit<QuizState> {
       emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: state.newQuiz!));
     }
     else{
-      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty()));
+      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty(id: '${DateTime.now().millisecondsSinceEpoch}')));
     }
   }
 
@@ -47,7 +47,7 @@ class QuizCubit extends Cubit<QuizState> {
       emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: state.newQuiz!));
     }
     else{
-      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty()));
+      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty(id: '${DateTime.now().millisecondsSinceEpoch}')));
     }
   }
 
@@ -57,7 +57,7 @@ class QuizCubit extends Cubit<QuizState> {
       emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: state.newQuiz!));
     }
     else{
-      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty()));
+      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty(id: '${DateTime.now().millisecondsSinceEpoch}')));
     }
   }
 
@@ -67,7 +67,7 @@ class QuizCubit extends Cubit<QuizState> {
       emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: state.newQuiz!));
     }
     else{
-      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty()));
+      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty(id: '${DateTime.now().millisecondsSinceEpoch}')));
     }
   }
 
@@ -77,7 +77,7 @@ class QuizCubit extends Cubit<QuizState> {
       emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: state.newQuiz!));
     }
     else{
-      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty()));
+      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty(id: '${DateTime.now().millisecondsSinceEpoch}')));
     }
   }
 
@@ -87,7 +87,7 @@ class QuizCubit extends Cubit<QuizState> {
       emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: state.newQuiz!));
     }
     else{
-      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty()));
+      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty(id: '${DateTime.now().millisecondsSinceEpoch}')));
     }
   }
 
@@ -107,7 +107,7 @@ class QuizCubit extends Cubit<QuizState> {
       emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: state.newQuiz!));
     }
     else{
-      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty()));
+      emit(QuizChanged(quizzes: state.quizzes, categories: state.categories, newQuiz: Quiz.empty(id: '${DateTime.now().millisecondsSinceEpoch}')));
     }
   }
 
@@ -140,7 +140,6 @@ class QuizCubit extends Cubit<QuizState> {
       for (int i = 0; i < state.answers[questionIndex]!.length; i++){
         if (i == optionIndex){
           state.answers[questionIndex]![i] = true;
-          print('I am doing smth');
         }
         else{
         state.answers[questionIndex]![i] = false;
@@ -155,9 +154,6 @@ class QuizCubit extends Cubit<QuizState> {
   }
 
   bool ifSelected(int questionIndex, int optionIndex){
-      for (int i = 0; i < state.answers[questionIndex]!.length; i++){
-        print(state.answers[questionIndex]![i]);
-      }
       return state.answers[questionIndex]![optionIndex];
   }
 

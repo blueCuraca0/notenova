@@ -186,7 +186,7 @@ class QuizLayout extends StatelessWidget {
                             });
                       },
                     ) ,
-                    bigSizedBoxHeight,//TODO: Hardcoded string remove
+                    bigSizedBoxHeight,
                   ],
                 ),
               ),

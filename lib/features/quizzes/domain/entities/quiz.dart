@@ -3,6 +3,7 @@ import 'question.dart';
 import 'category.dart';
 
 class Quiz{
+  String id;
   String image;
   String title;
   Category? category;
@@ -14,6 +15,8 @@ class Quiz{
     required this.title,
     required this.category,
     required this.description,
+    required this.questions,
+    required this.id,
   });
 
   Quiz.empty({
@@ -22,5 +25,6 @@ class Quiz{
     this.category,
     this.description = 'Unknown',
     this.questions = const [],
+    this.id = '',
   });
 }
