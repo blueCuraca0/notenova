@@ -8,6 +8,8 @@ import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/darkTheme_cubit/darkTheme_cubit.dart';
 import 'package:notenova/darkTheme_cubit/darkTheme_states.dart';
+import 'package:notenova/features/autorization/presentation/pages/authoriazation_page.dart';
+
 
 class SettingsFieldsWidget extends StatefulWidget {
   const SettingsFieldsWidget({super.key});
@@ -98,18 +100,22 @@ class _SettingsFieldsWidgetState extends State<SettingsFieldsWidget>
                                 context.read<DarkCubit>().changeTheme();
                               }),
                         ),
+
+                   
                       ],
                     ),
                     midSizedBoxHeight,
                     Row(
                       children: [
-                        Text('Exit',
+
+                        Text(LocaleKeys.exit.tr(),
                             style: Theme.of(context).textTheme.bodyMedium),
                         spacer,
                         CustomButton(
                             buttonPadding:
                                 const EdgeInsets.fromLTRB(30, 0, 30, 5),
-                            text: "Log out",
+
+                            text: LocaleKeys.log_out.tr(),
                             onPressed: () {
                               _logOut(context);
                             }),
@@ -125,6 +131,8 @@ class _SettingsFieldsWidgetState extends State<SettingsFieldsWidget>
 
   void _logOut(BuildContext context) {
     FirebaseAuth.instance.signOut();
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const AuthorizationPage()));
     setState(() {});
   }
 

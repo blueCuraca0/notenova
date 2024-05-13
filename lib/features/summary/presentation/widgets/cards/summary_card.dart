@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
@@ -71,6 +70,7 @@ class _SummaryCardState extends State<SummaryCard> {
                     children: <Widget>[
                       Text(
                         widget.summary.name,
+                        maxLines: 1,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       smallSizedBoxWidth,

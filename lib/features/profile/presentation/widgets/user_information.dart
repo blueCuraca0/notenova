@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/style/c_colors.dart';
+import 'package:notenova/core/utils/constants.dart';
+import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/features/profile/presentation/cubits/user_cubit/user_cubit.dart';
 import 'package:notenova/features/profile/presentation/cubits/user_cubit/user_state.dart';
 import 'package:notenova/features/profile/presentation/widgets/edit_name_user_sheet.dart';
@@ -34,6 +37,7 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
           return ListTile(
             title: Row(
               children: [
+                bigSizedBoxHeight,
                 Expanded(
                   child: GestureDetector(
                     onLongPress: () => showModalBottomSheet(
@@ -45,7 +49,7 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
                         }),
                     child: Text(
                         overflow: TextOverflow.fade,
-                        'Hello, \n$userName',
+                        '${LocaleKeys.hello_user.tr()} \n$userName',
                         style: Theme.of(context)
                             .textTheme
                             .bodyLarge
@@ -60,11 +64,12 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
                       SizedBox(
                         height: 60,
                         width: 60,
-                        child: CircleAvatar(
-                          radius: 50,
-                          child: Image(
-                            image: NetworkImage(userAvatar),
+                        child: ClipOval(
+                          child: Image.network(
+                            userAvatar,
                             fit: BoxFit.cover,
+                            width: 60,
+                            height: 60,
                           ),
                         ),
                       ),

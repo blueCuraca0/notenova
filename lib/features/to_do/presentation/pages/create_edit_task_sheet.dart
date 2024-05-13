@@ -92,7 +92,6 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
             gradientColor: const Color(0xffCCD9E4),
             width: 400,
             height: 70,
-            maxLines: 2,
             title: LocaleKeys.description.tr(),
             baseColor: Theme.of(context).cardColor,
           ),
@@ -172,14 +171,14 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
         CustomButton(
           onPressed: () {
             setState(() {
-              _selectedCategory = LocaleKeys.study.tr();
+              _selectedCategory = 'Study';
             });
           },
           text: LocaleKeys.study.tr(),
           buttonPadding:
               const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
           gradient: LinearGradient(
-            colors: _selectedCategory == LocaleKeys.study.tr()
+            colors: _selectedCategory == 'Study'
                 ? [CColors.text, CColors.text]
                 : CColors.pinkGradientColor,
           ),
@@ -188,14 +187,14 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
         CustomButton(
           onPressed: () {
             setState(() {
-              _selectedCategory = LocaleKeys.productive.tr();
+              _selectedCategory = 'Productive';
             });
           },
           text: LocaleKeys.productive.tr(),
           buttonPadding:
               const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
           gradient: LinearGradient(
-            colors: _selectedCategory == LocaleKeys.productive.tr()
+            colors: _selectedCategory == 'Productive'
                 ? [CColors.text, CColors.text]
                 : CColors.blueGradientColor,
           ),
@@ -204,14 +203,14 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
         CustomButton(
           onPressed: () {
             setState(() {
-              _selectedCategory = LocaleKeys.life.tr();
+              _selectedCategory = 'Life';
             });
           },
           text: LocaleKeys.life.tr(),
           buttonPadding:
               const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
           gradient: LinearGradient(
-            colors: _selectedCategory == LocaleKeys.life.tr()
+            colors: _selectedCategory == 'Life'
                 ? [CColors.text, CColors.text]
                 : CColors.greenGradientColor,
           ),

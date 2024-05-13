@@ -1,7 +1,9 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class LocaleKeys {
+abstract class  LocaleKeys {
   static const create_task = 'create_task';
+  static const create_task1 = 'create_task1';
+  static const to_do1 = 'to_do1';
   static const name = 'name';
   static const email = 'email';
   static const password = 'password';
@@ -60,8 +62,7 @@ abstract class LocaleKeys {
   static const good_luck_with_your_training = 'good_luck_with_your_training';
   static const to_quiz = 'to_quiz';
   static const study_materials = 'study_materials';
-  static const improve_your_know_with_quizzes =
-      'improve_your_know_with_quizzes';
+  static const improve_your_know_with_quizzes = 'improve_your_know_with_quizzes';
   static const boost_your_brain_with_cards = 'boost_your_brain_with_cards';
   static const cards = 'cards';
   static const create_card_stack = 'create_card_stack';
@@ -79,7 +80,19 @@ abstract class LocaleKeys {
   static const select_text_from_photo = 'select_text_from_photo';
   static const to_do = 'to_do';
   static const select_lan = 'select_lan';
+  static const no_tips = 'no_tips';
+  static const your_results = 'your_results';
+  static const single = 'single';
+  static const multiple = 'multiple';
+  static const like = 'like';
+  static const liked = 'liked';
+  static const choose_the_type_of_ques = 'choose_the_type_of_ques';
+  static const exit = 'exit';
+  static const log_out = 'log_out';
+  static const update_name = 'update_name';
+  static const update_photo = 'update_photo';
+  static const hello_user = 'hello_user';
   static const no_image_selected = 'no_image_selected';
-
   static const select_time_date = 'select_time_date';
+
 }

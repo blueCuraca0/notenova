@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:notenova/core/utils/constants.dart';
@@ -32,7 +34,10 @@ class TextRecognitionPage extends StatelessWidget {
               midSizedBoxWidth,
               Text(
                 LocaleKeys.recognition_text.tr(),
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(fontSize: 15),
               ),
               midSizedBoxHeight,
             ],
@@ -117,36 +122,39 @@ class TextRecognition extends StatelessWidget {
                       ),
                     );
                   } else if (state is TextRecognitionLoaded) {
-                    return SizedBox(
+                    return Container(
                       height: 900,
-                      child: Column(
-                        children: [
-                          midSizedBoxHeight,
-                          CustomButton(
-                            color: Theme.of(context).primaryColorLight,
-                            onPressed: () {
-                              Navigator.pop(context, state.detectedText);
-                            },
-                            text: LocaleKeys.add.tr(),
-                          ),
-                          if (state.selectedImage != null) midSizedBoxHeight,
-                          Padding(
-                              padding: mediumPadding,
-                              child: Image.file(state.selectedImage!)),
-                          Text(
-                            LocaleKeys.recognition_text.tr(),
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                          midSizedBoxHeight,
-                          Expanded(
-                            child: Text(
-                              state.detectedText,
-                              style: Theme.of(context).textTheme.bodyMedium,
+                      child: Expanded(
+                        child: ListView(
+                          children: [
+                            midSizedBoxHeight,
+                            CustomButton(
+                              color: Theme.of(context).primaryColorLight,
+                              onPressed: () {
+                                Navigator.pop(context, state.detectedText);
+                              },
+                              text: LocaleKeys.add.tr(),
                             ),
-                          ),
-                          bigSizedBoxHeight,
-                          bigSizedBoxHeight,
-                        ],
+                            if (state.selectedImage != null) midSizedBoxHeight,
+                            Padding(
+                                padding: mediumPadding,
+                                child: Image.file(state.selectedImage!)),
+                            Text(
+                              LocaleKeys.recognition_text.tr(),
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                            midSizedBoxHeight,
+                            Expanded(
+                              child: Text(
+                                state.detectedText,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 500,
+                            )
+                          ],
+                        ),
                       ),
                     );
                   } else if (state is TextRecognitionError) {

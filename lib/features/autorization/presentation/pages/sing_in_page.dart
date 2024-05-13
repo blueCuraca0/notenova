@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
@@ -89,18 +90,20 @@ class _SignInPageState extends State<SignInPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Expanded(
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.only(top: 50),
-                  child: Text(
-                    "NoteNova",
-                    style: Theme.of(context).textTheme.bodyLarge,
+              Container(
+                alignment: Alignment.center,
+                height: height / 5 * 2,
+                padding: const EdgeInsets.only(top: 50),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 50),
+                  child: Image.asset(
+                    'assets/images/logo_text.png',
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
               LightRoundedBG(
-                  height: height / 10 * 7,
+                  height: height / 5 * 3,
                   child: Padding(
                     padding: const EdgeInsets.all(30),
                     child: Column(

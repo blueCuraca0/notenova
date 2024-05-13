@@ -13,12 +13,16 @@ import 'package:notenova/features/profile/presentation/cubits/fav_cubit/fav_stat
 import 'package:notenova/features/profile/presentation/widgets/tip_box_profile.dart';
 import 'package:notenova/features/profile/presentation/widgets/user_information.dart';
 
+import '../widgets/progress_bar.dart';
+
 class UserProfilePage extends StatelessWidget {
   const UserProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     context.read<FavCubit>().loadFavs();
+    double availableWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: CColors.accent,
       body: CustomScrollView(
@@ -27,14 +31,38 @@ class UserProfilePage extends StatelessWidget {
           const SliverToBoxAdapter(
             child: smallSizedBoxHeight,
           ),
-          const SliverToBoxAdapter(
-            child: SettingsButton(),
+          SliverToBoxAdapter(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SettingsButton(),
+                ProgressBar(availableWidth),
+              ],
+            ),
           ),
           const SliverToBoxAdapter(
             child: bigSizedBoxHeight,
           ),
-          const SliverToBoxAdapter(
-            child: BackgroundWidget(),
+          SliverToBoxAdapter(
+            child: Container(
+              padding: const EdgeInsets.only(top: 30),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColorLight,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(40),
+                  topRight: Radius.circular(40),
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  LocaleKeys.favorite_tips_of_the_day.tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
           ),
           BlocBuilder<FavCubit, FavState>(
             builder: (context, state) {
@@ -105,35 +133,6 @@ class UserProfilePage extends StatelessWidget {
   }
 }
 
-class BackgroundWidget extends StatelessWidget {
-  const BackgroundWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(top: 30),
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColorLight,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(40),
-          topRight: Radius.circular(40),
-        ),
-      ),
-      child: Center(
-        child: Text(
-          LocaleKeys.favorite_tips_of_the_day.tr(),
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium!
-              .copyWith(fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
-  }
-}
-
 class CustomSliverAppBarWidget extends StatefulWidget {
   const CustomSliverAppBarWidget({
     super.key,
@@ -148,20 +147,21 @@ class CustomSliverAppBarWidgetState extends State<CustomSliverAppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: MediaQuery.of(context).size.height * 0.15,
-      floating: true,
-      pinned: false,
-      automaticallyImplyLeading: false,
-      backgroundColor: Theme.of(context).primaryColor,
-      surfaceTintColor: Theme.of(context).primaryColor,
-      flexibleSpace: FlexibleSpaceBar(
-        titlePadding: EdgeInsets.zero,
-        title: BlocProvider(
-          create: (context) =>
-              UserDataCubit(FirebaseFirestore.instance, FirebaseAuth.instance),
-          child: const UserInformationWidget(),
-        ),
-      ),
-    );
+        expandedHeight: MediaQuery.of(context).size.height * 0.23,
+        pinned: false,
+        automaticallyImplyLeading: false,
+        backgroundColor: Theme.of(context).primaryColor,
+        surfaceTintColor: Theme.of(context).primaryColor,
+        flexibleSpace: FlexibleSpaceBar(
+          title: Padding(
+            padding: const EdgeInsets.only(top: 40.0),
+            child: BlocProvider(
+              create: (context) => UserDataCubit(
+                  FirebaseFirestore.instance, FirebaseAuth.instance),
+              child: const UserInformationWidget(),
+            ),
+          ),
+          titlePadding: EdgeInsets.zero,
+        ));
   }
 }

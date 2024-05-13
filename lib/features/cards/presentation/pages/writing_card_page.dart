@@ -36,7 +36,9 @@ class _WritingCardPageState extends State<WritingCardPage> {
 
   void nextFlashCard() {
     if (_currentFlashcard < _flashcardList.length - 1) {
-      _currentFlashcard++;
+      setState(() {
+        _currentFlashcard++;
+      });
     } else {
       FirebaseServiceAuth.updateUserXP(_wellLearnedCards);
       showDialog(
@@ -55,6 +57,12 @@ class _WritingCardPageState extends State<WritingCardPage> {
           )
       );
     }
+  }
+
+  void plusOneWellLearnedCard() {
+    setState(() {
+      _wellLearnedCards++;
+    });
   }
 
   @override
@@ -94,8 +102,14 @@ class _WritingCardPageState extends State<WritingCardPage> {
               alignment: Alignment.center,
               child: Column(
                 children: [
-                  WritingCardTile(widget._cardStack.cardsList[_currentFlashcard]),
-                  const WritingInputTile(),
+                  WritingCardTile(
+                      widget._cardStack.cardsList[_currentFlashcard]
+                  ),
+                  WritingInputTile(
+                      widget._cardStack.cardsList[_currentFlashcard].term,
+                      nextFlashCard,
+                      plusOneWellLearnedCard
+                  ),
                   Expanded(
                     child: Container(
                       color: Theme.of(context).primaryColorDark,
