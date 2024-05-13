@@ -1,17 +1,11 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/utils/constants.dart';
-import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/features/tips/domain/tips.dart';
 import 'package:notenova/features/quizzes/presentation/button_back.dart';
-import 'package:notenova/core/widgets/custom_button.dart';
-import 'package:notenova/features/profile/presentation/state_management/fav_cubit.dart';
+import 'package:notenova/features/profile/presentation/cubits/fav_cubit/fav_cubit.dart';
 
-
-class TipPageProfile extends StatelessWidget{
+class TipPageProfile extends StatelessWidget {
   final Tip tip;
 
   const TipPageProfile({super.key, required this.tip});
@@ -49,7 +43,7 @@ class TipPageProfile extends StatelessWidget{
           ),
           SliverToBoxAdapter(
             child: Container(
-              height: height ,
+              height: height,
               padding: const EdgeInsets.all(30),
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColorLight,
@@ -60,43 +54,46 @@ class TipPageProfile extends StatelessWidget{
               ),
               child: Center(
                   child: Column(
+                children: [
+                  midSizedBoxHeight,
+                  Row(
                     children: [
-                      midSizedBoxHeight,
-                      Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.network(
-                              tip.imageUrl,
-                              height: MediaQuery.of(context).size.height * 0.2,
-                              width: MediaQuery.of(context).size.width * 0.4,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          bigSizedBoxWidth,
-
-                                Expanded(
-                                  child: Text(
-                                    tip.title,
-                                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                          
-                        ],
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          tip.imageUrl,
+                          height: MediaQuery.of(context).size.height * 0.2,
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                      bigSizedBoxHeight,
-                      Text(
-                        tip.subtitle,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      bigSizedBoxHeight,
-                      Text(
-                        tip.description,
-                        style: Theme.of(context).textTheme.bodySmall,
+                      bigSizedBoxWidth,
+                      Expanded(
+                        child: Text(
+                          tip.title,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ],
-                  )
-              ),
+                  ),
+                  bigSizedBoxHeight,
+                  Text(
+                    tip.subtitle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  bigSizedBoxHeight,
+                  Text(
+                    tip.description,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              )),
             ),
           ),
         ],

@@ -1,9 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
-import 'package:notenova/features/cards/data/models/flashcard_stack_model.dart';
-import 'package:notenova/features/cards/presentation/pages/flashcard_page.dart';
-import 'package:notenova/features/cards/presentation/pages/writing_card_page.dart';
 
 class QuestionDialog extends StatelessWidget {
   final String title;

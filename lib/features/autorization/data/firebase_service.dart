@@ -6,23 +6,23 @@ class FirebaseServiceAuth {
       FirebaseFirestore.instance.collection('users');
 
   static Future<void> addUser(String uid, String name, String avatarUrl) {
-    return users.doc(uid).set({
-      'name': name,
-      'avatar': avatarUrl,
-      'xp_points': 0
-    });
+    return users
+        .doc(uid)
+        .set({'name': name, 'avatar': avatarUrl, 'xp_points': 0});
   }
 
-  static Future<void> updateUser(String uid, String name, String avatarUrl, int xp) {
-    return users.doc(uid).update({
-      'name': name,
-      'avatar': avatarUrl,
-      'xp_points': xp
-    });
+  static Future<void> updateUser(
+    String uid,
+    String name,
+    String avatar,
+    int xp,
+    String email,
+  ) {
+    return users.doc(uid).update(
+        {'name': name, 'email': email, 'avatar': avatar, 'xp_points': xp});
   }
 
   static Future<Map<String, dynamic>> getUserInfo() async {
-
     String uid = FirebaseAuth.instance.currentUser?.uid ?? '';
 
     DocumentReference<Map<String, dynamic>> doc =
@@ -33,11 +33,7 @@ class FirebaseServiceAuth {
 
     // if there is no userData with this id, then document.data() is null
     if (data == null) {
-      return {
-        'name': '',
-        'avatar': '',
-        'xp_points': -1
-      };
+      return {'name': '', 'avatar': '', 'xp_points': -1};
     }
 
     Map<String, dynamic> userData = document.data() as Map<String, dynamic>;

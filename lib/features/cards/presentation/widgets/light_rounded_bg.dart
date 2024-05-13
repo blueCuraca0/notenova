@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class LightRoundedBG extends StatelessWidget {
-  late final double height;
-  late final Widget child;
+  final double height;
+  final Widget child;
 
-  LightRoundedBG({required this.height, required this.child, super.key});
+  const LightRoundedBG({required this.height, required this.child, super.key});
 
   @override
   Widget build(BuildContext context) {

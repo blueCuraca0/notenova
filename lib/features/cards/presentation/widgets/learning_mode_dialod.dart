@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/cards/presentation/pages/flashcard_page.dart';
@@ -14,9 +13,9 @@ class LearningModeDialog extends StatelessWidget {
     final Color color = Theme.of(context).primaryColor;
 
     return AlertDialog(
-      title: Text("Learning Mode"),
+      title: const Text("Learning Mode"),
       titleTextStyle: Theme.of(context).textTheme.bodyLarge,
-      content: Text("Choose a prefered learning mode for this study session:"),
+      content: const Text("Choose a prefered learning mode for this study session:"),
       contentTextStyle: Theme.of(context).textTheme.bodyMedium,
       alignment: Alignment.center,
       backgroundColor: color,

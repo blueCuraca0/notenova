@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
-import 'package:notenova/features/profile/presentation/pages/settings_page.dart';
-import 'package:notenova/features/summary/presentation/pages/summary_page.dart';
 import 'package:notenova/features/to_do/data/services/firebase_service.dart';
 import 'package:notenova/features/to_do/presentation/cubits/task_cubit/task_cubit.dart';
 import 'package:notenova/features/to_do/presentation/widgets/lists/task_calendar_list.dart';
@@ -21,7 +19,7 @@ class ToDoPage extends StatelessWidget {
         backgroundColor: CColors.accent,
         body: CustomScrollView(
           slivers: [
-            CustomSliverAppBarWidget(),
+            CustomAppBarWidget(),
             CurrentTimeWidget(),
             SliverToBoxAdapter(
               child: smallSizedBoxHeight,
@@ -45,7 +43,7 @@ class CurrentTimeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
         child: Row(
           children: [
             Text('${DateTime.now().day.toString()} ',
@@ -62,17 +60,16 @@ class CurrentTimeWidget extends StatelessWidget {
   }
 }
 
-class CustomSliverAppBarWidget extends StatefulWidget {
-  const CustomSliverAppBarWidget({
+class CustomAppBarWidget extends StatefulWidget {
+  const CustomAppBarWidget({
     super.key,
   });
 
   @override
-  State<CustomSliverAppBarWidget> createState() =>
-      _CustomSliverAppBarWidgetState();
+  State<CustomAppBarWidget> createState() => _CustomAppBarWidgetState();
 }
 
-class _CustomSliverAppBarWidgetState extends State<CustomSliverAppBarWidget> {
+class _CustomAppBarWidgetState extends State<CustomAppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
@@ -91,16 +88,21 @@ class _CustomSliverAppBarWidgetState extends State<CustomSliverAppBarWidget> {
               padding: smallerPadding,
               child: Row(
                 children: [
+                  smallSizedBoxWidth,
                   Text(LocaleKeys.to_do.tr(),
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge
                           ?.copyWith(fontSize: 20)),
                   const Spacer(),
-                  Icon(
-                    Icons.person,
-                    color: Theme.of(context).cardColor,
+                  const Padding(
+                    padding: EdgeInsets.only(top: 15.0),
+                    child: CircleAvatar(
+                      radius: 30,
+                      backgroundImage: AssetImage('assets/images/cat.jpg'),
+                    ),
                   ),
+                  smallSizedBoxWidth,
                 ],
               ),
             ),

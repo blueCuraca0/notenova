@@ -1,6 +1,6 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
   static const create_task = 'create_task';
   static const name = 'name';
   static const email = 'email';
@@ -60,7 +60,8 @@ abstract class  LocaleKeys {
   static const good_luck_with_your_training = 'good_luck_with_your_training';
   static const to_quiz = 'to_quiz';
   static const study_materials = 'study_materials';
-  static const improve_your_know_with_quizzes = 'improve_your_know_with_quizzes';
+  static const improve_your_know_with_quizzes =
+      'improve_your_know_with_quizzes';
   static const boost_your_brain_with_cards = 'boost_your_brain_with_cards';
   static const cards = 'cards';
   static const create_card_stack = 'create_card_stack';
@@ -79,6 +80,6 @@ abstract class  LocaleKeys {
   static const to_do = 'to_do';
   static const select_lan = 'select_lan';
   static const no_image_selected = 'no_image_selected';
-  static const select_time_date = 'select_time_date';
 
+  static const select_time_date = 'select_time_date';
 }

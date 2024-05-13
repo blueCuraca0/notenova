@@ -21,7 +21,7 @@ class CheckBlock extends StatelessWidget {
   Color borderColor(BuildContext context){
     for (int i = 0; i < getQuiz(context, indexQuiz).questions[indexQuestion].options.length; i++){
       if (context.read<QuizCubit>().checkBoxType(indexQuiz, i, indexQuestion) == 'red'){
-        return Color(0xffE8897D); //TODO: hardcoded color
+        return const Color(0xffE8897D); //TODO: hardcoded color
       }
     }
     return Theme.of(context).cardColor;
