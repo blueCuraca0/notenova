@@ -135,7 +135,7 @@ class _QuizPageState extends State<QuizPage> {
                             bigSizedBoxHeight,
                             BlocBuilder<QuizCubit,QuizState>(
                               builder: (context, state) {
-                                if (state is QuizAdded || state is QuizDeleted){
+                                if (state is QuizAdded || state is QuizDeleted || state is QuizInitialState){
                                   context.read<QuizCubit>().loadQuizzes(Quiz.empty());
                                 }
                                 if (state is QuizzesLoading){
@@ -161,7 +161,7 @@ class _QuizPageState extends State<QuizPage> {
                                               ),
                                         ),
                                     SizedBox(
-                                      height: MediaQuery.of(context).size.height *0.5,),
+                                      height: MediaQuery.of(context).size.height *0.4,),
                                   ],
                                 );
                                 }

@@ -108,7 +108,7 @@ class QuizLayout extends StatelessWidget {
                                 var userPhotoUrl = '';
                                   var storageRef = FirebaseStorage.instance
                                       .ref()
-                                      .child('quizzes/${user!.uid}/quiz.jpg');
+                                      .child('quizzes/${user!.uid}/${state.newQuiz!.title}.jpg');
                                   var uploadTask = storageRef.putFile(File(image!.path));
                                   var downloadUrl = await (await uploadTask).ref.getDownloadURL();
                                   userPhotoUrl = downloadUrl.toString();
