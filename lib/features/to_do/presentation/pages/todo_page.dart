@@ -20,7 +20,7 @@ class ToDoPage extends StatelessWidget {
         body: CustomScrollView(
           slivers: [
             CustomAppBarWidget(),
-            CurrentTimeWidget(),
+            SliverToBoxAdapter(child: CurrentTimeWidget()),
             SliverToBoxAdapter(
               child: smallSizedBoxHeight,
             ),
@@ -41,20 +41,26 @@ class CurrentTimeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-        child: Row(
-          children: [
-            Text('${DateTime.now().day.toString()} ',
-                style: Theme.of(context).textTheme.bodyMedium),
-            Text('${DateFormat('MMMM').format(DateTime.now())}, ',
-                style: Theme.of(context).textTheme.bodyMedium),
-            Text('${DateTime.now().year.toString()} ',
-                style: Theme.of(context).textTheme.bodyMedium),
-            const Spacer(),
-          ],
-        ),
+    Locale locale = context.locale;
+    String monthFormat = 'MMMM';
+    if (locale.languageCode == 'uk') {
+      monthFormat = 'MMMM';
+    } else {
+      monthFormat = 'MMMM';
+    }
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
+      child: Row(
+        children: [
+          Text('${DateTime.now().day.toString()} ',
+              style: Theme.of(context).textTheme.bodyMedium),
+          Text(
+              '${DateFormat(monthFormat, locale.languageCode).format(DateTime.now())}, ',
+              style: Theme.of(context).textTheme.bodyMedium),
+          Text('${DateTime.now().year.toString()} ',
+              style: Theme.of(context).textTheme.bodyMedium),
+          const Spacer(),
+        ],
       ),
     );
   }
@@ -73,7 +79,7 @@ class _CustomAppBarWidgetState extends State<CustomAppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: MediaQuery.of(context).size.height * 0.1,
+      expandedHeight: MediaQuery.of(context).size.height * 0.15,
       floating: true,
       pinned: false,
       automaticallyImplyLeading: false,
@@ -82,24 +88,24 @@ class _CustomAppBarWidgetState extends State<CustomAppBarWidget> {
       flexibleSpace: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           return FlexibleSpaceBar(
-            titlePadding:
-                EdgeInsets.only(left: 10, top: constraints.maxHeight - 70),
+            titlePadding: EdgeInsets.only(
+                left: 10, top: constraints.maxHeight - 70, right: 15),
             title: Padding(
               padding: smallerPadding,
               child: Row(
                 children: [
                   smallSizedBoxWidth,
-                  Text(LocaleKeys.to_do.tr(),
+                  Text(LocaleKeys.to_do1.tr(),
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge
-                          ?.copyWith(fontSize: 20)),
+                          ?.copyWith(fontSize: 15)),
                   const Spacer(),
                   const Padding(
                     padding: EdgeInsets.only(top: 15.0),
                     child: CircleAvatar(
                       radius: 30,
-                      backgroundImage: AssetImage('assets/images/cat.jpg'),
+                      backgroundImage: AssetImage('assets/images/logo.png'),
                     ),
                   ),
                   smallSizedBoxWidth,

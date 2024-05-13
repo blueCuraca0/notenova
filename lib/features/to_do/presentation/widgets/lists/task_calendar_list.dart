@@ -104,7 +104,7 @@ class _CalendarTaskListState extends State<CalendarTaskList>
                                   },
                                 );
                               },
-                              text: LocaleKeys.create_task.tr()),
+                              text: LocaleKeys.create_task1.tr()),
                         ],
                       ),
                     ),
@@ -127,6 +127,9 @@ class _CalendarTaskListState extends State<CalendarTaskList>
                                   tasks: tasks,
                                   selectedDate: _selectedDate,
                                   taskCubit: taskCubit),
+                              bigSizedBoxHeight,
+                              bigSizedBoxHeight,
+                              bigSizedBoxHeight
                             ],
                           )
                         : Padding(

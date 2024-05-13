@@ -60,9 +60,10 @@ class EditUserInformationWidgetState extends State<EditUserInformationWidget> {
                 userPhotoUrl = downloadUrl.toString();
               }
               widget.userDataCubit.updateUserProfile(user!, userPhotoUrl);
+              setState(() {});
               Navigator.pop(context);
             },
-            text: 'Update profile photo',
+            text: LocaleKeys.update_photo.tr(),
             buttonPadding:
                 const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
           ),
