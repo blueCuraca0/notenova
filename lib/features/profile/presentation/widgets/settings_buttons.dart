@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
-import 'package:notenova/darkTheme_cubit/darkTheme_cubit.dart';
-import 'package:notenova/darkTheme_cubit/darkTheme_states.dart';
+import 'package:notenova/core/cubit/darkTheme_cubit/darkTheme_cubit.dart';
+import 'package:notenova/core/cubit/darkTheme_cubit/darkTheme_states.dart';
 import 'package:notenova/features/autorization/presentation/pages/authoriazation_page.dart';
 
 class SettingsFieldsWidget extends StatefulWidget {

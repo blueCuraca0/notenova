@@ -123,7 +123,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
               }
             },
             child: Text(
-              LocaleKeys.select_image_from_photo.tr(),
+              'Select text from photo...',
             ),
           ),
           widget.isEdit ? const Text('') : selectPhotoForSummary(),
