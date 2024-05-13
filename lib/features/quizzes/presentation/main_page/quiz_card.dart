@@ -8,13 +8,10 @@ import 'package:notenova/features/quizzes/presentation/taking_quizzes/take_quiz.
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
 
-
 class QuizCard extends StatelessWidget {
   Quiz quiz;
 
-  QuizCard(
-      {super.key,
-        required this.quiz});
+  QuizCard({super.key, required this.quiz});
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +21,17 @@ class QuizCard extends StatelessWidget {
         children: [
           midSizedBoxHeight,
           GestureDetector(
-            onLongPress: (){
+            onLongPress: () {
               context.read<QuizCubit>().deleteQuiz(quiz);
             },
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                 return TakeQuizWindow(quiz: quiz);
+                return TakeQuizWindow(quiz: quiz);
               }));
             },
             child: Container(
-              padding: const EdgeInsets.only(left: 10, right: 10, top: 30, bottom: 30),
+              padding: const EdgeInsets.only(
+                  left: 10, right: 10, top: 30, bottom: 30),
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
                 boxShadow: [
@@ -49,7 +47,7 @@ class QuizCard extends StatelessWidget {
                 children: [
                   midSizedBoxWidth,
                   ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(20),
                     child: Image.network(
                       quiz.image,
                       height: MediaQuery.of(context).size.height * 0.11,
@@ -72,14 +70,17 @@ class QuizCard extends StatelessWidget {
                       ),
                       midSizedBoxHeight,
                       CustomButton2(
-                          textColor: CColors.white,
-                          text: quiz.category==null ? "Unknown": quiz.category!.name,
-                          onPressed: () {},
-                          gradient: LinearGradient(
-                            colors: quiz.category==null? CColors.pinkGradientColor: quiz.category!.gradient,
-                          ),
+                        textColor: CColors.white,
+                        text: quiz.category == null
+                            ? "Unknown"
+                            : quiz.category!.name,
+                        onPressed: () {},
+                        gradient: LinearGradient(
+                          colors: quiz.category == null
+                              ? CColors.pinkGradientColor
+                              : quiz.category!.gradient,
                         ),
-
+                      ),
                     ],
                   ),
                 ],
@@ -91,5 +92,3 @@ class QuizCard extends StatelessWidget {
     );
   }
 }
-
-

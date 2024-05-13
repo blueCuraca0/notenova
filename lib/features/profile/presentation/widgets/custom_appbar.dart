@@ -23,8 +23,8 @@ class CustomSliverAppBarWidgetState extends State<CustomSliverAppBarWidget> {
       floating: true,
       pinned: false,
       automaticallyImplyLeading: false,
-      backgroundColor: Theme.of(context).primaryColor,
-      surfaceTintColor: Theme.of(context).primaryColor,
+      backgroundColor: Theme.of(context).primaryColorLight,
+      surfaceTintColor: Theme.of(context).primaryColorLight,
       flexibleSpace: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           return FlexibleSpaceBar(
@@ -55,7 +55,7 @@ class CustomSliverAppBarWidgetState extends State<CustomSliverAppBarWidget> {
                 ],
               ),
             ),
-            background: ColoredBox(color: Theme.of(context).primaryColor),
+            background: ColoredBox(color: Theme.of(context).primaryColorLight),
           );
         },
       ),

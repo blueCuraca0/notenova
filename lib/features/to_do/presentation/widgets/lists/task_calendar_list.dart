@@ -55,9 +55,9 @@ class _CalendarTaskListState extends State<CalendarTaskList>
         parent: _controller,
       )),
       child: Container(
-        constraints: const BoxConstraints(minHeight: 900),
-        decoration: const BoxDecoration(
-          color: CColors.accentSoft,
+        constraints: BoxConstraints(minHeight: 900),
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColorLight,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(40.0),
             topRight: Radius.circular(40.0),
