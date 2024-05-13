@@ -43,7 +43,7 @@ class CustomButton2 extends StatelessWidget {
               child: Text(
                 text,
                 style: TextStyle(
-                  color: textColor != null ? CColors.white : textColor,
+                  color: textColor ?? CColors.white,
                   fontWeight: FontWeight.w500,
                 ),
               ),

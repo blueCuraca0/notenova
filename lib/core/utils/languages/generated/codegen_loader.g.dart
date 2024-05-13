@@ -22,8 +22,8 @@ class CodegenLoader extends AssetLoader{
   "email": "Email",
   "password": "Password",
   "confirm_password": "Confirm password",
-  "sign_up": "Sign up",
-  "sign_in": "Sign in",
+  "sign_up": "Sign Up",
+  "sign_in": "Sign In",
   "sign__up_with_google": "Sign up with Google",
   "sign__in_with_google": "Sign in with Google",
   "hello": "Hello",
@@ -122,7 +122,22 @@ class CodegenLoader extends AssetLoader{
   "this_stack_is_finished": "This stack is finished!",
   "your_results_are": "Your results are",
   "back_to_card_stacks": "Back to card stacks",
-  "level": "level"
+  "level": "level",
+  "sorry": "Sorry",
+  "no_access_log_in": "You cannot have access to this page until you log in",
+  "log_in": "Log in",
+  "field_name_is_empty": "Field \"name\" is empty.",
+  "field_email_is_empty": "Field \"email\" is empty.",
+  "field_password_is_empty": "Field \"password\" is empty.",
+  "passwords_are_not_same": "Passwords are not the same.",
+  "invalid_credential": "Your email address or password is wrong.",
+  "invalid_email": "Your email address appears to be malformed.",
+  "wrong_password": "Your password is wrong.",
+  "user_not_found": "User with this email doesn't exist.",
+  "user_disabled": "User with this email has been disabled.",
+  "undefined_error": "An undefined error happened.",
+  "weak_password": "The password provided is too weak.",
+  "email_already_in_use": "The account already exists for that email."
 };
 static const Map<String,dynamic> uk = {
   "create_task": "Створити",
@@ -232,7 +247,22 @@ static const Map<String,dynamic> uk = {
   "this_stack_is_finished": "Цей набір закінчено!",
   "your_results_are": "Ваші результати ",
   "back_to_card_stacks": "Назад до наборів",
-  "level": "рівень"
+  "level": "рівень",
+  "sorry": "Вибачте",
+  "no_access_log_in": "Ви не маєте доступу до цієї сторінки, поки не авторизуєтесь",
+  "log_in": "Увійти",
+  "field_name_is_empty": "Поле \"ім'я\" порожнє.",
+  "field_email_is_empty": "Поле \"пошта\" порожнє.",
+  "field_password_is_empty": "Поле \"пароль\" порожнє.",
+  "passwords_are_not_same": "Паролі не співпадають.",
+  "invalid_credential": "Ваша пошта або пароль неправильні.",
+  "invalid_email": "Неправильна поштова адреса.",
+  "wrong_password": "Неправильний пароль.",
+  "user_not_found": "Користувач з такою поштою не існує.",
+  "user_disabled": "Користувач з такою поштою є неактивним.",
+  "undefined_error": "Сталася наведома помилка.",
+  "weak_password": "Наданий пароль є заслабким.",
+  "email_already_in_use": "Вже існує акаунт з цією поштою."
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "uk": uk};
 }

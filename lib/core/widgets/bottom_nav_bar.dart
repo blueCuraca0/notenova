@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../features/autorization/presentation/pages/authoriazation_page.dart';
-import '../style/c_colors.dart';
 import '../utils/c_routes.dart';
 import '../utils/constants.dart';
+import '../utils/languages/generated/locale_keys.g.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final GlobalKey<NavigatorState> _navigator;
@@ -18,8 +19,8 @@ class CustomBottomNavBar extends StatelessWidget {
           barrierDismissible: true,
           builder: (_) {
             return AlertDialog(
-              title: const Text('Sorry'),
-              content: const Text('You cannot have access to this page until you log in'),
+              title: Text(LocaleKeys.sorry.tr()) ,
+              content: Text(LocaleKeys.no_access_log_in.tr()),
               titleTextStyle: Theme.of(context).textTheme.bodyLarge,
               contentTextStyle: Theme.of(context).textTheme.bodyMedium,
               actionsAlignment: MainAxisAlignment.center,
@@ -44,7 +45,7 @@ class CustomBottomNavBar extends StatelessWidget {
                       )
                   ),
                   child: Text(
-                    "Log in",
+                    LocaleKeys.log_in.tr(),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -68,7 +69,7 @@ class CustomBottomNavBar extends StatelessWidget {
                 topLeft: Radius.circular(25),
               ),
               child: Container(
-                color: CColors.white,
+                color: Theme.of(context).primaryColor,
                 padding: const EdgeInsets.only(
                   top: 2,
                 ),
@@ -79,7 +80,7 @@ class CustomBottomNavBar extends StatelessWidget {
                   ),
                   child: Container(
                     alignment: Alignment.bottomCenter,
-                    color: CColors.primary,
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
               ),
@@ -99,7 +100,7 @@ class CustomBottomNavBar extends StatelessWidget {
                         },
                         icon: Icon(
                           Icons.home,
-                          color: CColors.textDark.withOpacity(0.8),
+                          color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.8),
                         )),
                     IconButton(
                         onPressed: () {
@@ -107,16 +108,15 @@ class CustomBottomNavBar extends StatelessWidget {
                         },
                         icon: Icon(
                           Icons.book,
-                          color: CColors.textDark.withOpacity(0.8),
+                          color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.8),
                         )),
-                    const SizedBox(width: 40),
                     IconButton(
                         onPressed: () {
                           onPressedButton(context, CRoutes.routeToDo);
                         },
                         icon: Icon(
                           Icons.today,
-                          color: CColors.textDark.withOpacity(0.8),
+                          color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.8),
                         )),
                     IconButton(
                         onPressed: () {
@@ -124,7 +124,7 @@ class CustomBottomNavBar extends StatelessWidget {
                         },
                         icon: Icon(
                           Icons.person,
-                          color: CColors.textDark.withOpacity(0.8),
+                          color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.8),
                         )),
                   ],
                 ),
