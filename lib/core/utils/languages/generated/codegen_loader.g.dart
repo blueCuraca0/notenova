@@ -137,7 +137,8 @@ class CodegenLoader extends AssetLoader{
   "user_disabled": "User with this email has been disabled.",
   "undefined_error": "An undefined error happened.",
   "weak_password": "The password provided is too weak.",
-  "email_already_in_use": "The account already exists for that email."
+  "email_already_in_use": "The account already exists for that email.",
+  "go_to_qes": "Go to questions"
 };
 static const Map<String,dynamic> uk = {
   "create_task": "Створити",
@@ -262,7 +263,8 @@ static const Map<String,dynamic> uk = {
   "user_disabled": "Користувач з такою поштою є неактивним.",
   "undefined_error": "Сталася наведома помилка.",
   "weak_password": "Наданий пароль є заслабким.",
-  "email_already_in_use": "Вже існує акаунт з цією поштою."
+  "email_already_in_use": "Вже існує акаунт з цією поштою.",
+  "go_to_qes": "Перейти до питань"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "uk": uk};
 }

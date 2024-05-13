@@ -37,7 +37,9 @@ class QuizPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     length = context.read<QuizCubit>().quizzes.length;
+    context.read<QuizCubit>().loadQuizzes(Quiz.empty());
     context.read<QuizSortCubit>().sortByCategory(all, context.read<QuizCubit>().quizzes);
+    context.read<QuizCubit>().sortedQuizzes();
 
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
@@ -184,8 +186,8 @@ class QuizPage extends StatelessWidget {
             left: largePadding.left,
             bottom: 100,
             child: CustomButton2(
-              textColor: CColors.white,
-              color: CColors.darkGreen,
+              textColor: Theme.of(context).textTheme.bodySmall!.color,
+              color: Theme.of(context).primaryColorDark,
               height: 70,
               width: MediaQuery.of(context).size.width -
                   largePadding.left -
