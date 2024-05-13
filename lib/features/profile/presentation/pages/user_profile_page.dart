@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/style/c_colors.dart';
@@ -32,11 +33,12 @@ class UserProfilePage extends StatelessWidget {
             child: smallSizedBoxHeight,
           ),
           SliverToBoxAdapter(
-            child: Row(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SettingsButton(),
                 ProgressBar(availableWidth),
+                const SettingsButton(),
               ],
             ),
           ),

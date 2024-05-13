@@ -94,5 +94,20 @@ abstract class  LocaleKeys {
   static const hello_user = 'hello_user';
   static const no_image_selected = 'no_image_selected';
   static const select_time_date = 'select_time_date';
+  static const summaries = 'summaries';
+  static const new_card_stack = 'new_card_stack';
+  static const create_new_card_stack = 'create_new_card_stack';
+  static const start_learning = 'start_learning';
+  static const term = 'term';
+  static const definition = 'definition';
+  static const learning_mode = 'learning_mode';
+  static const learning_mode_description = 'learning_mode_description';
+  static const flashcards = 'flashcards';
+  static const writing = 'writing';
+  static const congratulations = 'congratulations';
+  static const this_stack_is_finished = 'this_stack_is_finished';
+  static const your_results_are = 'your_results_are';
+  static const back_to_card_stacks = 'back_to_card_stacks';
+  static const level = 'level';
 
 }

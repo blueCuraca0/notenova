@@ -107,7 +107,22 @@ class CodegenLoader extends AssetLoader{
   "update_photo": "Update photo",
   "hello_user": "Hello, ",
   "no_image_selected": "No image selected",
-  "select_time_date": "Select date & time"
+  "select_time_date": "Select date & time",
+  "summaries": "Summaries",
+  "new_card_stack": "New Stack",
+  "create_new_card_stack": "Create new card stack",
+  "start_learning": "Start learning",
+  "term": "Term",
+  "definition": "Definition",
+  "learning_mode": "Learning Mode",
+  "learning_mode_description": "Choose a prefered learning mode for this study session:",
+  "flashcards": "Flashcards",
+  "writing": "Writing",
+  "congratulations": "Congratulations 🎉",
+  "this_stack_is_finished": "This stack is finished!",
+  "your_results_are": "Your results are",
+  "back_to_card_stacks": "Back to card stacks",
+  "level": "level"
 };
 static const Map<String,dynamic> uk = {
   "create_task": "Створити",
@@ -122,7 +137,7 @@ static const Map<String,dynamic> uk = {
   "sign__up_with_google": "Зареєструватися за допомогою Google",
   "sign__in_with_google": "Увійти за допомогою Google",
   "hello": "Привіт",
-  "lets_study": "Давайте вчитися",
+  "lets_study": "Нумо вчитися!",
   "tips_and_tricks": "Поради та хитрощі",
   "today": "Сьогодні",
   "title": "Назва",
@@ -174,7 +189,7 @@ static const Map<String,dynamic> uk = {
   "improve_your_know_with_quizzes": "Покращуйте свої знання з тестами",
   "boost_your_brain_with_cards": "Прокачайте свій мозок за допомогою карт",
   "cards": "Карти",
-  "create_card_stack": "Створити колоду карт",
+  "create_card_stack": "Створити набір карток",
   "back": "Назад",
   "change_pic": "Змінити зображення",
   "definition_on_one_side": "Визначення на одному боці",
@@ -202,7 +217,22 @@ static const Map<String,dynamic> uk = {
   "update_photo": "Оновити фото",
   "hello_user": "Привіт, ",
   "no_image_selected": "Оберіть картинку",
-  "select_time_date": "Вибрати дату & час"
+  "select_time_date": "Вибрати дату & час",
+  "summaries": "Конспекти",
+  "new_card_stack": "Новий набір",
+  "create_new_card_stack": "Створити новий набір карток",
+  "start_learning": "Почати навчання",
+  "term": "Термін",
+  "definition": "Визначення",
+  "learning_mode": "Режим вивчення",
+  "learning_mode_description": "Виберіть режим для даної навчальної сесії:",
+  "flashcards": "Карточки",
+  "writing": "Письмо",
+  "congratulations": "Вітання 🎉",
+  "this_stack_is_finished": "Цей набір закінчено!",
+  "your_results_are": "Ваші результати ",
+  "back_to_card_stacks": "Назад до наборів",
+  "level": "рівень"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "uk": uk};
 }

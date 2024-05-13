@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_button.dart';
 import 'package:notenova/features/summary/presentation/pages/summary_page.dart';
 import 'package:notenova/features/quizzes/presentation/main_page/quiz_page.dart';
+import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 import '../../../cards/presentation/pages/card_stacks_page.dart';
 
 
@@ -21,8 +23,8 @@ class StudyMaterialsPage extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(70),
             alignment: Alignment.center,
-            child: const Text(
-              "Study Materials Page",
+            child: Text(
+              LocaleKeys.study_materials.tr(),
               style: TextStyle(fontSize: 25),
             ),
           ),
@@ -34,7 +36,7 @@ class StudyMaterialsPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomButton(
-                      text: "Cards",
+                      text: LocaleKeys.cards.tr(),
                       color: Theme.of(context).cardColor,
                       buttonPadding: buttonPadding,
                       width: width / 2 - 40,
@@ -47,7 +49,7 @@ class StudyMaterialsPage extends StatelessWidget {
                       },),
                   //  Q I Z Z E S
                     CustomButton(
-                      text: "Quizzes",
+                      text: LocaleKeys.quizzes.tr(),
                       color: Theme.of(context).cardColor,
                       buttonPadding: buttonPadding,
                       width: width / 2 - 40,
@@ -65,7 +67,7 @@ class StudyMaterialsPage extends StatelessWidget {
 
                 // S U M M A R Y
                 CustomButton(
-                  text: "Summaries",
+                  text: LocaleKeys.summaries.tr(),
                   color: Theme.of(context).cardColor,
                   buttonPadding: buttonPadding,
                   height: bottomNavBarHeight * 2,
