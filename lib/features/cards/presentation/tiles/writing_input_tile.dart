@@ -5,16 +5,51 @@ import 'package:notenova/core/utils/constants.dart';
 import '../../../../core/style/c_colors.dart';
 
 class WritingInputTile extends StatefulWidget {
-  const WritingInputTile({super.key});
+  final String _term;
+  final Function _nextFlashcard;
+  final Function _plusOneLearned;
+
+  const WritingInputTile(this._term, this._nextFlashcard, this._plusOneLearned, {super.key});
 
   @override
   State<WritingInputTile> createState() => _WritingInputTileState();
 }
 
 class _WritingInputTileState extends State<WritingInputTile> {
+  late TextStyle? answerStyle;
+  late Widget? suffixButton;
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
+
+  void checkAnswer() {
+    if (_controller.text == widget._term) {
+      widget._plusOneLearned();
+      widget._nextFlashcard();
+      _controller.clear();
+    } else {
+      _controller.text = widget._term;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    answerStyle = Theme.of(context).textTheme.bodyMedium;
+    suffixButton = IconButton(
+        color: Theme.of(context).cardColor,
+        onPressed: () {
+          checkAnswer();
+        },
+        icon: Icon(
+          Icons.navigate_next_outlined,
+          color: Theme.of(context).textTheme.bodyMedium?.color,
+        )
+    );
 
     return Container(
       height: bottomNavBarHeight,
@@ -32,19 +67,15 @@ class _WritingInputTileState extends State<WritingInputTile> {
         children: [
           Expanded(
             child: TextField(
+              controller: _controller,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: answerStyle,
               decoration: InputDecoration(
-                suffixIcon: IconButton(
-                  color: Theme.of(context).cardColor,
-                  onPressed: () {
-
-                  },
-                  icon: Icon(
-                    Icons.navigate_next_outlined,
-                    color: Theme.of(context).textTheme.bodyMedium?.color,
-                  )
+                prefixIcon: const Icon(
+                  Icons.add,
+                  color: Colors.transparent,
                 ),
+                suffixIcon: suffixButton,
                 hintText: 'term...',
                 hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
                 border: InputBorder.none

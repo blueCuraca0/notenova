@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_app_bar.dart';
@@ -120,65 +121,67 @@ class _CreateCardStackPageState extends State<CreateCardStackPage> {
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   midSizedBoxHeight,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomButton(
-                        text: "Code",
-                        onPressed: () {
-                          category = "Code";
-                          setState(() {
-                            if (categoryIndex == 0) {
-                              categoryIndex = -1;
-                            } else {
-                              categoryIndex = 0;
-                            }
-                          });
-                        },
-                        buttonPadding: EdgeInsets.symmetric(
-                          vertical: categoryIndex == 0 ? 10 : 7,
-                          horizontal: categoryIndex == 0 ? 30 : 25,
+                  SingleChildScrollView(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomButton(
+                          text: "Code",
+                          onPressed: () {
+                            category = "Code";
+                            setState(() {
+                              if (categoryIndex == 0) {
+                                categoryIndex = -1;
+                              } else {
+                                categoryIndex = 0;
+                              }
+                            });
+                          },
+                          buttonPadding: EdgeInsets.symmetric(
+                            vertical: categoryIndex == 0 ? 10 : 7,
+                            horizontal: categoryIndex == 0 ? 30 : 25,
+                          ),
+                          gradient: LinearGradient(colors: CColors.blueGradientColor),
                         ),
-                        gradient: LinearGradient(colors: CColors.blueGradientColor),
-                      ),
-                      CustomButton(
-                        text: "Work",
-                        onPressed: () {
-                          category = "Work";
-                          setState(() {
-                            if (categoryIndex == 1) {
-                              categoryIndex = -1;
-                            } else {
-                              categoryIndex = 1;
-                            }
-                          });
-                        },
-                        buttonPadding: EdgeInsets.symmetric(
-                          vertical: categoryIndex == 1 ? 10 : 7,
-                          horizontal: categoryIndex == 1 ? 35 : 25,
+                        CustomButton(
+                          text: "Work",
+                          onPressed: () {
+                            category = "Work";
+                            setState(() {
+                              if (categoryIndex == 1) {
+                                categoryIndex = -1;
+                              } else {
+                                categoryIndex = 1;
+                              }
+                            });
+                          },
+                          buttonPadding: EdgeInsets.symmetric(
+                            vertical: categoryIndex == 1 ? 10 : 7,
+                            horizontal: categoryIndex == 1 ? 35 : 25,
+                          ),
+                          gradient: LinearGradient(colors: CColors.pinkGradientColor),
                         ),
-                        gradient: LinearGradient(colors: CColors.pinkGradientColor),
-                      ),
-                      CustomButton(
-                        text: "English",
-                        onPressed: () {
-                          category = "English";
-                          setState(() {
-                            if (categoryIndex == 2) {
-                              categoryIndex = -1;
-                            } else {
-                              categoryIndex = 2;
-                            }
-                          });
-                        },
-                        buttonPadding: EdgeInsets.symmetric(
-                          vertical: categoryIndex == 2 ? 10 : 7,
-                          horizontal: categoryIndex == 2 ? 35 : 25,
+                        CustomButton(
+                          text: "English",
+                          onPressed: () {
+                            category = "English";
+                            setState(() {
+                              if (categoryIndex == 2) {
+                                categoryIndex = -1;
+                              } else {
+                                categoryIndex = 2;
+                              }
+                            });
+                          },
+                          buttonPadding: EdgeInsets.symmetric(
+                            vertical: categoryIndex == 2 ? 10 : 7,
+                            horizontal: categoryIndex == 2 ? 35 : 25,
+                          ),
+                          gradient: LinearGradient(colors: CColors.greenGradientColor),
                         ),
-                        gradient: LinearGradient(colors: CColors.greenGradientColor),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   midSizedBoxHeight,
                   Text(
