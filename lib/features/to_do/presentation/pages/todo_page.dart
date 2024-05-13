@@ -15,8 +15,8 @@ class ToDoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => TaskCubit(TaskFirestoreService()),
-      child: const Scaffold(
-        backgroundColor: CColors.accent,
+      child: Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
         body: CustomScrollView(
           slivers: [
             CustomAppBarWidget(),
@@ -99,7 +99,7 @@ class _CustomAppBarWidgetState extends State<CustomAppBarWidget> {
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge
-                          ?.copyWith(fontSize: 15)),
+                          ?.copyWith(fontSize: 20)),
                   const Spacer(),
                   const Padding(
                     padding: EdgeInsets.only(top: 15.0),

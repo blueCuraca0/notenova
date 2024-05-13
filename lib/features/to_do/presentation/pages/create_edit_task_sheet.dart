@@ -57,12 +57,25 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
       height: 600,
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
+        color: Theme.of(context).primaryColorLight,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(40.0),
           topRight: Radius.circular(40.0),
         ),
-        boxShadow: shadowCard,
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).primaryColor,
+            spreadRadius: 5,
+            blurRadius: 10,
+            offset: const Offset(0, 3),
+          ),
+          BoxShadow(
+            color: Theme.of(context).primaryColor,
+            spreadRadius: -2,
+            blurRadius: 7,
+            offset: Offset(0, -3),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

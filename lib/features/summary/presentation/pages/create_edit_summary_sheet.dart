@@ -55,10 +55,10 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 800,
+      height: 770,
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
+        color: Theme.of(context).primaryColor,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(40.0),
           topRight: Radius.circular(40.0),

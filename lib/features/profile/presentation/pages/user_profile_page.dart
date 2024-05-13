@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/profile/presentation/cubits/user_cubit/user_cubit.dart';
 import 'package:notenova/features/profile/presentation/widgets/settings.dart';
@@ -25,7 +23,7 @@ class UserProfilePage extends StatelessWidget {
     double availableWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: CColors.accent,
+      backgroundColor: Theme.of(context).primaryColor,
       body: CustomScrollView(
         slivers: [
           const CustomSliverAppBarWidget(),
@@ -96,6 +94,7 @@ class UserProfilePage extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.7,
                     color: Theme.of(context).primaryColorLight,
                     child: ListView.builder(
+                      padding: EdgeInsets.zero,
                       itemCount: state.favtips.length + 1,
                       itemBuilder: (context, index) {
                         return Container(
@@ -149,14 +148,14 @@ class CustomSliverAppBarWidgetState extends State<CustomSliverAppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-        expandedHeight: MediaQuery.of(context).size.height * 0.23,
+        expandedHeight: MediaQuery.of(context).size.height * 0.17,
         pinned: false,
         automaticallyImplyLeading: false,
         backgroundColor: Theme.of(context).primaryColor,
         surfaceTintColor: Theme.of(context).primaryColor,
         flexibleSpace: FlexibleSpaceBar(
           title: Padding(
-            padding: const EdgeInsets.only(top: 40.0),
+            padding: const EdgeInsets.only(top: 35.0),
             child: BlocProvider(
               create: (context) => UserDataCubit(
                   FirebaseFirestore.instance, FirebaseAuth.instance),

@@ -11,7 +11,7 @@ class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CColors.accent,
+      backgroundColor: Theme.of(context).primaryColorLight,
       body: CustomScrollView(
         slivers: [
           CustomSliverAppBarWidget(
