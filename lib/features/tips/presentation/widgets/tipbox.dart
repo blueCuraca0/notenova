@@ -66,6 +66,7 @@ class TipsBox extends StatelessWidget {
                   ),
                   midSizedBoxHeight,
                   Text(
+                    maxLines: 1,
                     tip.title,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
@@ -73,6 +74,7 @@ class TipsBox extends StatelessWidget {
                   FittedBox(
                     child: Text(
                       tip.subtitle,
+                      maxLines: 1,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
