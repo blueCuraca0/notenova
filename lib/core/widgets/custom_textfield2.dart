@@ -13,7 +13,7 @@ class MyCustomTextField extends StatelessWidget {
   final String? title;
   final TextEditingController? controller;
   final String? hintText;
-
+  final int? maxLength;
 
   const MyCustomTextField({super.key,
     required this.baseColor,
@@ -25,6 +25,7 @@ class MyCustomTextField extends StatelessWidget {
     this.title,
     this.controller,
     this.hintText,
+    this.maxLength,
     this.gradientColor = const Color(0xffCCD9E4),
   });
 
@@ -51,6 +52,7 @@ class MyCustomTextField extends StatelessWidget {
               gradientColor: gradientColor,
               controller: controller,
               hintText: hintText,
+              maxLength: maxLength,
             ),
           ],
         ):
@@ -64,6 +66,7 @@ class MyCustomTextField extends StatelessWidget {
           gradientColor: gradientColor,
           controller: controller,
           hintText: hintText,
+          maxLength: maxLength,
         );
   }
 }
@@ -79,6 +82,7 @@ class BoxItself extends StatelessWidget {
   final String? title;
   final TextEditingController? controller;
   final String? hintText;
+  final int? maxLength;
 
 
   const BoxItself({super.key,
@@ -91,6 +95,7 @@ class BoxItself extends StatelessWidget {
     this.title,
     this.hintText,
     this.controller,
+    this.maxLength,
     this.gradientColor = const Color(0xffA5C0D7),
   });
 
@@ -155,6 +160,7 @@ class BoxItself extends StatelessWidget {
 
             cursorColor: gradientColor,
             maxLines: maxLines,
+            maxLength: maxLength,
             style: Theme.of(context).textTheme.bodySmall,
             decoration: InputDecoration(
               border: InputBorder.none,
