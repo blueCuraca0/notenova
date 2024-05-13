@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/features/summary/domain/entities/summary.dart';
+import 'package:octo_image/octo_image.dart';
 
 class SummaryCard extends StatefulWidget {
   final Summary summary;
@@ -36,8 +39,8 @@ class _SummaryCardState extends State<SummaryCard> {
                 smallSizedBoxWidth,
                 smallSizedBoxWidth,
                 Container(
-                  width: 11.0,
-                  height: 90.0,
+                  width: 8.0,
+                  height: 60.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30.0),
                     gradient: LinearGradient(
@@ -47,6 +50,20 @@ class _SummaryCardState extends State<SummaryCard> {
                     ),
                   ),
                 ),
+                midSizedBoxWidth,
+                widget.summary.photoUrl.isNotEmpty
+                    ? SizedBox(
+                        width: 80,
+                        height: 110,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: OctoImage(
+                            image: NetworkImage(widget.summary.photoUrl),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      )
+                    : const SizedBox(),
                 smallSizedBoxWidth,
                 smallSizedBoxWidth,
                 Expanded(

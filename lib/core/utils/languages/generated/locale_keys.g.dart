@@ -70,5 +70,15 @@ abstract class  LocaleKeys {
   static const term_on_another = 'term_on_another';
   static const add_category = 'add_category';
   static const create_new_quiz = 'create_new_quiz';
+  static const update_task = 'update_task';
+  static const update_summary = 'update_summary';
+  static const no_summary = 'no_summary';
+  static const select_an_image_to_recognize = 'select_an_image_to_recognize';
+  static const error_occured = 'error_occured';
+  static const select_text_from_photo = 'select_text_from_photo';
+  static const to_do = 'to_do';
+  static const select_lan = 'select_lan';
+  static const no_image_selected = 'no_image_selected';
+  static const select_time_date = 'select_time_date';
 
 }

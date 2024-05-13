@@ -71,7 +71,9 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
         children: <Widget>[
           Center(
             child: Text(
-              widget.isEdit ? 'Update task' : LocaleKeys.create_task.tr(),
+              widget.isEdit
+                  ? LocaleKeys.update_task.tr()
+                  : LocaleKeys.create_task.tr(),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),
@@ -110,7 +112,9 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
                 addTask(context);
               }
             },
-            text: widget.isEdit ? 'Update task' : LocaleKeys.create_task.tr(),
+            text: widget.isEdit
+                ? LocaleKeys.update_task.tr()
+                : LocaleKeys.create_task.tr(),
             buttonPadding:
                 const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
           ),
@@ -133,7 +137,7 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
           child: Text(
               _selectedDateTime.isAfter(DateTime.now())
                   ? DateFormat('dd-MMMM, HH:mm').format(_selectedDateTime)
-                  : 'Select date & time',
+                  : LocaleKeys.select_time_date.tr(),
               style: Theme.of(context).textTheme.bodySmall),
         ),
         spacer,
