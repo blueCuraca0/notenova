@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/utils/constants.dart';
+import 'package:notenova/core/widgets/custom_button_2.dart';
+import 'package:notenova/features/profile/presentation/cubits/fav_cubit/fav_cubit.dart';
 import 'package:notenova/features/tips/domain/tips.dart';
 import 'package:notenova/features/quizzes/presentation/button_back.dart';
-import 'package:notenova/features/profile/presentation/cubits/fav_cubit/fav_cubit.dart';
-import 'package:notenova/core/widgets/custom_button_2.dart';
+import 'package:notenova/core/widgets/custom_button.dart';
 
 class TipPage extends StatefulWidget {
   final Tip tip;
@@ -76,38 +77,38 @@ class _TipPageState extends State<TipPage> {
                         ),
                       ),
                       bigSizedBoxWidth,
-                       Column(
-                          children: [
-                             SizedBox(
-                               width: MediaQuery.of(context).size.width * 0.35,
-                               child: Text(
-                                  widget.tip.title,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(fontWeight: FontWeight.bold),
-                                ),
-                             ),
-
-                            bigSizedBoxHeight,
-                             SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.35,
-                               child: CustomButton2(
-                                  color: Theme.of(context).primaryColor,
-                                  textColor: Theme.of(context).textTheme.bodyMedium!.color,
-                                  text: widget.text,
-                                  onPressed: () {
-                                    setState(() {
-                                      if (widget.text == 'Like') {
-                                        widget.text = 'Liked';
-                                        addToFavs(context);
-                                      }
-                                    });
-                                  },
-                                ),
-                             ),
-                          ],
-                        ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.35,
+                            child: Text(
+                              widget.tip.title,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          bigSizedBoxHeight,
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.35,
+                            child: CustomButton2(
+                              color: Theme.of(context).primaryColor,
+                              textColor:
+                                  Theme.of(context).textTheme.bodyMedium!.color,
+                              text: widget.text,
+                              onPressed: () {
+                                setState(() {
+                                  if (widget.text == 'Like') {
+                                    widget.text = 'Liked';
+                                    addToFavs(context);
+                                  }
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                   bigSizedBoxHeight,
