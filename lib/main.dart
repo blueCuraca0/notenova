@@ -61,10 +61,10 @@ class MyApp extends StatelessWidget {
           CRoutes.routeMainPage: (context) => MultiBlocProvider(
                 providers: [
                   BlocProvider<FavCubit>(
-                    create: (_) => FavCubit(FavTipsFirebaseService()),
+                    create: (context) => FavCubit(FavTipsFirebaseService()),
                   ),
                   BlocProvider<QuizCubit>(
-                    create: (_) => QuizCubit(QuizFirebaseService()),
+                    create: (context) => QuizCubit(QuizFirebaseService()),
                   ),
                 ],
                 child: MainPage(),

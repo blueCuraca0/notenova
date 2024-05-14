@@ -35,7 +35,7 @@ class TextRecognitionPage extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge!
-                    .copyWith(fontSize: 15),
+                    .copyWith(fontSize: 20),
               ),
               midSizedBoxHeight,
             ],
