@@ -96,16 +96,50 @@ class StudyMaterialsPage extends StatelessWidget {
             ),
             midSizedBoxHeight,
             // S U M M A R I E S
-            StudyMaterialCard(
-              text: LocaleKeys.summaries.tr(),
-              color: Theme.of(context).cardColor,
-              width: width - largePadding.horizontal,
-              height: bottomNavBarHeight * 1.7,
+            InkWell(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return const SummaryPage();
                 }));
               },
+              child: Container(
+                width: width - largePadding.horizontal,
+                height: bottomNavBarHeight * 1.7,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  boxShadow: getShadowCard(context),
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                child: Padding(
+                  padding: buttonPadding,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: smallPadding,
+                        child: Image.asset(
+                          'assets/images/summary.png',
+                          width: 90,
+                          height: 90,
+                        ),
+                      ),
+                      Flexible(
+                        child: Center(
+                          child: Text(
+                            '${LocaleKeys.summaries.tr()}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(fontSize: 20),
+                            textAlign: TextAlign.center,
+                          ).tr(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ],
         ),
@@ -167,7 +201,7 @@ class StudyMaterialCard extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
-                          .copyWith(fontSize: 20),
+                          .copyWith(fontSize: 16),
                       textAlign: TextAlign.center,
                     ).tr(),
                   ),
