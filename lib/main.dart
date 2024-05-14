@@ -11,6 +11,7 @@ import 'core/utils/languages/generated/codegen_loader.g.dart';
 import 'firebase_options.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'main_page.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'features/autorization/presentation/pages/authoriazation_page.dart';
 import 'core/utils/c_routes.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -20,6 +21,11 @@ import 'package:notenova/core/cubit/darkTheme_cubit/darkTheme_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Permission.notification.isDenied.then((value) {
+    if (value) {
+      Permission.notification.request();
+    }
+  });
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   NotificationService().initNotification();

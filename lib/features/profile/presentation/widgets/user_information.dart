@@ -8,6 +8,7 @@ import 'package:notenova/features/profile/presentation/cubits/user_cubit/user_cu
 import 'package:notenova/features/profile/presentation/cubits/user_cubit/user_state.dart';
 import 'package:notenova/features/profile/presentation/widgets/edit_name_user_sheet.dart';
 import 'package:notenova/features/profile/presentation/widgets/edit_photo_user_sheet.dart';
+import 'package:notenova/features/profile/presentation/widgets/settings.dart';
 
 class UserInformationWidget extends StatefulWidget {
   const UserInformationWidget({super.key});
@@ -48,7 +49,8 @@ class _UserInformationWidgetState extends State<UserInformationWidget> {
                               userDataCubit: userCubit, userName: userName);
                         }),
                     child: Text(
-                        overflow: TextOverflow.fade,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         '${LocaleKeys.hello_user.tr()} \n$userName',
                         style: Theme.of(context)
                             .textTheme

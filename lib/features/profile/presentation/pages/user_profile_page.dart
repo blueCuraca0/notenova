@@ -28,16 +28,13 @@ class UserProfilePage extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           const CustomSliverAppBarWidget(),
-          const SliverToBoxAdapter(
-            child: smallSizedBoxHeight,
-          ),
           SliverToBoxAdapter(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SettingsButton(),
                 ProgressBar(availableWidth),
-                const SettingsButton(),
               ],
             ),
           ),
@@ -152,14 +149,14 @@ class CustomSliverAppBarWidgetState extends State<CustomSliverAppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-        expandedHeight: MediaQuery.of(context).size.height * 0.17,
+        expandedHeight: MediaQuery.of(context).size.height * 0.18,
         pinned: false,
         automaticallyImplyLeading: false,
         backgroundColor: Theme.of(context).primaryColor,
         surfaceTintColor: Theme.of(context).primaryColor,
         flexibleSpace: FlexibleSpaceBar(
           title: Padding(
-            padding: const EdgeInsets.only(top: 35.0),
+            padding: const EdgeInsets.only(top: 30.0),
             child: BlocProvider(
               create: (context) => UserDataCubit(
                   FirebaseFirestore.instance, FirebaseAuth.instance),
