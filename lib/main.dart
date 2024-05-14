@@ -11,6 +11,7 @@ import 'core/utils/languages/generated/codegen_loader.g.dart';
 import 'firebase_options.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'main_page.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'features/autorization/presentation/pages/authoriazation_page.dart';
 import 'core/utils/c_routes.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -20,6 +21,7 @@ import 'package:notenova/core/cubit/darkTheme_cubit/darkTheme_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   NotificationService().initNotification();
@@ -33,18 +35,17 @@ Future<void> main() async {
       path: 'assets/translations',
       assetLoader: const CodegenLoader(),
       fallbackLocale: const Locale('en'),
-      child: MultiBlocProvider(providers:[
-          BlocProvider<DarkCubit>(
+      child: MultiBlocProvider(providers: [
+        BlocProvider<DarkCubit>(
           create: (context) => DarkCubit(),
-          ),
-          BlocProvider<FavCubit>(
+        ),
+        BlocProvider<FavCubit>(
           create: (context) => FavCubit(FavTipsFirebaseService()),
           ),
         BlocProvider<QuizCubit>(
           create: (context) => QuizCubit(QuizFirebaseService()),
         ),
       ], child: const MyApp())));
-
 }
 
 class MyApp extends StatelessWidget {

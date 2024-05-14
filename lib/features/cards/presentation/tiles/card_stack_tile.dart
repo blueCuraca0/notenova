@@ -17,15 +17,14 @@ class CardStackTile extends StatelessWidget {
       child: InkWell(
         onTap: () {
           showDialog(
-            context: context,
-            builder: (_) => LearningModeDialog(_cardStack),
-            barrierDismissible: true
-          );
+              context: context,
+              builder: (_) => LearningModeDialog(_cardStack),
+              barrierDismissible: true);
         },
         child: Container(
           height: 100,
           decoration: BoxDecoration(
-            boxShadow: shadowCard,
+            boxShadow: getShadowCard(context),
             borderRadius: BorderRadius.circular(25),
             color: CColors.white,
           ),

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:notenova/core/utils/constants.dart';
@@ -15,7 +16,7 @@ class TextRecognitionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Theme.of(context).primaryColorLight,
       appBar: AppBar(
         toolbarHeight: 100,
         automaticallyImplyLeading: false,
@@ -35,7 +36,7 @@ class TextRecognitionPage extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge!
-                    .copyWith(fontSize: 20),
+                    .copyWith(fontSize: 25),
               ),
               midSizedBoxHeight,
             ],
@@ -51,7 +52,7 @@ class TextRecognitionPage extends StatelessWidget {
             constraints:
                 const BoxConstraints(minHeight: 400.0, maxHeight: 400.0),
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColorLight,
+              color: Theme.of(context).primaryColor,
             ),
           ),
         ),
@@ -80,26 +81,32 @@ class TextRecognition extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  CustomButton(
-                    width: 170,
-                    color: Theme.of(context).primaryColorLight,
-                    onPressed: () {
-                      context
-                          .read<TextRecognitionCubit>()
-                          .getImageAndRecognize(ImageSource.gallery);
-                    },
-                    text: LocaleKeys.select_image_from_gallery.tr(),
+                  Flexible(
+                    child: CustomButton(
+                      buttonPadding:
+                          EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+                      color: Theme.of(context).primaryColorLight,
+                      onPressed: () {
+                        context
+                            .read<TextRecognitionCubit>()
+                            .getImageAndRecognize(ImageSource.gallery);
+                      },
+                      text: LocaleKeys.select_image_from_gallery.tr(),
+                    ),
                   ),
-                  midSizedBoxHeight,
-                  CustomButton(
-                    width: 170,
-                    color: Theme.of(context).primaryColorLight,
-                    onPressed: () {
-                      context
-                          .read<TextRecognitionCubit>()
-                          .getImageAndRecognize(ImageSource.camera);
-                    },
-                    text: LocaleKeys.select_image_from_photo.tr(),
+                  midSizedBoxWidth,
+                  Flexible(
+                    child: CustomButton(
+                      buttonPadding:
+                          EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+                      color: Theme.of(context).primaryColorLight,
+                      onPressed: () {
+                        context
+                            .read<TextRecognitionCubit>()
+                            .getImageAndRecognize(ImageSource.camera);
+                      },
+                      text: LocaleKeys.select_image_from_photo.tr(),
+                    ),
                   ),
                 ],
               ),
@@ -108,8 +115,10 @@ class TextRecognition extends StatelessWidget {
                 builder: (context, state) {
                   if (state is TextRecognitionInitial) {
                     return Center(
-                        child:
-                            Text(LocaleKeys.select_an_image_to_recognize.tr()));
+                        child: Text(
+                      LocaleKeys.select_an_image_to_recognize.tr(),
+                      textAlign: TextAlign.center,
+                    ));
                   } else if (state is TextRecognitionLoading) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 250.0),
@@ -125,18 +134,19 @@ class TextRecognition extends StatelessWidget {
                         children: [
                           midSizedBoxHeight,
                           CustomButton(
-                            color: Theme.of(context).primaryColorLight,
+                            color: Theme.of(context).primaryColorDark,
                             onPressed: () {
                               Navigator.pop(context, state.detectedText);
                             },
-                            text: LocaleKeys.add.tr(),
+                            text: LocaleKeys.add_description.tr(),
                           ),
-                          if (state.selectedImage != null) midSizedBoxHeight,
-                          Padding(
-                              padding: mediumPadding,
-                              child: Image.file(state.selectedImage!)),
+                          midSizedBoxHeight,
+                          if (state.selectedImage != null)
+                            Padding(
+                                padding: mediumPadding,
+                                child: Image.file(state.selectedImage!)),
                           Text(
-                            LocaleKeys.recognition_text.tr(),
+                            LocaleKeys.recognized_text.tr(),
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           midSizedBoxHeight,
@@ -147,6 +157,7 @@ class TextRecognition extends StatelessWidget {
                           SizedBox(
                             height: 500,
                           ),
+                          if (state.selectedImage == null) Container(),
                         ],
                       ),
                     );
