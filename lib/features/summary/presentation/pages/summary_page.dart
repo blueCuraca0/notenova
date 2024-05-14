@@ -76,7 +76,7 @@ class _SummariesPageState extends State<SummariesPage> {
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge
-                    ?.copyWith(fontSize: 25),
+                    ?.copyWith(fontSize: 27),
               ),
               midSizedBoxHeight,
             ],
