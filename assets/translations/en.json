@@ -87,6 +87,8 @@
   "multiple": "Multiple",
   "like": "Like",
   "liked": "Liked",
+  "add_description": "Add text to description",
+  "recognized_text": "Recognized text",
   "choose_the_type_of_ques": "Choose the type of question:",
   "exit": "Exit",
   "log_out": "Log out",

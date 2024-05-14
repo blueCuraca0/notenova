@@ -63,7 +63,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
           topLeft: Radius.circular(40.0),
           topRight: Radius.circular(40.0),
         ),
-        boxShadow: shadowCard,
+        boxShadow: getShadowCard(context),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -216,6 +216,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
                       : CColors.pinkGradientColor,
                 ),
               ),
+              smallSizedBoxWidth,
               CustomButton(
                 onPressed: () {
                   setState(() {
@@ -231,6 +232,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
                       : CColors.blueGradientColor,
                 ),
               ),
+              smallSizedBoxWidth,
               CustomButton(
                 onPressed: () {
                   setState(() {
@@ -267,6 +269,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
                       : CColors.pinkGradientColor,
                 ),
               ),
+              smallSizedBoxWidth,
               CustomButton(
                 onPressed: () {
                   setState(() {
@@ -282,6 +285,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
                       : CColors.blueGradientColor,
                 ),
               ),
+              smallSizedBoxWidth,
               CustomButton(
                 onPressed: () {
                   setState(() {
@@ -314,7 +318,7 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
             height: 40,
             width: 40,
             decoration: BoxDecoration(
-              boxShadow: shadowCard,
+              boxShadow: getShadowCard(context),
               color: Theme.of(context).primaryColorDark,
               borderRadius: BorderRadius.circular(40.0),
             ),

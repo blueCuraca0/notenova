@@ -21,7 +21,7 @@ class CustomArrowBackButton extends StatelessWidget {
       height: height,
       width: width,
       decoration: BoxDecoration(
-        boxShadow: shadowCard,
+        boxShadow: getShadowCard(context),
         color: Theme.of(context).primaryColorDark,
         borderRadius: BorderRadius.circular(40.0),
       ),

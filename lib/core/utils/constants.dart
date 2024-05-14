@@ -12,14 +12,9 @@ const largeTextSize = 24.0;
 
 // text style
 TextStyle titleTextStyle = const TextStyle(
-    fontSize: 30,
-    fontWeight: FontWeight.bold,
-    color: CColors.text
-);
-TextStyle subtitleTextStyle = const TextStyle(
-    fontSize: mediumTextSize,
-    color: CColors.text
-);
+    fontSize: 30, fontWeight: FontWeight.bold, color: CColors.text);
+TextStyle subtitleTextStyle =
+    const TextStyle(fontSize: mediumTextSize, color: CColors.text);
 
 // sized box
 const smallSizedBoxWidth = SizedBox(width: 5.0);
@@ -48,20 +43,23 @@ const divider = Divider(
 );
 
 // shadow
-List<BoxShadow> shadowCard = [
-  BoxShadow(
-    color: CColors.text.withOpacity(0.1),
-    spreadRadius: 5,
-    blurRadius: 7,
-    offset: const Offset(0, 3),
-  ),
-  const BoxShadow(
-    color: CColors.shadow,
-    spreadRadius: -2,
-    blurRadius: 7,
-    offset: Offset(0, -3),
-  ),
-];
+List<BoxShadow> getShadowCard(BuildContext context) {
+  return [
+    BoxShadow(
+      color: CColors.text.withOpacity(0.1),
+      spreadRadius: 5,
+      blurRadius: 7,
+      offset: const Offset(0, 3),
+    ),
+    BoxShadow(
+      color: Theme.of(context).shadowColor,
+      spreadRadius: -2,
+      blurRadius: 7,
+      offset: const Offset(0, -3),
+    ),
+  ];
+}
+
 List<BoxShadow> neumorphismShadowSmallCard = const [
   BoxShadow(
     color: Colors.black26,
@@ -119,6 +117,4 @@ List<BoxShadow> neumorphismShadowLargeCardRightLight = [
 
 // border radius
 BorderRadius backgroundTile = const BorderRadius.only(
-    topLeft: Radius.circular(45),
-    topRight: Radius.circular(45)
-);
+    topLeft: Radius.circular(45), topRight: Radius.circular(45));

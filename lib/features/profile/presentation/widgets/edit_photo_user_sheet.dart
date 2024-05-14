@@ -37,7 +37,7 @@ class EditUserInformationWidgetState extends State<EditUserInformationWidget> {
           topLeft: Radius.circular(40.0),
           topRight: Radius.circular(40.0),
         ),
-        boxShadow: shadowCard,
+        boxShadow: getShadowCard(context),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,7 +83,7 @@ class EditUserInformationWidgetState extends State<EditUserInformationWidget> {
             height: 40,
             width: 40,
             decoration: BoxDecoration(
-              boxShadow: shadowCard,
+              boxShadow: getShadowCard(context),
               color: Theme.of(context).primaryColorDark,
               borderRadius: BorderRadius.circular(40.0),
             ),

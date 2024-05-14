@@ -21,11 +21,7 @@ import 'package:notenova/core/cubit/darkTheme_cubit/darkTheme_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Permission.notification.isDenied.then((value) {
-    if (value) {
-      Permission.notification.request();
-    }
-  });
+
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   NotificationService().initNotification();
@@ -39,15 +35,14 @@ Future<void> main() async {
       path: 'assets/translations',
       assetLoader: const CodegenLoader(),
       fallbackLocale: const Locale('en'),
-      child: MultiBlocProvider(providers:[
-          BlocProvider<DarkCubit>(
+      child: MultiBlocProvider(providers: [
+        BlocProvider<DarkCubit>(
           create: (context) => DarkCubit(),
-          ),
-          BlocProvider<FavCubit>(
+        ),
+        BlocProvider<FavCubit>(
           create: (context) => FavCubit(FavTipsFirebaseService()),
-          ),
+        ),
       ], child: const MyApp())));
-
 }
 
 class MyApp extends StatelessWidget {
