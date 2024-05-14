@@ -41,6 +41,9 @@ Future<void> main() async {
         ),
         BlocProvider<FavCubit>(
           create: (context) => FavCubit(FavTipsFirebaseService()),
+          ),
+        BlocProvider<QuizCubit>(
+          create: (context) => QuizCubit(QuizFirebaseService()),
         ),
       ], child: const MyApp())));
 }
@@ -66,14 +69,7 @@ class MyApp extends StatelessWidget {
         routes: {
           CRoutes.routeAuthorizationPage: (context) =>
               const AuthorizationPage(),
-          CRoutes.routeMainPage: (context) => MultiBlocProvider(
-                providers: [
-                  BlocProvider<QuizCubit>(
-                    create: (context) => QuizCubit(QuizFirebaseService()),
-                  ),
-                ],
-                child: MainPage(),
-              ),
+          CRoutes.routeMainPage: (context) => MainPage(),
         },
       );
     });

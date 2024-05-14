@@ -93,7 +93,9 @@ class QuizLayout extends StatelessWidget {
                             midSizedBoxHeight,
                             MyCustomTextField(
                               baseColor: Theme.of(context).cardColor,
+                              height: height * 0.1,
                               width: width * 0.5,
+                              maxLength: 12,
                               title: LocaleKeys.title.tr(),
                               onChanged: (value) {
                                 context.read<QuizCubit>().changeTitle(value);

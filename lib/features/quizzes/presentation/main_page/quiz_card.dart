@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_button_2.dart';
@@ -63,10 +65,14 @@ class QuizCard extends StatelessWidget {
                       Row(
                         children: [
                           smallSizedBoxWidth,
-                          Text(
-                            quiz.title,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
+                           FittedBox(
+                             fit: BoxFit.scaleDown,
+                             child: Text(
+                                quiz.title,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                           ),
+                          
                         ],
                       ),
                       midSizedBoxHeight,
