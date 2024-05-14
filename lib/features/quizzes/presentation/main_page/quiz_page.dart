@@ -80,7 +80,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               SliverToBoxAdapter(
                 child: Container(
-                      height: length > 0  ? null : MediaQuery.of(context).size.height * 0.7,
+                      height: length > 0  ? null : MediaQuery.of(context).size.height * 0.9,
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: Theme.of(context).primaryColorLight,

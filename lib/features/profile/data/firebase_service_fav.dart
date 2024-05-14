@@ -6,8 +6,11 @@ class FavTipsFirebaseService {
   final CollectionReference _favsCollection =
   FirebaseFirestore.instance.collection('fav_tips');
 
+  String get currentUserId =>
+      FirebaseAuth.instance.currentUser?.uid ?? 'default';
+
   Stream<List<Tip>> getFavs() {
-    return _favsCollection.snapshots().map((snapshot) {
+    return _favsCollection.where('userId', isEqualTo: currentUserId).snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         return Tip(

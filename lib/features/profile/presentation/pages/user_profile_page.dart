@@ -20,7 +20,7 @@ class UserProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // context.read<FavCubit>().loadFavs();
+    context.read<FavCubit>().loadFavs();
     double availableWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -65,9 +65,7 @@ class UserProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          BlocProvider(
-            create: (context) => FavCubit(FavTipsFirebaseService())..loadFavs(),
-            child: BlocBuilder<FavCubit, FavState>(
+           BlocBuilder<FavCubit, FavState>(
               builder: (context, state) {
                 if (state is FavLoading) {
                   return SliverToBoxAdapter(
@@ -131,7 +129,6 @@ class UserProfilePage extends StatelessWidget {
                 }
               },
             ),
-          ),
         ],
       ),
     );
