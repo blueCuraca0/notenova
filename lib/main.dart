@@ -33,8 +33,15 @@ Future<void> main() async {
       path: 'assets/translations',
       assetLoader: const CodegenLoader(),
       fallbackLocale: const Locale('en'),
-      child: BlocProvider<DarkCubit>(
-          create: (context) => DarkCubit(), child: const MyApp())));
+      child: MultiBlocProvider(providers:[
+          BlocProvider<DarkCubit>(
+          create: (context) => DarkCubit(),
+          ),
+          BlocProvider<FavCubit>(
+          create: (context) => FavCubit(FavTipsFirebaseService()),
+          ),
+      ], child: const MyApp())));
+
 }
 
 class MyApp extends StatelessWidget {
@@ -60,9 +67,6 @@ class MyApp extends StatelessWidget {
               const AuthorizationPage(),
           CRoutes.routeMainPage: (context) => MultiBlocProvider(
                 providers: [
-                  BlocProvider<FavCubit>(
-                    create: (context) => FavCubit(FavTipsFirebaseService()),
-                  ),
                   BlocProvider<QuizCubit>(
                     create: (context) => QuizCubit(QuizFirebaseService()),
                   ),
