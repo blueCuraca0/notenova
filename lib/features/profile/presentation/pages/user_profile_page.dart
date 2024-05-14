@@ -65,70 +65,70 @@ class UserProfilePage extends StatelessWidget {
               ),
             ),
           ),
-           BlocBuilder<FavCubit, FavState>(
-              builder: (context, state) {
-                if (state is FavLoading) {
-                  return SliverToBoxAdapter(
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.7,
-                      color: Theme.of(context).primaryColorLight,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: Theme.of(context).primaryColorDark,
-                        ),
+          BlocBuilder<FavCubit, FavState>(
+            builder: (context, state) {
+              if (state is FavLoading) {
+                return SliverToBoxAdapter(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    color: Theme.of(context).primaryColorLight,
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: Theme.of(context).primaryColorDark,
                       ),
                     ),
-                  );
-                } else if (state is FavError) {
-                  return SliverToBoxAdapter(
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.7,
-                      color: Theme.of(context).primaryColorLight,
-                      child: Center(
-                        child: Text(state.message),
+                  ),
+                );
+              } else if (state is FavError) {
+                return SliverToBoxAdapter(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    color: Theme.of(context).primaryColorLight,
+                    child: Center(
+                      child: Text(state.message),
+                    ),
+                  ),
+                );
+              } else if (state is FavLoaded) {
+                return SliverToBoxAdapter(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    color: Theme.of(context).primaryColorLight,
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: state.favtips.length + 1,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: lPadding,
+                          color: Theme.of(context).primaryColorLight,
+                          child: index < state.favtips.length
+                              ? TipsBoxProfile(
+                                  tip: state.favtips[index],
+                                )
+                              : SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.2,
+                                ),
+                        );
+                      },
+                    ),
+                  ),
+                );
+              } else {
+                return SliverToBoxAdapter(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    color: Theme.of(context).primaryColorLight,
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: Theme.of(context).primaryColorDark,
                       ),
                     ),
-                  );
-                } else if (state is FavLoaded) {
-                  return SliverToBoxAdapter(
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.7,
-                      color: Theme.of(context).primaryColorLight,
-                      child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        itemCount: state.favtips.length + 1,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            padding: lPadding,
-                            color: Theme.of(context).primaryColorLight,
-                            child: index < state.favtips.length
-                                ? TipsBoxProfile(
-                                    tip: state.favtips[index],
-                                  )
-                                : SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.1,
-                                  ),
-                          );
-                        },
-                      ),
-                    ),
-                  );
-                } else {
-                  return SliverToBoxAdapter(
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.7,
-                      color: Theme.of(context).primaryColorLight,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: Theme.of(context).primaryColorDark,
-                        ),
-                      ),
-                    ),
-                  );
-                }
-              },
-            ),
+                  ),
+                );
+              }
+            },
+          ),
         ],
       ),
     );
