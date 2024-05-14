@@ -24,7 +24,8 @@ class TakeQuestion extends StatelessWidget {
       required this.quiz});
 
   Question getNextQuestion(BuildContext context, int index) {
-    return context.read<QuizCubit>().getNextQuestion(index);
+    int quizIndex = getQuizIndex(context, quiz);
+    return context.read<QuizCubit>().getNextQuestion(index, quizIndex);
   }
 
   double getPercentage(BuildContext context, int index) {

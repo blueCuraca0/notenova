@@ -120,39 +120,34 @@ class TextRecognition extends StatelessWidget {
                       ),
                     );
                   } else if (state is TextRecognitionLoaded) {
-                    return Container(
-                      height: 900,
-                      child: Expanded(
-                        child: ListView(
-                          children: [
-                            midSizedBoxHeight,
-                            CustomButton(
-                              color: Theme.of(context).primaryColorLight,
-                              onPressed: () {
-                                Navigator.pop(context, state.detectedText);
-                              },
-                              text: LocaleKeys.add.tr(),
-                            ),
-                            if (state.selectedImage != null) midSizedBoxHeight,
-                            Padding(
-                                padding: mediumPadding,
-                                child: Image.file(state.selectedImage!)),
-                            Text(
-                              LocaleKeys.recognition_text.tr(),
-                              style: Theme.of(context).textTheme.bodyLarge,
-                            ),
-                            midSizedBoxHeight,
-                            Expanded(
-                              child: Text(
-                                state.detectedText,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 500,
-                            )
-                          ],
-                        ),
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          midSizedBoxHeight,
+                          CustomButton(
+                            color: Theme.of(context).primaryColorLight,
+                            onPressed: () {
+                              Navigator.pop(context, state.detectedText);
+                            },
+                            text: LocaleKeys.add.tr(),
+                          ),
+                          if (state.selectedImage != null) midSizedBoxHeight,
+                          Padding(
+                              padding: mediumPadding,
+                              child: Image.file(state.selectedImage!)),
+                          Text(
+                            LocaleKeys.recognition_text.tr(),
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          midSizedBoxHeight,
+                          Text(
+                            state.detectedText,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          SizedBox(
+                            height: 500,
+                          ),
+                        ],
                       ),
                     );
                   } else if (state is TextRecognitionError) {

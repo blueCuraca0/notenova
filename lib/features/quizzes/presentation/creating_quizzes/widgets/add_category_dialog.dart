@@ -5,6 +5,8 @@ import 'package:notenova/features/quizzes/domain/entities/category.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'add_cat_dialog2.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
 
 class AddCatDialog extends StatefulWidget {
   final String title;
@@ -39,7 +41,7 @@ class _AddCatDialogState extends State<AddCatDialog> {
               children: List<Widget>.generate(widget.categories.length, (index) => DialogButton(category: widget.categories[index], onCategoryDeleted: (value){
                 widget.onCategoryDeleted(value);
                 setState(() {
-                  widget.categories = widget.getCategories();
+                  widget.categories.length > 0 ? widget.categories.removeAt(index) : widget.categories = [];
                 });
               })),
             ),
@@ -48,12 +50,14 @@ class _AddCatDialogState extends State<AddCatDialog> {
                 TextButton(onPressed: () async {
                   await showDialog(
                     context: context,
-                    builder: (context) => AddCatDialog2(title: LocaleKeys.add_category.tr(), onCategoryAdded: widget.onCategoryAdded),
+                    builder: (context) => AddCatDialog2(title: LocaleKeys.add_category.tr(), onCategoryAdded: (value){
+                      widget.onCategoryAdded(value);
+                    },
+                      ),
                   );
-                  setState (() {
-                    widget.categories = widget.getCategories();
-                  });
-                }, child: Text('+ ${LocaleKeys.add_category.tr()}',
+                  Navigator.pop(context);
+                  },
+                    child: Text('+ ${LocaleKeys.add_category.tr()}',
                     style: Theme.of(context).textTheme.bodySmall)),
                 spacer,
               ],

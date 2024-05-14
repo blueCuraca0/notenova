@@ -39,8 +39,7 @@ class CustomButton2 extends StatelessWidget {
           ),
           padding: buttonPadding,
           child: Center(
-            child: Expanded(
-              child: Text(
+            child: Text(
                 text,
                 style: TextStyle(
                   color: textColor ?? CColors.white,
@@ -48,7 +47,6 @@ class CustomButton2 extends StatelessWidget {
                 ),
               ),
             ),
-          ),
         ),
     );
   }

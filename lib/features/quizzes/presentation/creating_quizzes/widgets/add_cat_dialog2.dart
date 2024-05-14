@@ -35,6 +35,7 @@ class _AddCatDialog2State extends State<AddCatDialog2> {
       actions:[
         MyCustomTextField(
           baseColor: Theme.of(context).cardColor,
+          //maxLength: 10,
           onChanged: (value) {
             setState(() {
               name = value;

@@ -63,15 +63,12 @@ class TakeQuizWindow extends StatelessWidget {
                           Expanded(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20),
-                              child: quiz.image == 'https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg'? Image.network(
+                              child: Image.network(
                                 quiz.image,
                                 height: MediaQuery.of(context).size.height * 0.11,
                                 width: MediaQuery.of(context).size.width * 0.26,
                                 fit: BoxFit.cover,
-                              ): Image.file(File(quiz.image!),
-                                height: MediaQuery.of(context).size.height * 0.11,
-                                width: MediaQuery.of(context).size.width * 0.26,
-                                fit: BoxFit.cover,),
+                              ),
                             ),
                           ),
                           bigSizedBoxWidth,

@@ -8,25 +8,28 @@ import 'package:notenova/features/quizzes/presentation/state_management/quiz_cub
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:notenova/features/quizzes/presentation/creating_quizzes/create_quiz_layout.dart';
-import 'package:notenova/features/quizzes/presentation/state_management/quiz_sort_cubit.dart';
-import 'package:notenova/features/quizzes/presentation/state_management/quiz_sort_states.dart';
 import 'package:notenova/features/quizzes/presentation/state_management/quiz_states.dart';
-//import 'package:notenova/core/widgets/custom_search_bar.dart';
 import 'package:notenova/features/quizzes/presentation/button_back.dart';
 import 'package:notenova/features/quizzes/domain/entities/category.dart';
 import 'package:notenova/core/widgets/custom_button_2.dart';
-
 import '../../domain/entities/quiz.dart';
 
-//TODO: create sorting by category
-
-
-class QuizPage extends StatelessWidget {
-  final expandedHeight = 200.0;
-  Category all = Category(name: 'All', gradient: CColors.greenGradientColor, darkGradient: CColors.darkGreenGradientColor, id: '0');
-  Category? currentCategory;
+class QuizPage extends StatefulWidget {
 
   QuizPage({super.key});
+
+  @override
+  State<QuizPage> createState() => _QuizPageState();
+}
+
+class _QuizPageState extends State<QuizPage> {
+  final expandedHeight = 200.0;
+
+  Category all = Category(name: 'All', gradient: CColors.greenGradientColor, darkGradient: CColors.darkGreenGradientColor, id: '0');
+
+  Category? currentCategory;
+
+  String sortedCategory = 'All';
 
   int length = 0;
 
@@ -37,9 +40,6 @@ class QuizPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     length = context.read<QuizCubit>().quizzes.length;
-    context.read<QuizCubit>().loadQuizzes(Quiz.empty());
-    context.read<QuizSortCubit>().sortByCategory(all, context.read<QuizCubit>().quizzes);
-    context.read<QuizCubit>().sortedQuizzes();
 
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
@@ -79,17 +79,14 @@ class QuizPage extends StatelessWidget {
                 ),
               ),
               SliverToBoxAdapter(
-                child: BlocBuilder<QuizSortCubit, QuizSortState>(
-                  builder: (context, stateSort) {
-                    return Container(
-                      height: stateSort.quizzesSort.length >1  ? null : MediaQuery.of(context).size.height * 0.8,
+                child: Container(
+                      height: length > 0  ? null : MediaQuery.of(context).size.height * 0.7,
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: Theme.of(context).primaryColorLight,
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      child: Center(
-                        child: Column(
+                      child:  Column(
                           children: [
                             bigSizedBoxHeight,
                             Row(
@@ -97,10 +94,12 @@ class QuizPage extends StatelessWidget {
                                     CustomButton(
                                         text: all.name,
                                         onPressed: () {
-                                          context.read<QuizSortCubit>().sortByCategory(all, context.read<QuizCubit>().quizzes);
+                                          setState(() {
+                                            sortedCategory = all.name;
+                                          });
                                         },
                                         gradient: LinearGradient(
-                                          colors: all == stateSort.category ? all.darkGradient!: all.gradient,
+                                          colors:  sortedCategory == all.name ? all.darkGradient! : all.gradient,
                                         )),
                                     midSizedBoxWidth,
                                     BlocBuilder<QuizCubit, QuizState>(
@@ -116,11 +115,12 @@ class QuizPage extends StatelessWidget {
                                                 CustomButton(
                                                   text: state.categories[index].name,
                                                   onPressed: () {
-                                                    context.read<QuizSortCubit>().sortByCategory(state.categories[index], state.quizzes);
-                                                    context.read<QuizCubit>().sortedQuizzes();
+                                                    setState(() {
+                                                      sortedCategory = state.categories[index].name;
+                                                    });
                                                   },
                                                   gradient: LinearGradient(
-                                                    colors: state.categories[index] == stateSort.category ? state.categories[index].darkGradient!: state.categories[index].gradient,),),
+                                                    colors: state.categories[index].name ==sortedCategory? state.categories[index].darkGradient! : state.categories[index].gradient,),),
                                                 midSizedBoxWidth,
                                               ],
                                             );
@@ -135,8 +135,8 @@ class QuizPage extends StatelessWidget {
                             bigSizedBoxHeight,
                             BlocBuilder<QuizCubit,QuizState>(
                               builder: (context, state) {
-                                if (state is QuizAdded  || state is QuizDeleted){
-                                context.read<QuizCubit>().loadQuizzes(Quiz.empty());
+                                if (state is QuizAdded || state is QuizDeleted || state is QuizInitialState){
+                                  context.read<QuizCubit>().loadQuizzes(Quiz.empty());
                                 }
                                 if (state is QuizzesLoading){
                                   return Container(
@@ -148,25 +148,20 @@ class QuizPage extends StatelessWidget {
                                 else {
                                 return Column(
                                   children: [
-                                    BlocBuilder<QuizSortCubit, QuizSortState>(
-                                      builder: (context, stateSort) {
-                                        if (state is QuizAdded || state is QuizDeleted || state is QuizzesLoaded){
-                                          context.read<QuizSortCubit>().sortByCategory(stateSort.category, state.quizzes);
-                                          context.read<QuizCubit>().sortedQuizzes();
-                                        }
-                                        return Column(
-                                          children:  List<Widget>.generate(stateSort.quizzesSort.length,
+                                     Column(
+                                          children:  List<Widget>.generate(state.quizzes.length,
                                             (int index) {
-                                              return QuizCard(
-                                                    quiz: stateSort.quizzesSort[index],
-                                                  );
+                                              if (sortedCategory == 'All' || state.quizzes[index].category!.name == sortedCategory){
+                                                return QuizCard(
+                                                  quiz:state.quizzes[index],
+                                                );
+                                              }
+                                              return const SizedBox();
                                                 },
                                               ),
-                                        );
-                                      }
-                                    ),
-                                    const SizedBox(
-                                      height: 100,),
+                                        ),
+                                    SizedBox(
+                                      height: MediaQuery.of(context).size.height *0.4,),
                                   ],
                                 );
                                 }
@@ -176,10 +171,7 @@ class QuizPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                    );
-                  }
-                ),
-              ),
+                    ),
             ],
           ),
           Positioned(

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/utils/constants.dart';
+import 'package:notenova/core/widgets/custom_button_2.dart';
 import 'package:notenova/features/profile/presentation/cubits/fav_cubit/fav_cubit.dart';
 import 'package:notenova/features/tips/domain/tips.dart';
 import 'package:notenova/features/quizzes/presentation/button_back.dart';
@@ -76,20 +77,26 @@ class _TipPageState extends State<TipPage> {
                         ),
                       ),
                       bigSizedBoxWidth,
-                      Expanded(
-                        child: Column(
-                          children: [
-                            Text(
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.35,
+                            child: Text(
                               widget.tip.title,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!
                                   .copyWith(fontWeight: FontWeight.bold),
                             ),
-                            bigSizedBoxHeight,
-                            CustomButton(
+                          ),
+                          bigSizedBoxHeight,
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.35,
+                            child: CustomButton2(
                               color: Theme.of(context).primaryColor,
-                              text: widget.text, //TODO: hardcoded string
+                              textColor:
+                                  Theme.of(context).textTheme.bodyMedium!.color,
+                              text: widget.text,
                               onPressed: () {
                                 setState(() {
                                   if (widget.text == 'Like') {
@@ -99,8 +106,8 @@ class _TipPageState extends State<TipPage> {
                                 });
                               },
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

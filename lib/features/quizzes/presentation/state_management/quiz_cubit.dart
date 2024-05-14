@@ -51,10 +51,6 @@ class QuizCubit extends Cubit<QuizState> {
     emit(QuizDeleted(quizzes: state.quizzes, categories: state.categories));
   }
 
-  void sortedQuizzes(){
-    emit(QuizLoadedSorted(quizzes: state.quizzes, categories: state.categories));
-  }
-
   void changeImage(String path){
     if (state is QuizChanged){
       state.newQuiz!.image = path;
@@ -219,8 +215,8 @@ class QuizCubit extends Cubit<QuizState> {
     return state.quizzes.indexOf(quiz);
   }
 
-  Question getNextQuestion(int index){
-    return state.quizzes[0].questions[index];
+  Question getNextQuestion(int index, int indexQuiz){
+    return state.quizzes[indexQuiz].questions[index];
   }
 
   double getPercentage(int indexQuestion){

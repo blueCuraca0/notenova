@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/utils/constants.dart';
+import 'package:notenova/features/profile/data/firebase_service_fav.dart';
 import 'package:notenova/features/profile/presentation/cubits/user_cubit/user_cubit.dart';
 import 'package:notenova/features/profile/presentation/widgets/settings.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -19,7 +20,7 @@ class UserProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<FavCubit>().loadFavs();
+    // context.read<FavCubit>().loadFavs();
     double availableWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -64,69 +65,72 @@ class UserProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          BlocBuilder<FavCubit, FavState>(
-            builder: (context, state) {
-              if (state is FavLoading) {
-                return SliverToBoxAdapter(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.7,
-                    color: Theme.of(context).primaryColorLight,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: Theme.of(context).primaryColorDark,
+          BlocProvider(
+            create: (context) => FavCubit(FavTipsFirebaseService())..loadFavs(),
+            child: BlocBuilder<FavCubit, FavState>(
+              builder: (context, state) {
+                if (state is FavLoading) {
+                  return SliverToBoxAdapter(
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      color: Theme.of(context).primaryColorLight,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Theme.of(context).primaryColorDark,
+                        ),
                       ),
                     ),
-                  ),
-                );
-              } else if (state is FavError) {
-                return SliverToBoxAdapter(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.7,
-                    color: Theme.of(context).primaryColorLight,
-                    child: Center(
-                      child: Text(state.message),
-                    ),
-                  ),
-                );
-              } else if (state is FavLoaded) {
-                return SliverToBoxAdapter(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.7,
-                    color: Theme.of(context).primaryColorLight,
-                    child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: state.favtips.length + 1,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          padding: lPadding,
-                          color: Theme.of(context).primaryColorLight,
-                          child: index < state.favtips.length
-                              ? TipsBoxProfile(
-                                  tip: state.favtips[index],
-                                )
-                              : SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.1,
-                                ),
-                        );
-                      },
-                    ),
-                  ),
-                );
-              } else {
-                return SliverToBoxAdapter(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.7,
-                    color: Theme.of(context).primaryColorLight,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: Theme.of(context).primaryColorDark,
+                  );
+                } else if (state is FavError) {
+                  return SliverToBoxAdapter(
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      color: Theme.of(context).primaryColorLight,
+                      child: Center(
+                        child: Text(state.message),
                       ),
                     ),
-                  ),
-                );
-              }
-            },
+                  );
+                } else if (state is FavLoaded) {
+                  return SliverToBoxAdapter(
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      color: Theme.of(context).primaryColorLight,
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        itemCount: state.favtips.length + 1,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            padding: lPadding,
+                            color: Theme.of(context).primaryColorLight,
+                            child: index < state.favtips.length
+                                ? TipsBoxProfile(
+                                    tip: state.favtips[index],
+                                  )
+                                : SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.1,
+                                  ),
+                          );
+                        },
+                      ),
+                    ),
+                  );
+                } else {
+                  return SliverToBoxAdapter(
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      color: Theme.of(context).primaryColorLight,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Theme.of(context).primaryColorDark,
+                        ),
+                      ),
+                    ),
+                  );
+                }
+              },
+            ),
           ),
         ],
       ),
