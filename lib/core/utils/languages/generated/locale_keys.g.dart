@@ -86,6 +86,8 @@ abstract class  LocaleKeys {
   static const multiple = 'multiple';
   static const like = 'like';
   static const liked = 'liked';
+  static const add_description = 'add_description';
+  static const recognized_text = 'recognized_text';
   static const choose_the_type_of_ques = 'choose_the_type_of_ques';
   static const exit = 'exit';
   static const log_out = 'log_out';

@@ -8,6 +8,7 @@ import 'package:notenova/features/to_do/data/services/notify_service.dart';
 import 'package:notenova/features/to_do/domain/entities/task_model.dart';
 import 'package:notenova/features/to_do/presentation/cubits/task_cubit/task_cubit.dart';
 import 'package:notenova/features/to_do/presentation/widgets/date_picker_widget.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../../../core/widgets/custom_button.dart';
 
 class CreateTaskBottomSheet extends StatefulWidget {
@@ -153,28 +154,41 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
         ),
         spacer,
         Switch(
-            inactiveTrackColor: Theme.of(context).primaryColor,
-            activeTrackColor: Theme.of(context).cardColor,
-            inactiveThumbColor: Theme.of(context).primaryColorLight,
-            activeColor: Theme.of(context).primaryColorDark,
-            value: _notificationEnabled,
-            onChanged: (value) {
-              if (_selectedDateTime.isAfter(DateTime.now())) {
-                setState(() {
-                  _notificationEnabled = value;
-                });
-                if (_notificationEnabled) {
-                  debugPrint('Notification Scheduled for $_selectedDateTime');
-                  NotificationService().scheduleNotification(
-                    title: _nameController.text,
-                    body: 'Time for ${_descriptionController.text}',
-                    scheduledNotificationDateTime: _selectedDateTime,
-                  );
-                }
-              } else {}
-            }),
+          inactiveTrackColor: Theme.of(context).primaryColor,
+          activeTrackColor: Theme.of(context).cardColor,
+          inactiveThumbColor: Theme.of(context).primaryColorLight,
+          activeColor: Theme.of(context).primaryColorDark,
+          value: _notificationEnabled,
+          onChanged: (value) async {
+            await _checkAndRequestNotificationPermission();
+
+            if (_selectedDateTime.isAfter(DateTime.now())) {
+              setState(() {
+                _notificationEnabled = value;
+              });
+
+              if (_notificationEnabled) {
+                debugPrint('Notification Scheduled for $_selectedDateTime');
+                NotificationService().scheduleNotification(
+                  title: _nameController.text,
+                  body: 'Time for ${_descriptionController.text}',
+                  scheduledNotificationDateTime: _selectedDateTime,
+                );
+              }
+            } else {
+              debugPrint(
+                  'Selected time is in the past. Please select a future time.');
+            }
+          },
+        ),
       ],
     );
+  }
+
+  Future<void> _checkAndRequestNotificationPermission() async {
+    if (await Permission.notification.isDenied) {
+      await Permission.notification.request();
+    }
   }
 
   Widget _buttonsCategory() {

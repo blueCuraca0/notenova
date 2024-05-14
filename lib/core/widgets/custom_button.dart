@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notenova/core/style/c_colors.dart';
+import 'package:notenova/core/utils/constants.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -29,20 +30,7 @@ class CustomButton extends StatelessWidget {
         height: height,
         width: width,
         decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).primaryColor,
-              spreadRadius: 5,
-              blurRadius: 10,
-              offset: const Offset(0, 3),
-            ),
-            BoxShadow(
-              color: Theme.of(context).primaryColor,
-              spreadRadius: -2,
-              blurRadius: 7,
-              offset: Offset(0, -3),
-            ),
-          ],
+          boxShadow: getShadowCard(context),
           color: color ?? Theme.of(context).primaryColorDark,
           gradient: gradient,
           borderRadius: BorderRadius.circular(20.0),

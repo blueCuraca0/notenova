@@ -29,25 +29,25 @@ class CustomButton2 extends StatelessWidget {
     return GestureDetector(
       onTap: () => onPressed(),
       child: Container(
-          height: height,
-          width: width,
-          decoration: BoxDecoration(
-            boxShadow: shadowCard,
-            color: color ?? Theme.of(context).primaryColorDark,
-            gradient: gradient,
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          padding: buttonPadding,
-          child: Center(
-            child: Text(
-                text,
-                style: TextStyle(
-                  color: textColor ?? CColors.white,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          boxShadow: getShadowCard(context),
+          color: color ?? Theme.of(context).primaryColorDark,
+          gradient: gradient,
+          borderRadius: BorderRadius.circular(20.0),
         ),
+        padding: buttonPadding,
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: textColor ?? CColors.white,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

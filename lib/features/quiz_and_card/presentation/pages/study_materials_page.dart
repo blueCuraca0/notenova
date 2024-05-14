@@ -51,7 +51,7 @@ class StudyMaterialsPage extends StatelessWidget {
             constraints:
                 const BoxConstraints(minHeight: 400.0, maxHeight: 400.0),
             decoration: BoxDecoration(
-              boxShadow: shadowCard,
+              boxShadow: getShadowCard(context),
               color: Theme.of(context).primaryColor,
             ),
           ),
@@ -67,13 +67,13 @@ class StudyMaterialsPage extends StatelessWidget {
                 StudyMaterialCard(
                   text: LocaleKeys.improve_your_know_with_quizzes.tr(),
                   color: Theme.of(context).cardColor,
-                  width: (width / 2) - 30, // Increase width
-                  height: bottomNavBarHeight * 3.5, // Increase height
+                  width: (width / 2) - 35,
+                  height: bottomNavBarHeight * 4,
                   imagePath: 'assets/images/cards_img.png',
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return const CardStacksPage();
+                      return QuizPage();
                     }));
                   },
                 ),
@@ -82,25 +82,25 @@ class StudyMaterialsPage extends StatelessWidget {
                 StudyMaterialCard(
                   text: LocaleKeys.boost_your_brain_with_cards.tr(),
                   color: Theme.of(context).cardColor,
-                  width: (width / 2) - 45,
-                  height: bottomNavBarHeight * 3.5,
+                  width: (width / 2) - 35,
+                  height: bottomNavBarHeight * 4,
                   imagePath: 'assets/images/quizz_img.png',
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return QuizPage();
+                      return CardStacksPage();
                     }));
                   },
                 ),
               ],
             ),
-            bigSizedBoxHeight,
+            midSizedBoxHeight,
             // S U M M A R I E S
             StudyMaterialCard(
               text: LocaleKeys.summaries.tr(),
               color: Theme.of(context).cardColor,
               width: width - largePadding.horizontal,
-              height: bottomNavBarHeight * 2.0,
+              height: bottomNavBarHeight * 1.7,
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return const SummaryPage();
@@ -141,8 +141,8 @@ class StudyMaterialCard extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           color: color,
-          boxShadow: shadowCard,
-          borderRadius: BorderRadius.circular(20.0),
+          boxShadow: getShadowCard(context),
+          borderRadius: BorderRadius.circular(30.0),
         ),
         child: Padding(
           padding: buttonPadding,
@@ -159,11 +159,19 @@ class StudyMaterialCard extends StatelessWidget {
                   ),
                 ),
               Flexible(
-                child: Text(
-                  text,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  textAlign: TextAlign.center,
-                ).tr(),
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 30.0),
+                  child: Center(
+                    child: Text(
+                      text,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ).tr(),
+                  ),
+                ),
               ),
             ],
           ),
