@@ -13,23 +13,26 @@ class CheckAnswers extends StatelessWidget {
 
   const CheckAnswers({super.key, required this.indexQuiz});
 
-  Quiz getQuiz(BuildContext context, int index){
+  Quiz getQuiz(BuildContext context, int index) {
     return context.read<QuizCubit>().currentQuiz(index);
   }
 
-  bool isCorrect(BuildContext context, int indexQuestion){
-     for (int i = 0; i < getQuiz(context, indexQuiz).questions[indexQuestion].options.length; i++){
-       if (context.read<QuizCubit>().checkBoxType(indexQuiz, i, indexQuestion) == 'red'){
-         return false;
-       }
-     }
-     return true;
+  bool isCorrect(BuildContext context, int indexQuestion) {
+    for (int i = 0;
+        i < getQuiz(context, indexQuiz).questions[indexQuestion].options.length;
+        i++) {
+      if (context.read<QuizCubit>().checkBoxType(indexQuiz, i, indexQuestion) ==
+          'red') {
+        return false;
+      }
+    }
+    return true;
   }
 
-  String getScore(BuildContext context, int index){
+  String getScore(BuildContext context, int index) {
     int correctAnswers = 0;
-    for (int i = 0; i < getQuiz(context, index).questions.length; i++){
-      if (isCorrect(context, i)){
+    for (int i = 0; i < getQuiz(context, index).questions.length; i++) {
+      if (isCorrect(context, i)) {
         correctAnswers++;
       }
     }
@@ -42,13 +45,15 @@ class CheckAnswers extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-           automaticallyImplyLeading: false,
+            automaticallyImplyLeading: false,
             backgroundColor: Theme.of(context).cardColor,
-            expandedHeight: MediaQuery.of(context).size.height*0.15,
+            expandedHeight: MediaQuery.of(context).size.height * 0.15,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.network('https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg',
-                fit: BoxFit.cover,),
+              background: Image.network(
+                'https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg',
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           SliverToBoxAdapter(
@@ -57,32 +62,37 @@ class CheckAnswers extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
               ),
-                   child:   Text('${LocaleKeys.your_results.tr()} ${getScore(context, indexQuiz)}', //TODO: hardcoded string
-                          style: Theme.of(context).textTheme.bodyLarge),
-              ),
+              child: Text(
+                  '${LocaleKeys.your_results.tr()} ${getScore(context, indexQuiz)}',
+                  style: Theme.of(context).textTheme.bodyLarge),
             ),
-          SliverList(delegate:
-          SliverChildBuilderDelegate((BuildContext context, int index){
-            return Padding(
-              padding: lPadding,
-              child: CheckBlock(indexQuestion: index, indexQuiz: indexQuiz),
-            );
-          },
-            childCount: getQuiz(context, indexQuiz).questions.length,
           ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return Padding(
+                  padding: lPadding,
+                  child: CheckBlock(indexQuestion: index, indexQuiz: indexQuiz),
+                );
+              },
+              childCount: getQuiz(context, indexQuiz).questions.length,
+            ),
           ),
           SliverToBoxAdapter(
-              child:
-              Padding(
-                padding: lPadding,
-                child: CustomButton(text: LocaleKeys.back.tr(), onPressed: (){
-                  for (int i = 0; i < getQuiz(context, indexQuiz).questions.length; i++){
+              child: Padding(
+            padding: lPadding,
+            child: CustomButton(
+                text: LocaleKeys.back.tr(),
+                onPressed: () {
+                  for (int i = 0;
+                      i < getQuiz(context, indexQuiz).questions.length;
+                      i++) {
                     Navigator.pop(context);
                   }
                   Navigator.pop(context);
                   Navigator.pop(context);
                 }),
-              )),
+          )),
           const SliverToBoxAdapter(
             child: SizedBox(
               height: 100,

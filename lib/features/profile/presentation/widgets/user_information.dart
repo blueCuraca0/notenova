@@ -8,7 +8,6 @@ import 'package:notenova/features/profile/presentation/cubits/user_cubit/user_cu
 import 'package:notenova/features/profile/presentation/cubits/user_cubit/user_state.dart';
 import 'package:notenova/features/profile/presentation/widgets/edit_name_user_sheet.dart';
 import 'package:notenova/features/profile/presentation/widgets/edit_photo_user_sheet.dart';
-import 'package:notenova/features/profile/presentation/widgets/settings.dart';
 
 class UserInformationWidget extends StatefulWidget {
   const UserInformationWidget({super.key});

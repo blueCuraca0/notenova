@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:notenova/core/style/c_colors.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/widgets/custom_button_2.dart';
@@ -8,11 +6,9 @@ import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
 import 'package:notenova/features/quizzes/presentation/taking_quizzes/take_quiz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
-import 'dart:io';
-import 'package:notenova/features/quizzes/domain/entities/category.dart';
 
 class QuizCard extends StatelessWidget {
-  Quiz quiz;
+  final Quiz quiz;
 
   QuizCard({super.key, required this.quiz});
 
@@ -24,8 +20,8 @@ class QuizCard extends StatelessWidget {
         children: [
           midSizedBoxHeight,
           GestureDetector(
-            onLongPress: (){
-            context.read<QuizCubit>().deleteQuiz(quiz);
+            onLongPress: () {
+              context.read<QuizCubit>().deleteQuiz(quiz);
             },
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -50,7 +46,7 @@ class QuizCard extends StatelessWidget {
                 children: [
                   midSizedBoxWidth,
                   ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(20),
                     child: Image.network(
                       quiz.image,
                       height: MediaQuery.of(context).size.height * 0.11,
@@ -65,14 +61,13 @@ class QuizCard extends StatelessWidget {
                       Row(
                         children: [
                           smallSizedBoxWidth,
-                           FittedBox(
-                             fit: BoxFit.scaleDown,
-                             child: Text(
-                                quiz.title,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                           ),
-                          
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              quiz.title,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ),
                         ],
                       ),
                       midSizedBoxHeight,

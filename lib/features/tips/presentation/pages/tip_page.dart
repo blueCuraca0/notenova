@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/utils/constants.dart';
@@ -6,8 +5,8 @@ import 'package:notenova/core/widgets/custom_button_2.dart';
 import 'package:notenova/features/profile/presentation/cubits/fav_cubit/fav_cubit.dart';
 import 'package:notenova/features/tips/domain/tips.dart';
 import 'package:notenova/features/quizzes/presentation/button_back.dart';
-import 'package:notenova/core/widgets/custom_button.dart';
 
+// ignore: must_be_immutable
 class TipPage extends StatefulWidget {
   final Tip tip;
   String text;

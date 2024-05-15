@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/style/c_colors.dart';
 
-class CustomCategory extends StatelessWidget{
-  String category;
+class CustomCategory extends StatelessWidget {
+  final String category;
 
-  CustomCategory(
-      {super.key,
-        required this.category});
+  CustomCategory({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,10 @@ class CustomCategory extends StatelessWidget{
         ),
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Text(category, style: const TextStyle(color: CColors.white),),
+      child: Text(
+        category,
+        style: const TextStyle(color: CColors.white),
+      ),
     );
   }
 }
