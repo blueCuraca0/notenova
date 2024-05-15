@@ -41,20 +41,18 @@ class _FlashcardPageState extends State<FlashcardPage> {
     } else {
       FirebaseServiceAuth.updateUserXP(_wellLearnedCards);
       showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (_) => CongratulationsDialog(
-          title: LocaleKeys.congratulations.tr(),
-            content: '${LocaleKeys.this_stack_is_finished.tr()}\n'
-                '${LocaleKeys.your_results_are.tr()}'
-                '$_wellLearnedCards/${_flashcardList.length}',
-          actionText: LocaleKeys.back_to_card_stacks.tr(),
-          goBack: (dialogContext) {
-            Navigator.of(dialogContext).pop();
-            widget._goBack(context);
-          }
-        )
-      );
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => CongratulationsDialog(
+              title: LocaleKeys.congratulations.tr(),
+              content: '${LocaleKeys.this_stack_is_finished.tr()}\n'
+                  '${LocaleKeys.your_results_are.tr()}'
+                  ' $_wellLearnedCards/${_flashcardList.length}',
+              actionText: LocaleKeys.back_to_card_stacks.tr(),
+              goBack: (dialogContext) {
+                Navigator.of(dialogContext).pop();
+                widget._goBack(context);
+              }));
     }
   }
 
@@ -100,30 +98,28 @@ class _FlashcardPageState extends State<FlashcardPage> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: CColors.transparentPink,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(0),
-                          bottomLeft: Radius.circular(0),
-                          topRight: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
-                        ),
-                        boxShadow: neumorphismShadowSmallCard
-                      ),
+                          color: CColors.transparentPink,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(0),
+                            bottomLeft: Radius.circular(0),
+                            topRight: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                          boxShadow: neumorphismShadowSmallCard),
                       width: width / 6,
                       alignment: Alignment.center,
                       child: Text("$_needRepeatCards"),
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        color: CColors.primary,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
-                          topRight: Radius.circular(0),
-                          bottomRight: Radius.circular(0),
-                        ),
-                        boxShadow: neumorphismShadowSmallCard
-                      ),
+                          color: CColors.primary,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            bottomLeft: Radius.circular(20),
+                            topRight: Radius.circular(0),
+                            bottomRight: Radius.circular(0),
+                          ),
+                          boxShadow: neumorphismShadowSmallCard),
                       width: width / 6,
                       alignment: Alignment.center,
                       child: Text("$_wellLearnedCards"),
@@ -159,8 +155,7 @@ class _FlashcardPageState extends State<FlashcardPage> {
                         height: height / 5 * 4,
                         child: _flashcardList.isEmpty
                             ? const Text("sorry, cannot load your cards :(")
-                            : FlashcardTile(_flashcardList[_currentFlashcard])
-                    ),
+                            : FlashcardTile(_flashcardList[_currentFlashcard])),
                   ),
                 ),
               ),
