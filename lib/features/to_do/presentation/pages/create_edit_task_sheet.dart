@@ -146,7 +146,10 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
         smallSizedBoxWidth,
         GestureDetector(
           onTap: () => _selectDateTime(context),
-          child: Text(DateFormat('dd-MMMM, HH:mm').format(_selectedDateTime),
+          child: Text(
+              !_selectedDateTime.isAfter(DateTime.now())
+                  ? LocaleKeys.select_time_date.tr()
+                  : DateFormat('dd-MMMM, HH:mm').format(_selectedDateTime),
               style: Theme.of(context).textTheme.bodySmall),
         ),
         spacer,
@@ -178,7 +181,7 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
-                    '${LocaleKeys.please_select_future_time.tr()}',
+                    '${LocaleKeys.select_time_date.tr()}',
                     style: TextStyle(color: Colors.white),
                   ),
                   backgroundColor: CColors.text,

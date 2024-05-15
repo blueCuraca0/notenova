@@ -45,7 +45,10 @@ class SummaryCubit extends Cubit<SummaryState> {
 
   void deleteSummary(Summary summary) async {
     try {
+      emit(SummaryLoading());
       await _summaryService.deleteSummary(summary);
+      emit(SummaryLoading());
+      loadSummary();
     } catch (e) {
       emit(SummaryError('Failed to delete summary: $e'));
     }
