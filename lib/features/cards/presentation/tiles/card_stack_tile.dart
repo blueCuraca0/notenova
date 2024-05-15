@@ -26,7 +26,7 @@ class CardStackTile extends StatelessWidget {
           decoration: BoxDecoration(
             boxShadow: getShadowCard(context),
             borderRadius: BorderRadius.circular(25),
-            color: CColors.white,
+            color: Theme.of(context).cardColor,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

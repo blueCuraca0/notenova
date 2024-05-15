@@ -47,14 +47,12 @@ class _WritingCardPageState extends State<WritingCardPage> {
               title: LocaleKeys.congratulations.tr(),
               content: '${LocaleKeys.this_stack_is_finished.tr()}\n'
                   '${LocaleKeys.your_results_are.tr()}'
-                  '$_wellLearnedCards/${_flashcardList.length}',
+                  ' $_wellLearnedCards/${_flashcardList.length}',
               actionText: LocaleKeys.back_to_card_stacks.tr(),
               goBack: (dialogContext) {
                 Navigator.of(dialogContext).pop();
                 widget._goBack(context);
-              }
-          )
-      );
+              }));
     }
   }
 
@@ -102,18 +100,15 @@ class _WritingCardPageState extends State<WritingCardPage> {
               child: Column(
                 children: [
                   WritingCardTile(
-                      widget._cardStack.cardsList[_currentFlashcard]
-                  ),
+                      widget._cardStack.cardsList[_currentFlashcard]),
                   WritingInputTile(
                       widget._cardStack.cardsList[_currentFlashcard].term,
                       nextFlashCard,
-                      plusOneWellLearnedCard
-                  ),
+                      plusOneWellLearnedCard),
                   Expanded(
-                    child: Container(
-                      color: Theme.of(context).primaryColorDark,
-                    )
-                  )
+                      child: Container(
+                    color: Theme.of(context).primaryColorDark,
+                  ))
                 ],
               ),
             ),
