@@ -101,6 +101,10 @@ abstract class  LocaleKeys {
   static const create_new_card_stack = 'create_new_card_stack';
   static const start_learning = 'start_learning';
   static const term = 'term';
+  static const please_fill_all = 'please_fill_all';
+  static const please_select_future_time = 'please_select_future_time';
+  static const notification_shedule = 'notification_shedule';
+  static const time_for = 'time_for';
   static const definition = 'definition';
   static const learning_mode = 'learning_mode';
   static const learning_mode_description = 'learning_mode_description';
