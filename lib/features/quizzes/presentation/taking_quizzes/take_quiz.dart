@@ -10,10 +10,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/features/quizzes/presentation/state_management/quiz_cubit.dart';
 import 'package:notenova/core/widgets/custom_button_2.dart';
 import 'package:notenova/features/quizzes/presentation/button_back.dart';
-import 'dart:io';
 
 class TakeQuizWindow extends StatelessWidget {
-  Quiz quiz;
+  final Quiz quiz;
 
   TakeQuizWindow({super.key, required this.quiz});
 
@@ -65,7 +64,8 @@ class TakeQuizWindow extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                               child: Image.network(
                                 quiz.image,
-                                height: MediaQuery.of(context).size.height * 0.11,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.11,
                                 width: MediaQuery.of(context).size.width * 0.26,
                                 fit: BoxFit.cover,
                               ),

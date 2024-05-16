@@ -20,7 +20,7 @@ class TipCubit extends Cubit<TipState> {
         emit(TipLoaded(tips: tips));
       });
     } catch (e) {
-      emit(TipError('No tips today, sorry:(')); //TODO: hardcoded message
+      emit(TipError('No tips today, sorry:('));
     }
   }
 }

@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notenova/core/utils/constants.dart';
-import 'package:notenova/features/profile/data/firebase_service_fav.dart';
 import 'package:notenova/features/profile/presentation/cubits/user_cubit/user_cubit.dart';
 import 'package:notenova/features/profile/presentation/widgets/settings.dart';
 import 'package:easy_localization/easy_localization.dart';

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:notenova/core/utils/constants.dart';
 import 'package:notenova/core/utils/languages/generated/locale_keys.g.dart';
 import 'package:notenova/features/profile/presentation/pages/settings_page.dart';
 
@@ -16,13 +17,18 @@ class _SettingsButtonState extends State<SettingsButton> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 30, 0),
+      padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          Text(LocaleKeys.your_results.tr()),
+          spacer,
           TextButton(
             child: Text(LocaleKeys.settings.tr(),
-                style: Theme.of(context).textTheme.bodyMedium),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(fontWeight: FontWeight.w700)),
             onPressed: () {
               Navigator.push(
                 context,

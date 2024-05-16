@@ -4,6 +4,7 @@ import 'package:notenova/features/autorization/data/firebase_service.dart';
 
 import '../../../../core/utils/languages/generated/locale_keys.g.dart';
 
+// ignore: must_be_immutable
 class ProgressBar extends StatefulWidget {
   double _availableWidth = 0;
 

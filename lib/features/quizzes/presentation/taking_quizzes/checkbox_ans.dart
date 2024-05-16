@@ -21,11 +21,11 @@ class CustomCheckBoxAns extends StatelessWidget {
         .read<QuizCubit>()
         .checkBoxType(quizIndex, optionIndex, questionIndex);
     if (type == 'green') {
-      debugPrint('single'); //TODO: print
+      debugPrint('single');
       return Theme.of(context).primaryColorDark;
     } else if (type == 'red') {
-      debugPrint('multiple'); //TODO: print
-      return const Color(0xffE8897D); //TODO: hardcoded color
+      debugPrint('multiple');
+      return const Color(0xffE8897D);
     } else {
       return Theme.of(context).cardColor;
     }

@@ -52,7 +52,10 @@ class TaskCubit extends Cubit<TaskState> {
 
   Future<void> deleteTask(String task) async {
     try {
+      emit(TaskLoading());
       await _taskService.deleteTask(task);
+      emit(TaskLoading());
+      loadTasks();
     } catch (e) {
       emit(TaskError('task to delete todo.'));
     }

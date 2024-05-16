@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:notenova/core/utils/themes.dart';
-
-import '../style/c_colors.dart';
 
 double searchBarHeight = 60;
-
 
 class CustomSearchBar extends StatelessWidget {
   final Color gradientColor;
@@ -13,8 +9,8 @@ class CustomSearchBar extends StatelessWidget {
   final Function? onChanged;
   final Function? onSubmitted;
 
-
-  const CustomSearchBar({super.key,
+  const CustomSearchBar({
+    super.key,
     required this.baseColor,
     this.height = 55,
     this.onChanged,
@@ -35,14 +31,14 @@ class CustomSearchBar extends StatelessWidget {
 }
 
 class ShadedBox extends StatelessWidget {
-  Color gradientColor;
+  final Color gradientColor;
   final Color baseColor;
   final double? height;
   final Function? onChanged;
   final Function? onSubmitted;
 
-
-  ShadedBox({super.key,
+  ShadedBox({
+    super.key,
     required this.baseColor,
     this.height,
     this.onChanged,
@@ -74,7 +70,7 @@ class ShadedBox extends StatelessWidget {
             ),
           ),
           Positioned(
-            left:15,
+            left: 15,
             top: 10,
             right: 5,
             bottom: 7.5,
@@ -98,21 +94,21 @@ class ShadedBox extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
                 onChanged: (value) {
-                  if (onChanged != null){
-                    onChanged!(value);}
+                  if (onChanged != null) {
+                    onChanged!(value);
+                  }
                 },
                 onSubmitted: (value) {
-                  if (onSubmitted != null){
-                    onSubmitted!(value);}
+                  if (onSubmitted != null) {
+                    onSubmitted!(value);
+                  }
                 },
                 cursorColor: gradientColor,
                 maxLines: 1,
                 style: Theme.of(context).textTheme.bodySmall,
                 decoration: InputDecoration(
-                  icon: Icon(
-                    Icons.search,
-                    color: Theme.of(context).textTheme.bodyMedium?.color
-                  ),
+                  icon: Icon(Icons.search,
+                      color: Theme.of(context).textTheme.bodyMedium?.color),
                   border: InputBorder.none,
                 ),
               ),

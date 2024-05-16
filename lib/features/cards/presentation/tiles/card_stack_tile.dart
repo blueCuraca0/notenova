@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:notenova/features/cards/presentation/widgets/learning_mode_dialod.dart';
-
-import '../../../../core/style/c_colors.dart';
 import '../../../../core/utils/constants.dart';
 import '../../domain/entities/flashcard_stack.dart';
 

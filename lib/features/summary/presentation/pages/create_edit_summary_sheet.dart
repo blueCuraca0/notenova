@@ -134,11 +134,9 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
             onPressed: () {
               if (widget.isEdit) {
                 _updateSummary(context);
-                Navigator.pop(context);
               } else {
                 addSummary(context);
                 FirebaseServiceAuth.updateUserXP(standardXP);
-                Navigator.pop(context);
               }
             },
             text: widget.isEdit
@@ -175,6 +173,16 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
       );
 
       widget.summaryCubit.addSummary(summary);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            LocaleKeys.please_fill_all.tr(),
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: CColors.text,
+        ),
+      );
     }
   }
 
@@ -190,6 +198,16 @@ class _EditAndCreateSummaryPageState extends State<EditAndCreateSummaryPage> {
         photoUrl: widget.summary!.photoUrl,
       );
       widget.summaryCubit.updateSummary(summary);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            LocaleKeys.please_fill_all.tr(),
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: CColors.text,
+        ),
+      );
     }
   }
 

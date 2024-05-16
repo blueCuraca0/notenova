@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notenova/core/utils/constants.dart';
 
-
 class MyCustomTextField extends StatelessWidget {
   final Color gradientColor;
   final Color baseColor;
@@ -15,7 +14,8 @@ class MyCustomTextField extends StatelessWidget {
   final String? hintText;
   final int? maxLength;
 
-  const MyCustomTextField({super.key,
+  const MyCustomTextField({
+    super.key,
     required this.baseColor,
     this.width,
     this.height = 55,
@@ -31,43 +31,43 @@ class MyCustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return title!= null ? Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const SizedBox(width: 10),
-                Text(title!,
-                    style: Theme.of(context).textTheme.bodySmall),
-              ],
-            ),
-            midSizedBoxHeight,
-            BoxItself(
-              baseColor: baseColor,
-              width: width,
-              height: height,
-              maxLines: maxLines,
-              onChanged: onChanged,
-              onSubmitted: onSubmitted,
-              gradientColor: gradientColor,
-              controller: controller,
-              hintText: hintText,
-              maxLength: maxLength,
-            ),
-          ],
-        ):
-        BoxItself(
-          baseColor: baseColor,
-          width: width,
-          height: height,
-          maxLines: maxLines,
-          onChanged: onChanged,
-          onSubmitted: onSubmitted,
-          gradientColor: gradientColor,
-          controller: controller,
-          hintText: hintText,
-          maxLength: maxLength,
-        );
+    return title != null
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const SizedBox(width: 10),
+                  Text(title!, style: Theme.of(context).textTheme.bodySmall),
+                ],
+              ),
+              midSizedBoxHeight,
+              BoxItself(
+                baseColor: baseColor,
+                width: width,
+                height: height,
+                maxLines: maxLines,
+                onChanged: onChanged,
+                onSubmitted: onSubmitted,
+                gradientColor: gradientColor,
+                controller: controller,
+                hintText: hintText,
+                maxLength: maxLength,
+              ),
+            ],
+          )
+        : BoxItself(
+            baseColor: baseColor,
+            width: width,
+            height: height,
+            maxLines: maxLines,
+            onChanged: onChanged,
+            onSubmitted: onSubmitted,
+            gradientColor: gradientColor,
+            controller: controller,
+            hintText: hintText,
+            maxLength: maxLength,
+          );
   }
 }
 
@@ -84,8 +84,8 @@ class BoxItself extends StatelessWidget {
   final String? hintText;
   final int? maxLength;
 
-
-  const BoxItself({super.key,
+  const BoxItself({
+    super.key,
     required this.baseColor,
     this.width,
     this.height,
@@ -101,7 +101,6 @@ class BoxItself extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Stack(
       children: [
         Container(
@@ -122,7 +121,7 @@ class BoxItself extends StatelessWidget {
           ),
         ),
         Positioned(
-          left:15,
+          left: 15,
           top: 10,
           right: 5,
           bottom: 7.5,
@@ -143,21 +142,22 @@ class BoxItself extends StatelessWidget {
           ),
         ),
         Positioned(
-          left:15,
-          top:1,
+          left: 15,
+          top: 1,
           right: 5,
           bottom: 7.5,
           child: TextField(
             controller: controller,
             onChanged: (value) {
-              if (onChanged != null){
-              onChanged!(value);}
+              if (onChanged != null) {
+                onChanged!(value);
+              }
             },
             onSubmitted: (value) {
-              if (onSubmitted != null){
-              onSubmitted!(value);}
+              if (onSubmitted != null) {
+                onSubmitted!(value);
+              }
             },
-
             cursorColor: gradientColor,
             maxLines: maxLines,
             maxLength: maxLength,
@@ -165,6 +165,8 @@ class BoxItself extends StatelessWidget {
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: hintText,
+              errorBorder: InputBorder.none,
+              errorStyle: TextStyle(height: 0),
             ),
           ),
         ),
@@ -172,4 +174,3 @@ class BoxItself extends StatelessWidget {
     );
   }
 }
-

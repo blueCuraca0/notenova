@@ -77,7 +77,9 @@ class _CalendarTaskListState extends State<CalendarTaskList>
                 );
               } else if (state is TaskLoaded) {
                 final tasks = state.tasks;
-                deleteTasksBeforeToday(tasks);
+                tasks.sort((a, b) => a.finalDate.compareTo(b.finalDate));
+
+                deleteTasksBeforeYesterday(tasks);
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -160,7 +162,7 @@ class _CalendarTaskListState extends State<CalendarTaskList>
   }
 
 // for deleting task before date now
-  void deleteTasksBeforeToday(List<Task> tasks) {
+  void deleteTasksBeforeYesterday(List<Task> tasks) {
     final today = DateTime.now();
     final yesterday = DateTime(today.year, today.month, today.day - 1);
     final tasksToRemove =

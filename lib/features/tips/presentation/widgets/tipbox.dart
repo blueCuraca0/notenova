@@ -19,11 +19,7 @@ class TipsBox extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return TipPage(
-              tip: tip,
-              text: checkFav(context)
-                  ? 'Liked'
-                  : 'Like'); //TODO: hardcoded string
+          return TipPage(tip: tip, text: checkFav(context) ? 'Liked' : 'Like');
         }));
       },
       child: Container(

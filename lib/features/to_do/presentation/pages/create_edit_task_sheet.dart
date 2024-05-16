@@ -110,7 +110,7 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
             baseColor: Theme.of(context).cardColor,
           ),
           midSizedBoxHeight,
-          _selectTimeAndNotifyButtons(),
+          _selectTimeAndNotifyButtons(context),
           midSizedBoxHeight,
           SingleChildScrollView(
               scrollDirection: Axis.horizontal, child: _buttonsCategory()),
@@ -135,7 +135,7 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
     );
   }
 
-  Widget _selectTimeAndNotifyButtons() {
+  Widget _selectTimeAndNotifyButtons(BuildContext context) {
     return Row(
       children: <Widget>[
         const Icon(
@@ -147,9 +147,9 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
         GestureDetector(
           onTap: () => _selectDateTime(context),
           child: Text(
-              _selectedDateTime.isAfter(DateTime.now())
-                  ? DateFormat('dd-MMMM, HH:mm').format(_selectedDateTime)
-                  : LocaleKeys.select_time_date.tr(),
+              !_selectedDateTime.isAfter(DateTime.now())
+                  ? LocaleKeys.select_time_date.tr()
+                  : DateFormat('dd-MMMM, HH:mm').format(_selectedDateTime),
               style: Theme.of(context).textTheme.bodySmall),
         ),
         spacer,
@@ -168,16 +168,25 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
               });
 
               if (_notificationEnabled) {
-                debugPrint('Notification Scheduled for $_selectedDateTime');
+                debugPrint(
+                    ' ${LocaleKeys.notification_shedule.tr()} $_selectedDateTime');
                 NotificationService().scheduleNotification(
                   title: _nameController.text,
-                  body: 'Time for ${_descriptionController.text}',
+                  body:
+                      '${LocaleKeys.time_for.tr()}  ${_descriptionController.text}',
                   scheduledNotificationDateTime: _selectedDateTime,
                 );
               }
             } else {
-              debugPrint(
-                  'Selected time is in the past. Please select a future time.');
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    '${LocaleKeys.select_time_date.tr()}',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: CColors.text,
+                ),
+              );
             }
           },
         ),
@@ -259,13 +268,25 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
       );
       widget.taskCubit.addTask(task);
       Navigator.pop(context);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            LocaleKeys.please_fill_all.tr(),
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: CColors.text,
+        ),
+      );
     }
   }
 
   void _selectDateTime(BuildContext context) {
-    DateTimePicker.pickDateTime(context, _selectedDateTime,
-        (DateTime pickedDateTime) {
-      _selectedDateTime = pickedDateTime;
+    setState(() {
+      DateTimePicker.pickDateTime(context, _selectedDateTime,
+          (DateTime pickedDateTime) {
+        _selectedDateTime = pickedDateTime;
+      });
     });
   }
 
@@ -282,6 +303,16 @@ class _CreateTaskBottomSheetState extends State<CreateTaskBottomSheet> {
       );
       widget.taskCubit.updateTask(task);
       Navigator.pop(context);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            LocaleKeys.please_fill_all.tr(),
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: CColors.text,
+        ),
+      );
     }
   }
 }

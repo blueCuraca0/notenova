@@ -8,27 +8,13 @@ class QuestionDialog extends StatelessWidget {
   final Function button1Action;
   final Function button2Action;
 
-
-  const QuestionDialog({super.key, required this.title, required this.button1, required this.button2, required this.button1Action, required this.button2Action});
-
-  Route _createRoute(Widget page) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(0.0, 1.0);
-        const end = Offset.zero;
-        const curve = Curves.ease;
-
-        var tween =
-        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-  }
+  const QuestionDialog(
+      {super.key,
+      required this.title,
+      required this.button1,
+      required this.button2,
+      required this.button1Action,
+      required this.button2Action});
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +61,8 @@ class DialogButton extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           backgroundColor: _color,
           side: const BorderSide(style: BorderStyle.none),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15)
-          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         ),
         child: Text(
           _text,

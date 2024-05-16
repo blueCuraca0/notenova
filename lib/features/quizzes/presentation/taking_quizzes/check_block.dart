@@ -7,21 +7,24 @@ import 'package:notenova/features/quizzes/domain/entities/question.dart';
 import 'package:notenova/features/quizzes/presentation/taking_quizzes/checkbox_ans.dart';
 import 'package:notenova/features/quizzes/domain/entities/quiz.dart';
 
-
 class CheckBlock extends StatelessWidget {
   final int indexQuestion;
   final int indexQuiz;
 
-  const CheckBlock({super.key, required this.indexQuestion, required this.indexQuiz  });
+  const CheckBlock(
+      {super.key, required this.indexQuestion, required this.indexQuiz});
 
-  Quiz getQuiz(BuildContext context, int index){
+  Quiz getQuiz(BuildContext context, int index) {
     return context.read<QuizCubit>().currentQuiz(index);
   }
 
-  Color borderColor(BuildContext context){
-    for (int i = 0; i < getQuiz(context, indexQuiz).questions[indexQuestion].options.length; i++){
-      if (context.read<QuizCubit>().checkBoxType(indexQuiz, i, indexQuestion) == 'red'){
-        return const Color(0xffE8897D); //TODO: hardcoded color
+  Color borderColor(BuildContext context) {
+    for (int i = 0;
+        i < getQuiz(context, indexQuiz).questions[indexQuestion].options.length;
+        i++) {
+      if (context.read<QuizCubit>().checkBoxType(indexQuiz, i, indexQuestion) ==
+          'red') {
+        return const Color(0xffE8897D);
       }
     }
     return Theme.of(context).cardColor;
@@ -46,32 +49,41 @@ class CheckBlock extends StatelessWidget {
           ),
         ],
       ),
-      child: BlocBuilder<QuizCubit, QuizState>(
-          builder: (context, state) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-               Text(state.quizzes[indexQuiz].questions[indexQuestion].question,
-                   style: Theme.of(context).textTheme.bodyMedium),
-                midSizedBoxHeight,
-                Column(
-                  children: List<Widget>.generate(state.quizzes[indexQuiz].questions[indexQuestion].options.length, (int optionIndex) {
-                    return Column(
-                      children: [
-                        ListTile(
-                          title: Text(state.quizzes[indexQuiz].questions[indexQuestion].options[optionIndex],
-                              style: Theme.of(context).textTheme.bodySmall),
-                          leading: CustomCheckBoxAns(optionIndex: optionIndex, questionIndex: indexQuestion, quizIndex: indexQuiz, type: state.quizzes[indexQuiz].questions[indexQuestion] is OneChoiceQuestion ? 'single' : 'multiple'),
-                        ),
-                        midSizedBoxHeight,
-                      ],
-                    );
-                  }),
-                ),
-              ],
-            );
-          }
-      ),
+      child: BlocBuilder<QuizCubit, QuizState>(builder: (context, state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(state.quizzes[indexQuiz].questions[indexQuestion].question,
+                style: Theme.of(context).textTheme.bodyMedium),
+            midSizedBoxHeight,
+            Column(
+              children: List<Widget>.generate(
+                  state.quizzes[indexQuiz].questions[indexQuestion].options
+                      .length, (int optionIndex) {
+                return Column(
+                  children: [
+                    ListTile(
+                      title: Text(
+                          state.quizzes[indexQuiz].questions[indexQuestion]
+                              .options[optionIndex],
+                          style: Theme.of(context).textTheme.bodySmall),
+                      leading: CustomCheckBoxAns(
+                          optionIndex: optionIndex,
+                          questionIndex: indexQuestion,
+                          quizIndex: indexQuiz,
+                          type: state.quizzes[indexQuiz]
+                                  .questions[indexQuestion] is OneChoiceQuestion
+                              ? 'single'
+                              : 'multiple'),
+                    ),
+                    midSizedBoxHeight,
+                  ],
+                );
+              }),
+            ),
+          ],
+        );
+      }),
     );
   }
 }

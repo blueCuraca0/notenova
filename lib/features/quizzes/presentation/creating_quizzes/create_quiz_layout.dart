@@ -17,7 +17,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 class QuizLayout extends StatelessWidget {
   const QuizLayout({super.key});
 
@@ -45,7 +44,9 @@ class QuizLayout extends StatelessWidget {
     }
     if (!context.read<QuizCubit>().categories.isEmpty && !selectedExist) {
       context.read<QuizCubit>().categories[0].isSelected = true;
-      context.read<QuizCubit>().changeCategory(context.read<QuizCubit>().categories[0]);
+      context
+          .read<QuizCubit>()
+          .changeCategory(context.read<QuizCubit>().categories[0]);
     }
 
     return BlocBuilder<QuizCubit, QuizState>(
@@ -59,7 +60,7 @@ class QuizLayout extends StatelessWidget {
               backgroundColor: Theme.of(context).primaryColor,
               expandedHeight: height * 0.08,
               title: Text(LocaleKeys.create_new_quiz.tr(),
-                    style: Theme.of(context).textTheme.bodyLarge),
+                  style: Theme.of(context).textTheme.bodyLarge),
             ),
             SliverToBoxAdapter(
               child: Container(
@@ -77,14 +78,16 @@ class QuizLayout extends StatelessWidget {
                     Row(
                       children: [
                         ClipRRect(
-                            borderRadius: BorderRadius.circular(30),
-                            child: Image.network(
-                              height: height * 0.2,
-                              width: width * 0.3,
-                              state.newQuiz== null? 'https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg': state.newQuiz!.image,
-                            fit: BoxFit.cover,),
+                          borderRadius: BorderRadius.circular(30),
+                          child: Image.network(
+                            height: height * 0.2,
+                            width: width * 0.3,
+                            state.newQuiz == null
+                                ? 'https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?cs=srgb&dl=pexels-pixabay-301920.jpg&fm=jpg'
+                                : state.newQuiz!.image,
+                            fit: BoxFit.cover,
                           ),
-
+                        ),
                         bigSizedBoxWidth,
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -102,27 +105,37 @@ class QuizLayout extends StatelessWidget {
                               },
                             ),
                             bigSizedBoxHeight,
-                            TextButton(onPressed: () async{
-                              final image =
-                                  await ImagePicker().pickImage(source: ImageSource.gallery);
-                              var user = FirebaseAuth.instance.currentUser;
-                              if (image != null && state.newQuiz != null){
-                                var userPhotoUrl = '';
-                                  var storageRef = FirebaseStorage.instance
-                                      .ref()
-                                      .child('quizzes/${user!.uid}/${state.newQuiz!.id}.jpg');
-                                  var uploadTask = storageRef.putFile(File(image!.path));
-                                  var downloadUrl = await (await uploadTask).ref.getDownloadURL();
-                                  userPhotoUrl = downloadUrl.toString();
-                                context.read<QuizCubit>().changeImage(userPhotoUrl);
-                              }
-                            },
+                            TextButton(
+                                onPressed: () async {
+                                  final image = await ImagePicker()
+                                      .pickImage(source: ImageSource.gallery);
+                                  var user = FirebaseAuth.instance.currentUser;
+                                  if (image != null && state.newQuiz != null) {
+                                    var userPhotoUrl = '';
+                                    var storageRef = FirebaseStorage.instance
+                                        .ref()
+                                        .child(
+                                            'quizzes/${user!.uid}/${state.newQuiz!.id}.jpg');
+                                    var uploadTask =
+                                        storageRef.putFile(File(image.path));
+                                    var downloadUrl = await (await uploadTask)
+                                        .ref
+                                        .getDownloadURL();
+                                    userPhotoUrl = downloadUrl.toString();
+                                    context
+                                        .read<QuizCubit>()
+                                        .changeImage(userPhotoUrl);
+                                  }
+                                },
                                 child: Text(
-                              LocaleKeys.change_pic.tr(),
-                              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                decoration: TextDecoration.underline,
-                              ),
-                            )),
+                                  LocaleKeys.change_pic.tr(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                )),
                           ],
                         ),
                       ],
@@ -143,19 +156,26 @@ class QuizLayout extends StatelessWidget {
                         Text(LocaleKeys.category.tr(),
                             style: Theme.of(context).textTheme.bodySmall),
                         spacer,
-                        TextButton(child: Text('+ ${LocaleKeys.add_category.tr()}',
-                            style: Theme.of(context).textTheme.bodySmall), onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (_) => AddCatDialog(title: LocaleKeys.add_category.tr(), categories: state.categories, onCategoryAdded: (String value){
-                                addCategory(value, context);
-                              },
-                                onCategoryDeleted: (Category category){
-                                  deleteCategory(category, context);
-                                },
-                                getCategories: () => getCategories(context),
-                              ));
-                        },),
+                        TextButton(
+                          child: Text('+ ${LocaleKeys.add_category.tr()}',
+                              style: Theme.of(context).textTheme.bodySmall),
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) => AddCatDialog(
+                                      title: LocaleKeys.add_category.tr(),
+                                      categories: state.categories,
+                                      onCategoryAdded: (String value) {
+                                        addCategory(value, context);
+                                      },
+                                      onCategoryDeleted: (Category category) {
+                                        deleteCategory(category, context);
+                                      },
+                                      getCategories: () =>
+                                          getCategories(context),
+                                    ));
+                          },
+                        ),
                       ],
                     ),
                     midSizedBoxHeight,
@@ -168,27 +188,29 @@ class QuizLayout extends StatelessWidget {
                           return Row(
                             children: [
                               BlocBuilder<QuizCubit, QuizState>(
-                                builder: (context, state) {
-                                  return CustomButton(
-                                      text: state.categories[index].name,
-                                      onPressed: () {
-                                          context.read<QuizCubit>().changeCategory(state.categories[index]);
-                                          for (int i = 0; i < state.categories.length; i++) {
-                                            if (i != index) {
-                                              state.categories[i].isSelected = false;
-                                            }
-                                            else{
-                                              state.categories[i].isSelected = true;
-                                            }
-                                          }
-                                      },
-                                      gradient: LinearGradient(
-                                        colors:
-                                            state.categories[index].isSelected ? state.categories[index].darkGradient! : state.categories[index].gradient,
-                                      ),
-                                  );
-                                }
-                              ),
+                                  builder: (context, state) {
+                                return CustomButton(
+                                  text: state.categories[index].name,
+                                  onPressed: () {
+                                    context.read<QuizCubit>().changeCategory(
+                                        state.categories[index]);
+                                    for (int i = 0;
+                                        i < state.categories.length;
+                                        i++) {
+                                      if (i != index) {
+                                        state.categories[i].isSelected = false;
+                                      } else {
+                                        state.categories[i].isSelected = true;
+                                      }
+                                    }
+                                  },
+                                  gradient: LinearGradient(
+                                    colors: state.categories[index].isSelected
+                                        ? state.categories[index].darkGradient!
+                                        : state.categories[index].gradient,
+                                  ),
+                                );
+                              }),
                               midSizedBoxWidth,
                             ],
                           );
@@ -201,7 +223,9 @@ class QuizLayout extends StatelessWidget {
                         return CustomButton(
                             text: LocaleKeys.go_to_qes.tr(),
                             onPressed: () {
-                              state.newQuiz!.questions = [OneChoiceQuestion.empty(options: [''])];
+                              state.newQuiz!.questions = [
+                                OneChoiceQuestion.empty(options: [''])
+                              ];
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -209,7 +233,7 @@ class QuizLayout extends StatelessWidget {
                                           const QuestionCreate()));
                             });
                       },
-                    ) ,
+                    ),
                     bigSizedBoxHeight,
                   ],
                 ),

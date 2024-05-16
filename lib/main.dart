@@ -11,7 +11,6 @@ import 'core/utils/languages/generated/codegen_loader.g.dart';
 import 'firebase_options.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'main_page.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'features/autorization/presentation/pages/authoriazation_page.dart';
 import 'core/utils/c_routes.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -41,7 +40,7 @@ Future<void> main() async {
         ),
         BlocProvider<FavCubit>(
           create: (context) => FavCubit(FavTipsFirebaseService()),
-          ),
+        ),
         BlocProvider<QuizCubit>(
           create: (context) => QuizCubit(QuizFirebaseService()),
         ),
